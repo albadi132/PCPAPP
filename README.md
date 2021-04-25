@@ -1,6 +1,4 @@
-<p align="center">
-    ![sss](public/images/logo.png?raw=true "ss")
- </p
+<p align="center"><img src="https://raw.githubusercontent.com/albadi132/PCPAPP/main/public/images/logo.png" width="400"></p>
 
 
 ## About Laravel
