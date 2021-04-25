@@ -48,7 +48,7 @@
           <li class="text-white text-2xl p-4 w-full flex relative shadow-sm justify-start bg-gray-800 border-b-2 border-gray-700">
             Control Panel
           </li>
-          <li class=" {{ 'controlpanel' == request()->path() ? 'text-blue-400 ' : 'text-gray-400 ' }} p-4 w-full flex relative shadow-sm justify-start bg-gray-800 border-b-2 border-gray-700">
+          <li class=" {{ 'controlpanel' == request()->path() ? 'text-green-400 ' : 'text-gray-400 ' }} p-4 w-full flex relative shadow-sm justify-start bg-gray-800 border-b-2 border-gray-700">
             <div class="mr-4 flex-shrink-0 my-auto">
               <svg class="fill-current w-5 h-5" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
             </div>
@@ -63,7 +63,7 @@
             </div>
           </li>
 
-          <div class="{{ 'controlpanel/authentication' == request()->is('controlpanel/authentication/*') ? 'text-blue-400 ' : 'text-gray-400 ' }} flex relative px-4 hover:bg-gray-700 cursor-pointer">
+          <div class="{{ 'controlpanel/authentication' == request()->is('controlpanel/authentication/*') ? 'text-green-400 ' : 'text-gray-400 ' }} flex relative px-4 hover:bg-gray-700 cursor-pointer">
             <div class="mr-4 my-auto">
               <svg class="fill-current h-5 w-5" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"></path></svg>
             </div>
@@ -81,7 +81,7 @@
             </div>
           </div>
 
-          <div class="{{ 'controlpanel/problems' == request()->is('controlpanel/problems/*') ? 'text-blue-400 ' : 'text-gray-400 ' }} flex relative px-4 hover:bg-gray-700 cursor-pointer">
+          <div class="{{ 'controlpanel/problems' == request()->is('controlpanel/problems/*') ? 'text-green-400 ' : 'text-gray-400 ' }} flex relative px-4 hover:bg-gray-700 cursor-pointer">
             <div class="mr-4 my-auto">
               <svg class="fill-current h-5 w-5" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.77 6.76L6.23 5.48.82 12l5.41 6.52 1.54-1.28L3.42 12l4.35-5.24zM7 13h2v-2H7v2zm10-2h-2v2h2v-2zm-6 2h2v-2h-2v2zm6.77-7.52l-1.54 1.28L20.58 12l-4.35 5.24 1.54 1.28L23.18 12l-5.41-6.52z"></path></svg>
             </div>

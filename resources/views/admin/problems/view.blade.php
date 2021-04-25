@@ -1,5 +1,5 @@
-@extends('admin.problems.layout')
+@extends('admin.controlpanel')
 
-@section('prob')
+@section('admin')
 view
   @endsection

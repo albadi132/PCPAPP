@@ -1,5 +1,5 @@
-@extends('admin.authentication.layout')
+@extends('admin.controlpanel')
 
-@section('auth')
+@section('admin')
 user
   @endsection

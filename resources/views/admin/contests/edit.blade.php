@@ -62,6 +62,10 @@
               <label class="text-sm text-gray-400">Contest logo</label>
               <div class="w-full inline-flex">
                 <div class="pt-2 w-1/12 bg-gray-100">
+                  <img class="h-10 w-10 rounded-full"
+                                          
+                  src="{{url('/contests/images/'. $contest[0]->logo) }}"
+                  alt="">
                 </div>
                 <input
                   id="logo"

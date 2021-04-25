@@ -31,7 +31,7 @@
                       </div>
 
                       <div class="mx-5">
-                          <h4 class="text-2xl font-semibold text-gray-700">0</h4>
+                          <h4 class="text-2xl font-semibold text-gray-700">{{$live}}</h4>
                           <div class="text-gray-500">Live Contests</div>
                       </div>
                   </div>
@@ -46,7 +46,7 @@
                       </div>
 
                       <div class="mx-5">
-                          <h4 class="text-2xl font-semibold text-gray-700">0</h4>
+                          <h4 class="text-2xl font-semibold text-gray-700">{{$upcoming}}</h4>
                           <div class="text-gray-500">Upcoming Contests</div>
                       </div>
                   </div>
@@ -61,7 +61,7 @@
                       </div>
 
                       <div class="mx-5">
-                          <h4 class="text-2xl font-semibold text-gray-700">0</h4>
+                          <h4 class="text-2xl font-semibold text-gray-700">{{$archived}}</h4>
                           <div class="text-gray-500">Archived Contests</div>
                       </div>
                   </div>
@@ -171,9 +171,9 @@
                                   {{$contest['participation']}}</td>
 
                                   <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5"><a href="#" class="text-indigo-600 hover:text-indigo-900">active</a></div>
+                                    <div class="text-sm leading-5"><a href="{{route('contests-active', ['id' => $contest['id'] ])}}" class="text-indigo-600 hover:text-indigo-900">active</a></div>
                                     <div class="text-sm leading-5"><a href="{{route('contests-edit', ['id' => $contest['id'] ])}}" class="text-indigo-600 hover:text-indigo-900">edit</a></div>
-                                    <div class="text-sm leading-5"><a onclick="return confirm('Are you sure?')" href="#" class="text-indigo-600 hover:text-indigo-900">delate</a></div>
+                                    <div class="text-sm leading-5"><a onclick="return confirm('Are you sure?')" href="{{route('contests-delate', ['id' => $contest['id'] ])}}" class="text-indigo-600 hover:text-indigo-900">delate</a></div>
                                 </td>
                           </tr>
                           @endforeach 

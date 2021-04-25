@@ -29,8 +29,6 @@ class contests extends Controller
             'description' => ['required', 'string', 'max:1500'],
             'startingtime' =>[ 'required','date','after_or_equal:now'],
             'endingtime' => ['required', 'date', 'after_or_equal:startingtime'],
-            'private' => ['max:2'],
-            'team' => ['max:2'],
             'logo' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
             
         ]);
@@ -71,6 +69,9 @@ class contests extends Controller
 
        if(Gate::allows('creat'))
        {
+
+        if(Contest::findOrFail($id))
+           {
         $contest = Contest::find($id);
 
 
@@ -89,10 +90,10 @@ class contests extends Controller
                     'name' => ['required', 'string', 'max:255'] 
                 ]);
                 $contest->name = $request->name;
-                $contest->save();
+               
             }
             else{
-                return back()->with('error','Name of commpation takin');
+                return back()->with('error','The contest name is already used');
                 
             }
 
@@ -107,7 +108,7 @@ class contests extends Controller
                 ]);
         
                 $contest->description = $request->description;
-                $contest->save();
+               
 
         }
 
@@ -125,7 +126,7 @@ class contests extends Controller
         $newPath = 'contests/images/';
         $request->logo->move(public_path($newPath), $newImageName);
         $contest->logo = $newImageName;
-        $contest->save();
+       
 
         }
 
@@ -134,21 +135,120 @@ class contests extends Controller
 
         //times
 
+        if(($contest->starting_date != $request->startingtime)|($contest->ending_date != $request->endingtime))
+        {
+            if( ($contest->starting_date <= date('Y-m-d H:i:s')) | ($contest->ending_date <= date('Y-m-d H:i:s')) )
+            {
+                return back()->with('error','You cannot change the time or date because the competition has already started');
+            }
+            else
+            {
+                $this->validate($request, [
+                    'startingtime' =>[ 'required','date','after_or_equal:now'],
+                    'endingtime' => ['required', 'date', 'after_or_equal:startingtime'],
+                ]);
+
+                $contest->starting_date = $request->startingtime;
+                $contest->ending_date = $request->endingtime;
+                
+
+            }
+
+
+        }
 
         //type
 
+        if(is_null($request->private)){
+            if(strcmp($contest->type, 'public') !== 0)
+            {
+                
+                $contest->type = 'public';
+                
+               
+            }
+            
+        }else
+        {
+            if(strcmp($contest->type, 'private') !== 0)
+            {
+                $contest->type = 'private';
+               
+            }
+
+        }
+
+
+
         //part
 
+        if(is_null($request->team)){
+            if(strcmp($contest->participation, 'solo') !== 0)
+            {
+                $contest->participation = 'solo';
+                
+            }
+            
+        }else
+        {
+            if(strcmp($contest->participation, 'team') !== 0)
+            {
+                $contest->participation = 'team';
+               
+            }
+
+        }
 
 
+        
+        $contest->save();
+        return redirect()->route('contests-view')->with('success','Successfully modified');
+    }
+    else{abort(404);
 
-
+    }
        }
        else
         {abort(401);}
 
 
     }
+
+
+    public function active(Request $request , $id)
+    {
+        
+       
+
+       if(Gate::allows('creat'))
+       {
+
+        dd('active');
+        
+       }
+       else
+        {abort(401);}
+
+
+    }
+
+    public function delate(Request $request , $id)
+    {
+        
+       
+
+       if(Gate::allows('creat'))
+       {
+
+        dd('delate');
+        
+       }
+       else
+        {abort(401);}
+
+
+    }
+    
 
 
 
