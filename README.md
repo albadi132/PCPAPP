@@ -10,3 +10,5 @@ designed, organized, and modern system UI, multi programming language support, s
 and team participation, and real-time sore board. Whereas, the backend system will serve
 and maintain the best performance possible through the automated judging, and prevention
 and handling of malpractices and security threats.
+
+## Development team :shipit: :
