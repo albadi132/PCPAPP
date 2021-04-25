@@ -1,4 +1,6 @@
-![counter](public/images/logo.png?raw=true "ss")
+<p align="center">
+    ![sss](public/images/logo.png?raw=true "ss")
+ </p
 
 
 ## About Laravel
