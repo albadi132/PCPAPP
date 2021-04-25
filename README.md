@@ -13,5 +13,5 @@ and handling of malpractices and security threats.
 
 ## Development team :shipit::
 
-- **[Salim Al-Badi :trollface:](https://github.com/albadi132)**
-- **[Salim Al-Badi :trollface:](https://github.com/albadi132)**
+- **[Salim Al-Badi :neckbeard:](https://github.com/albadi132)**
+- **[Khalid ALJabri :trollface:](https://github.com/KJ98-SE)**
