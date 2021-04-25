@@ -1,4 +1,4 @@
-<p align="center">![sss](public/images/logo.png?raw=true "ss")</p>
+![sss](public/images/logo.png?raw=true "ss")
 
 
 ## About Laravel
