@@ -8,6 +8,10 @@ use App\Http\Controllers\Auth\VerifyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\ControlPanel;
 use App\Http\Controllers\admin\contests;
+use App\Http\Controllers\admin\problems;
+use App\Http\Controllers\users\ProfileController;
+use App\Http\Controllers\competitions\primarycontroller;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,20 +25,21 @@ use App\Http\Controllers\admin\contests;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return redirect('/home');
 });
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
 
+//Auth
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'credentials']);
-
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
-
 Route::get('/logout', [LogoutController::class, 'logoutuser'])->name('logout');
-
 Route::get('/verify', [VerifyController::class, 'index'])->name('verify');
 
+
+//controlpanel
 Route::get('/controlpanel', [ControlPanel::class, 'index'])->name('controlpanel')->middleware('auth');
 Route::get('/controlpanel/authentication/users', [ControlPanel::class, 'AuthenticationUsers'])->name('authentication-users')->middleware('auth');
 Route::get('/controlpanel/authentication/role', [ControlPanel::class, 'AuthenticationRole'])->name('authentication-role')->middleware('auth');
@@ -45,5 +50,19 @@ Route::get('/controlpanel/contests/edit/{id}', [ControlPanel::class, 'contestsEd
 Route::post('/controlpanel/contests/edit/{id}', [contests::class, 'edit'])->middleware('auth');
 Route::get('/controlpanel/contests/active/{id}', [ControlPanel::class, 'contestsActive'])->name('contests-active')->middleware('auth');
 Route::get('/controlpanel/contests/delate/{id}', [ControlPanel::class, 'contestsDelate'])->name('contests-delate')->middleware('auth');
-Route::get('/controlpanel/problems/view', [ControlPanel::class, 'ProblemsView'])->name('problems-view')->middleware('auth');
+Route::get('/controlpanel/problems/', [ControlPanel::class, 'ProblemsView'])->name('problems-view')->middleware('auth');
 Route::get('/controlpanel/problems/creat', [ControlPanel::class, 'ProblemsCreat'])->name('problems-creat')->middleware('auth');
+Route::post('/controlpanel/problems/creat', [problems::class, 'creat'])->middleware('auth');
+Route::get('/controlpanel/problems/edit/{id}', [ControlPanel::class, 'problemsEdit'])->name('problems-edit')->middleware('auth');
+Route::post('/controlpanel/problems/edit/{id}', [problems::class, 'edit'])->middleware('auth');
+Route::get('/controlpanel/problems/delate/{id}', [ControlPanel::class, 'problemsDelate'])->name('problems-delate')->middleware('auth');
+
+//user
+Route::get('/profile/{username}', [ProfileController::class, 'profile'])->name('Profile-show')->middleware('auth');
+
+//competitions
+Route::get('/competitions', [primarycontroller::class, 'competitions'])->name('competitions-show');
+
+
+
+

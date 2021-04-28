@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Contest;
+use App\Models\Problem;
 class ControlPanel extends Controller
 {
 
@@ -162,9 +163,24 @@ abort(404);
 
     public function ProblemsView()
     {
-        
         if(Gate::allows('show')){
-        return view('admin.problems.view');
+
+        $problems = Problem::all();
+        $count = $problems->count();
+        $last = Problem::latest()->first();
+        //dd($last->name);
+        $mostauthor = Problem::select('author_id')
+    ->selectRaw('COUNT(*) AS count')
+    ->groupBy('author_id')
+    ->orderByDesc('count')
+    ->limit(1)
+    ->get();
+  
+        return view('admin.problems.view')
+        ->with('problems', $problems)
+            ->with('count', $count)
+            ->with('last', $last)
+            ->with('mostauthor', $mostauthor);
         }
         else
         {abort(401);}
@@ -178,6 +194,55 @@ abort(404);
         }
         else
         {abort(401);}
+    }
+    
+    
+
+    public function problemsEdit($id)
+    {
+        
+        if(Gate::allows('show')){
+
+           if(Problem::findOrFail($id))
+           {
+            $Problem= Problem::where('id', $id)->get();
+            
+            return view('admin.problems.edit',['problem'=>$Problem]);
+
+           }
+           else{
+abort(404);
+           }
+           
+
+        
+        }
+        else
+        {abort(401);}
+    }
+
+
+    public function problemsDelate($id)
+    {
+        if(Gate::allows('show')){
+
+            if(Problem::findOrFail($id))
+            {
+                $Problem= Problem::find($id);
+                $Problem->delete();
+                return redirect()->route('problems-view')->with('success','The problem has been deleted');
+
+ 
+            }
+            else{
+ abort(404);
+            }
+            
+ 
+         
+         }
+         else
+         {abort(401);}
     }
 
 

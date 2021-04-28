@@ -32,11 +32,11 @@
                 </div>
                 <div class="hidden md:block">
                   <div class="ml-10 flex items-baseline space-x-4">
-                    <a href="/" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    <a href="{{ route('home') }}" class="{{ 'home' == request()->is('home*') ? 'bg-gray-900 text-white px-3 ' : 'text-gray-300 hover:bg-gray-700 hover:text-white ' }} px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                    
+                    <a href="{{ route('competitions-show') }}" class="{{ 'competitions' == request()->is('competitions*') ? 'bg-gray-900 text-white px-3 ' : 'text-gray-300 hover:bg-gray-700 hover:text-white ' }} px-3 py-2 rounded-md text-sm font-medium">Competitions</a>
       
-                    <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Competitions</a>
-      
-                    <a href="#" class="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">About PCP</a>
+                    <a href="{{ route('about') }}" class="{{ 'about' == request()->is('about') ? 'bg-gray-900 text-white px-3 ' : 'text-gray-300 hover:bg-gray-700 hover:text-white ' }} px-3 py-2 rounded-md text-sm font-medium">About PCP</a>
                   </div>
                 </div>
               </div>
@@ -65,9 +65,9 @@
                           <img class="h-8 w-8 rounded-full" src="{{url('/images/avatar') .'/'. auth()->user()->avatar }}" alt="">
                         </button>
                         <ul class="bg-white dark:bg-gray-600 border rounded-sm transform scale-0 group-hover:scale-100 absolute transition duration-150 ease-in-out origin-top min-w-32">
-                          <li class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</li>
+                          <li class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><a href="{{route('Profile-show', ['username' => auth()->user()->username ])}}" >My Profile</a></li>
                           @if (Gate::allows('show'))
-                          <li class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Control Panel</li>
+                          <li class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><a href="{{ route('controlpanel') }}" >Control Panel</a></li>
                           @endif
                           <li class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"><a href="{{ route('logout') }}" >Sign out</a></li>
                         </ul>

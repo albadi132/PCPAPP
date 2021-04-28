@@ -9,8 +9,10 @@
         <span class="text-2xl tracking-wide">Home</span>
       </div>
     </div>
-
-    hi
+test only
+    <div id="app">
+      <pcp-modle></pcp-modle>
+    </div>
 
   </div>
   @endsection

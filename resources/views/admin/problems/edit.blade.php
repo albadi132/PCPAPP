@@ -15,9 +15,9 @@
     {{ $message }}</div>
 </div>
 @endif
-  <h3 class="text-gray-700 text-3xl font-medium"><a href="{{ route('problems-view') }}">Problems Library/</a>creat</h3>
+  <h3 class="text-gray-700 text-3xl font-medium"><a href="{{ route('problems-view') }}">Problems Library/</a>edit</h3>
   <section class="py-40 bg-opacity-50 h-screen">
-    <form  method="POST" action="{{ route('problems-creat') }}" enctype="multipart/form-data">
+    <form  method="POST" action="{{ route('problems-edit', ['id' => $problem[0]->id ]) }}" enctype="multipart/form-data">
       @csrf
     <div class="mx-auto container max-w-2xl md:w-3/4 shadow-md">
       <div class="bg-white space-y-6">
@@ -33,6 +33,7 @@
                   id="name"
                   name="name"
                   type="text"
+                  value="{{$problem[0]->name}}"
                   class="w-11/12 focus:outline-none focus:text-gray-600 p-2"
                 />
               </div>
@@ -50,7 +51,7 @@
                   name="description"
                   class="w-11/12 focus:outline-none focus:text-gray-600 p-2"
                   rows="4" cols="50"
-                > </textarea>
+                > {{$problem[0]->description}}</textarea>
               </div>
               @error('description')
                   <div class="text-red-500">{{ $message }}</div>
@@ -58,6 +59,8 @@
             </div>
             <div>
               <label class="text-sm text-gray-400">Question (pdf file)</label>
+              <label class="text-sm text-gray-400"><a  href="{{url('/contests/library/'. $problem[0]->file) }}">current file</a></label>
+
               <div class="w-full inline-flex">
                 <div class="pt-2 w-1/12 bg-gray-100">
                 </div>
@@ -87,6 +90,7 @@
                 <input
                   id="score"
                   name="score"
+                  value="{{$problem[0]->points}}"
                   type="text"
                   class="w-11/12 focus:outline-none focus:text-gray-600 p-2"
                 />

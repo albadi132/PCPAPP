@@ -215,41 +215,5 @@ class contests extends Controller
     }
 
 
-    public function active(Request $request , $id)
-    {
-        
-       
-
-       if(Gate::allows('creat'))
-       {
-
-        dd('active');
-        
-       }
-       else
-        {abort(401);}
-
-
-    }
-
-    public function delate(Request $request , $id)
-    {
-        
-       
-
-       if(Gate::allows('creat'))
-       {
-
-        dd('delate');
-        
-       }
-       else
-        {abort(401);}
-
-
-    }
-    
-
-
 
 }
