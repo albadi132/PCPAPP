@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Policies\AdminPolicy;
 use App\Policies\ContestsPolicy;
+use App\Policies\UserPolicy;
 use App\Models\User;
 
 class AuthServiceProvider extends ServiceProvider
@@ -30,5 +31,6 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('show', [AdminPolicy::class, 'show']);
         Gate::define('creat', [ContestsPolicy::class, 'creat']);
+        Gate::define('Myprofile', [UserPolicy::class, 'Myprofile']);
     }
 }

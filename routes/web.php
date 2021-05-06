@@ -61,7 +61,12 @@ Route::get('/controlpanel/problems/delate/{id}', [ControlPanel::class, 'problems
 Route::get('/profile/{username}', [ProfileController::class, 'profile'])->name('Profile-show')->middleware('auth');
 
 //competitions
-Route::get('/competitions', [primarycontroller::class, 'competitions'])->name('competitions-show');
+Route::get('/competitions/{sort?}', [primarycontroller::class, 'competitions'])->name('competitions-show');
+Route::get('/competition/{name}', [primarycontroller::class, 'ShowCompetition'])->name('competition');
+Route::get('/competition/{name}/challenges', [primarycontroller::class, 'challenges'])->name('UserChallenges');
+Route::get('/competition/{name}/participants', [primarycontroller::class, 'participants'])->name('UserParticipants');
+Route::get('/competition/{name}/scoreboard', [primarycontroller::class, 'scoreboard'])->name('scoreboard');
+
 
 
 

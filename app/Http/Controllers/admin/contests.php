@@ -25,7 +25,7 @@ class contests extends Controller
        {
         
         $this->validate($request, [
-            'name' => ['required','unique:contests', 'string', 'max:255'],
+            'name' => ['required','unique:contests', 'string','regex:/^[a-zA-Z0-9 ]+$/', 'max:255'],
             'description' => ['required', 'string', 'max:1500'],
             'startingtime' =>[ 'required','date','after_or_equal:now'],
             'endingtime' => ['required', 'date', 'after_or_equal:startingtime'],
