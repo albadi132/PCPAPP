@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 <header class="bg-white shadow">
-    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+    <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
       <h1 class="text-3xl font-bold text-gray-900">
         Home
       </h1>
@@ -9,13 +9,13 @@
 </header>
 <br>
 <div class="flex justify-center">
-    <div class="w-8/12 bg-white p-6 rounded-lg">
+    <div class="w-8/12 p-6 bg-white rounded-lg">
       <div id="app">
         <pcp-app></pcp-app>
       </div>
-      
+        hello salim
     </div>
 </div>
-    
+
 @endsection
 
