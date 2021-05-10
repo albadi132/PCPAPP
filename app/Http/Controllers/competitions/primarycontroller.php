@@ -5,7 +5,11 @@ namespace App\Http\Controllers\competitions;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contest;
+use App\Models\ContestsProblem;
+use App\Models\Problem;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Resources\ProblemResource;
 
 
 class primarycontroller extends Controller
@@ -83,7 +87,7 @@ if(strpos($totalDuration, 'before') !== false){
   else
   $totalDuration  = 'closed';
 }
-
+    
     
 
         return view('competitions.show')
@@ -98,5 +102,64 @@ if(strpos($totalDuration, 'before') !== false){
 
 
     }
+public function challenges($name)
+{
+  $name = str_replace("_", " ", $name);
+  if(Contest::where('name', $name)->where('status','=',1)->firstOrFail())
+  {
+
+    $contest = Contest::with('problems')->where('name', $name)->get();
+    $AllProblem = ProblemResource::collection($contest[0]->problems);
+
+  //dd(json_encode($AllProblem));
+
+    
+  return view('competitions.challenges')
+  ->with('contest', $contest)
+  ->with('AllProblem',$AllProblem);
+  }
+  else{abort(404);}
+
+}
+public function participants($name)
+{
+  $name = str_replace("_", " ", $name);
+  if(Contest::where('name', $name)->where('status','=',1)->firstOrFail())
+  {
+    $contest = Contest::where('name', $name)->get();
+    return view('competitions.participants')
+  ->with('contest', $contest);
+  }
+  else{abort(404);}
+
+}
+public function teams($name)
+{
+  $name = str_replace("_", " ", $name);
+  if(Contest::where('name', $name)->where('status','=',1)->firstOrFail())
+  {
+    $contest = Contest::where('name', $name)->get();
+    return view('competitions.teams')
+  ->with('contest', $contest);
+  }
+  else{abort(404);}
+
+  
+
+}
+public function scoreboard($name)
+{
+  $name = str_replace("_", " ", $name);
+  if(Contest::where('name', $name)->where('status','=',1)->firstOrFail())
+  {
+    $contest = Contest::where('name', $name)->get();
+    return view('competitions.scoreboard')
+  ->with('contest', $contest);
+  }
+  else{abort(404);}
+
+  
+
+}
 
 }

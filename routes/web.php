@@ -63,9 +63,13 @@ Route::get('/profile/{username}', [ProfileController::class, 'profile'])->name('
 //competitions
 Route::get('/competitions/{sort?}', [primarycontroller::class, 'competitions'])->name('competitions-show');
 Route::get('/competition/{name}', [primarycontroller::class, 'ShowCompetition'])->name('competition');
-Route::get('/competition/{name}/challenges', [primarycontroller::class, 'challenges'])->name('UserChallenges');
+Route::get('/competition/{name}/challenges', [primarycontroller::class, 'challenges'])->name('UserChallenges')->middleware('auth');
 Route::get('/competition/{name}/participants', [primarycontroller::class, 'participants'])->name('UserParticipants');
+Route::get('/competition/{name}/teams', [primarycontroller::class, 'teams'])->name('UserTeams');
 Route::get('/competition/{name}/scoreboard', [primarycontroller::class, 'scoreboard'])->name('scoreboard');
+
+
+
 
 
 

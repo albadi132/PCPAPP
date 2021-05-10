@@ -8,11 +8,10 @@
                 </div>
                 <div class="px-6 md:px-32 flex justify-between lg:flex-row flex-col">
                     <div class="flex lg:flex-row flex-col">
-                        <div class="w-36 h-36 bg-white bg-cover rounded-full bg-center absolute transform -translate-y-1/2 ring-4 ring-white" style="background-image:url({{url('contests/images/'.$contest[0]->logo)}})">
-                        </div>
+                        <div class="w-36 h-36 bg-white bg-cover rounded-full bg-center absolute transform -translate-y-1/2 ring-4 ring-white" style="background-image:url({{url('contests/images/'.$contest[0]->logo)}})"></div>
                         <p class="lg:ml-36 mt-16 lg:mt-0 pl-4 text-3xl font-semibold py-5">
                             <div>
-                                <h3 class="font-bold tracking-wide text-5xl mb-2 text-gray-700">
+                                <h3 class="font-bold tracking-wide text-3xl mb-2 text-gray-700">
                                    {{$contest[0]->name}}
                                 </h3>
                                 <div class="md:space-x-5 md:space-y-0 space-y-1 px-2 flex md:flex-row flex-col">
@@ -28,14 +27,18 @@
                             </div>
                         </p>
                     </div>
+                    @can('OrganizerOrAdmin', $contest[0]->id)
                     <div class="py-5 lg:space-x-3 space-y-3 lg:space-y-0">
-                        <div class="flex space-x-3">
-                            <button class="md:flex hidden items-center text-gray-500 space-x-2 border border-gray-400 px-4 py-1.5 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 h-4" viewBox="0 0 24 24"><path d="M19.769 9.923l-12.642 12.639-7.127 1.438 1.438-7.128 12.641-12.64 5.69 5.691zm1.414-1.414l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z"/></svg>
-                                <span class="uppercase text-sm font-semibold">Edit</span>
-                            </button>
-                        </div>
+                      <div class="flex space-x-3">
+                          <button class="md:flex hidden items-center text-gray-500 space-x-2 border border-gray-400 px-4 py-1.5 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700">
+                              <svg xmlns="http://www.w3.org/2000/svg" class="fill-current w-4 h-4" viewBox="0 0 24 24"><path d="M19.769 9.923l-12.642 12.639-7.127 1.438 1.438-7.128 12.641-12.64 5.69 5.691zm1.414-1.414l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z"/></svg>
+                              <span class="uppercase text-sm font-semibold">Edit</span>
+                          </button>
+                      </div>
                     </div>
+                    @endcan
+
+ 
                 </div>
             </div>
             
@@ -46,14 +49,14 @@
                   <div class="col-span-12 sm:col-span-12 md:col-span-7 lg:col-span-8 xxl:col-span-8">
                     <div class="bg-white py-4 px-4 shadow-sm rounded-lg my-4 mx-4">
                         
-                                <h1 class="text-4xl text-gray-700 mb-5">Description</h1>
-                                <h3 class="text-3xl text-gray-500 mb-5">{{$contest[0]->description}}
+                                <h1 class="text-2xl text-gray-700 mb-5">Description</h1>
+                                <h3 class="text-1xl text-gray-500 mb-5">{{$contest[0]->description}}
                                 </h3>
                     </div>
                     <div class="bg-white py-4 px-4 shadow-sm rounded-lg my-4 mx-4">
                         
-                        <h1 class="text-4xl text-gray-700 mb-5">Conditions</h1>
-                        <h3 class="text-3xl text-gray-500 mb-5">Rules concerning the platform are included.
+                        <h1 class="text-2xl text-gray-700 mb-5">Conditions</h1>
+                        <h3 class="text-1xl text-gray-500 mb-5">Rules concerning the platform are included.
                             <br>
                             - Sharing the flags between different teams is prohibited.
                             <br>
@@ -66,13 +69,43 @@
             </div>
             <div class="bg-white py-4 px-4 shadow-sm rounded-lg my-4 mx-4">
                         
-                <h1 class="text-4xl text-gray-700 mb-5">Prizes</h1>
-                <h3 class="text-3xl text-gray-500 mb-5">The winning team will be Winner!!.
+                <h1 class="text-2xl text-gray-700 mb-5">Prizes</h1>
+                <h3 class="text-1xl text-gray-500 mb-5">The winning team will be Winner!!.
                 </h3>
     </div>
                   </div>
                   <div class="col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-4 xxl:col-span-4">
                     <div class="bg-white py-4 px-4 shadow-sm rounded-lg my-4 mx-4">
+
+                  <div class="flex justify-between border-b-2 mb-2">
+                    <div class="text-lg py-2"> 
+                      <div class="flex justify-center items-center text-center">
+                        <div class="text-lg font-semibold"> 
+                          <p>Supported languages</p>
+                          <div class=" text-base flex flex-row space-x-2 w-full items-center rounded-lg">
+                            <div class="flex-shrink-0 h-5 w-5">
+                              <img class="h-5 w-5 rounded-full"
+                              
+                                  src="{{url('/Programminglanguages/C_plus_plus/logo.png') }}"
+                                  alt="">
+                          </div>
+                            <p> C++</p>
+                          </div>
+                          <div class=" text-base flex flex-row space-x-2 w-full items-center rounded-lg">
+                            <div class="flex-shrink-0 h-5 w-5">
+                              <img class="h-5 w-5 rounded-full"
+                              
+                                  src="{{url('/Programminglanguages/python/logo.png') }}"
+                                  alt="">
+                          </div>
+                            <p> Python</p>
+                          </div>
+                        </div>
+                        
+                  </div>
+                    </div>
+
+              </div>
                         <!-- classic add -->
                         <div class="flex justify-between border-b-2 mb-2">
                               <div class="text-lg py-2"> 

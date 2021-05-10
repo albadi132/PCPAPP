@@ -24,6 +24,8 @@ import { Form, HasError, AlertError } from 'vform';
  Vue.component('pcp-app', require('./components/ExampleComponent.vue').default);
  Vue.component('pcp-contests', require('./components/contests.vue').default);
  Vue.component('pcp-modle', require('./components/test.vue').default);
+ Vue.component('pcp-problems', require('./components/ProblemTable.vue').default);
+ 
 
  
  /**

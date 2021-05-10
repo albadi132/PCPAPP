@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Problem extends Model
+class ExecutionsLog extends Model
 {
     use HasFactory;
-    public $table='problems';
+    public $table='executions_log';
 }
