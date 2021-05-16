@@ -7,7 +7,14 @@
 
  require('./bootstrap');
  window.Vue = require('vue').default;
-import { Form, HasError, AlertError } from 'vform';
+ import { Form, HasError, AlertError } from 'vform';
+ import swal from 'sweetalert2'
+ window.swal = swal;
+
+ const toast = swal.mixin({
+  });
+  window.toast = toast;
+ 
 
 
  /**
@@ -25,6 +32,7 @@ import { Form, HasError, AlertError } from 'vform';
  Vue.component('pcp-contests', require('./components/contests.vue').default);
  Vue.component('pcp-modle', require('./components/test.vue').default);
  Vue.component('pcp-problems', require('./components/ProblemTable.vue').default);
+ Vue.component('pcp-participant', require('./components/ParticipantModal.vue').default);
  
 
  

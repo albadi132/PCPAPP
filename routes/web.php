@@ -11,7 +11,8 @@ use App\Http\Controllers\admin\contests;
 use App\Http\Controllers\admin\problems;
 use App\Http\Controllers\users\ProfileController;
 use App\Http\Controllers\competitions\primarycontroller;
-
+use App\Http\Controllers\competitions\DealWithProblem;
+use App\Http\Controllers\competitions\Subscription;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,13 @@ Route::get('/competition/{name}/participants', [primarycontroller::class, 'parti
 Route::get('/competition/{name}/teams', [primarycontroller::class, 'teams'])->name('UserTeams');
 Route::get('/competition/{name}/scoreboard', [primarycontroller::class, 'scoreboard'])->name('scoreboard');
 
+//competitions Subscription
+Route::post('/competition/{name}/registration', [Subscription::class, 'registration'])->middleware('auth');
+Route::get('/competition/{name}/subscription/{id}', [Subscription::class, 'subscribe'])->name('subscribe')->middleware('auth');
+
+
+//Competitions Problem
+Route::get('/competition/{name}/challenges/{problem}', [DealWithProblem::class, 'problem'])->middleware('auth');
 
 
 

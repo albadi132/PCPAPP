@@ -32,7 +32,7 @@ class ContestsPolicy
     public function OrganizerOrAdmin( $request ,$ContestId)
     {
         
-        if(Contest::findOrFail($ContestId))
+        if(!is_null(Contest::find($ContestId)))
         {
        if(Auth::user()->role === 'admin' || Auth::user()->role === 'manger')
        {

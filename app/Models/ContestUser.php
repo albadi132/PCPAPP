@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ContestLanguage extends Model
+class ContestUser extends Model
 {
     use HasFactory;
-    public $table='contest_language';
+    public $table='contest_user';
 }

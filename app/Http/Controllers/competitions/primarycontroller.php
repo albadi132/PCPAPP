@@ -10,6 +10,10 @@ use App\Models\Problem;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\ProblemResource;
+use App\Models\User;
+use App\Models\ContestUser;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class primarycontroller extends Controller
@@ -18,7 +22,7 @@ class primarycontroller extends Controller
     {
         switch ($sort) {
             case "live":
-                $contests = Contest::where('starting_date', '<=', date('Y-m-d H:i:s'))
+                $contests = Contest::with('competitor')->where('starting_date', '<=', date('Y-m-d H:i:s'))
             ->where('ending_date', '>=', date('Y-m-d H:i:s'))->where('status','=',1)->get();
             $live = $contests->count();
             $all = Contest::where('status','=',1)->count();
@@ -27,7 +31,7 @@ class primarycontroller extends Controller
              
               break;
             case "upcoming":
-                $contests = Contest::where('starting_date', '>', date('Y-m-d H:i:s'))->where('status','=',1)->get();
+                $contests = Contest::with('competitor')->where('starting_date', '>', date('Y-m-d H:i:s'))->where('status','=',1)->get();
                 $upcoming = $contests->count();
                 $all = Contest::where('status','=',1)->count();
                 $live = Contest::where('starting_date', '<=', date('Y-m-d H:i:s'))
@@ -36,7 +40,7 @@ class primarycontroller extends Controller
 
               break;
             case "archived":
-                $contests= Contest::where('ending_date', '<', date('Y-m-d H:i:s'))->where('status','=',1)->get();
+                $contests= Contest::with('competitor')->where('ending_date', '<', date('Y-m-d H:i:s'))->where('status','=',1)->get();
                 $archived = $contests->count();
                 $all = Contest::where('status','=',1)->count();
                 $live = Contest::where('starting_date', '<=', date('Y-m-d H:i:s'))
@@ -44,7 +48,7 @@ class primarycontroller extends Controller
             $upcoming= Contest::where('starting_date', '>', date('Y-m-d H:i:s'))->where('status','=',1)->count();
               break;
             default:
-            $contests = Contest::where('status','=',1)->get();
+            $contests = Contest::with('competitor')->where('status','=',1)->get();
             $all = $contests->count();
             $live = Contest::where('starting_date', '<=', date('Y-m-d H:i:s'))
             ->where('ending_date', '>=', date('Y-m-d H:i:s'))->where('status','=',1)->count();
@@ -69,11 +73,13 @@ class primarycontroller extends Controller
     {
       $name = str_replace("_", " ", $name);
 
-      if(Contest::where('name', $name)->where('status','=',1)->firstOrFail())
+$contest = Contest::with('languages' , 'competitor')->where('name', $name)->where('status','=',1)->firstOrFail();
+
+      if($contest)
       {
-        $contest = Contest::where('name', $name)->get();
+        
         //dd($contest[0]->starting_date);
-        $startTime = Carbon::parse($contest[0]->starting_date);
+        $startTime = Carbon::parse($contest->starting_date);
     $endTime = Carbon::parse(date('Y-m-d H:i:s'));
 
     $totalDuration = $endTime->diffForHumans($startTime);
@@ -82,17 +88,29 @@ class primarycontroller extends Controller
 if(strpos($totalDuration, 'before') !== false){
   $totalDuration  = str_replace("before", "", $totalDuration );
 } else{
-  if( ($contest[0]->starting_date <= date('Y-m-d H:i:s')) & ($contest[0]->ending_date >= date('Y-m-d H:i:s') ))
+  if( ($contest->starting_date <= date('Y-m-d H:i:s')) & ($contest->ending_date >= date('Y-m-d H:i:s') ))
   {$totalDuration  = 'started';}
   else
   $totalDuration  = 'closed';
 }
+
+//check if user sub to comp
+$sub = FALSE;
+if(!is_null(Auth::user()))
+{
+if(!is_null(ContestUser::where( 'user_id', '=' , Auth::user()->id )->where( 'contest_id' , '=' ,  $contest->id )->where('role' , '=' ,'competitor')->first()))
+{
+  $sub = TRUE;
+}
+}
+
     
     
 
         return view('competitions.show')
         ->with('contest', $contest)
-        ->with('time', $totalDuration);
+        ->with('time', $totalDuration)
+        ->with('sub', $sub);
 
       }
       else{abort(404);}
@@ -105,11 +123,10 @@ if(strpos($totalDuration, 'before') !== false){
 public function challenges($name)
 {
   $name = str_replace("_", " ", $name);
-  if(Contest::where('name', $name)->where('status','=',1)->firstOrFail())
+  $contest = Contest::with('problems')->where('name', $name)->where('status','=',1)->firstOrFail();
+  if($contest)
   {
-
-    $contest = Contest::with('problems')->where('name', $name)->get();
-    $AllProblem = ProblemResource::collection($contest[0]->problems);
+    $AllProblem = ProblemResource::collection($contest->problems,$name);
 
   //dd(json_encode($AllProblem));
 
@@ -124,9 +141,9 @@ public function challenges($name)
 public function participants($name)
 {
   $name = str_replace("_", " ", $name);
-  if(Contest::where('name', $name)->where('status','=',1)->firstOrFail())
+  $contest = Contest::where('name', $name)->where('status','=',1)->firstOrFail();
+  if($contest)
   {
-    $contest = Contest::where('name', $name)->get();
     return view('competitions.participants')
   ->with('contest', $contest);
   }
@@ -136,9 +153,10 @@ public function participants($name)
 public function teams($name)
 {
   $name = str_replace("_", " ", $name);
-  if(Contest::where('name', $name)->where('status','=',1)->firstOrFail())
+  $contest = Contest::where('name', $name)->where('status','=',1)->firstOrFail();
+  if($contest)
   {
-    $contest = Contest::where('name', $name)->get();
+   
     return view('competitions.teams')
   ->with('contest', $contest);
   }
@@ -150,9 +168,10 @@ public function teams($name)
 public function scoreboard($name)
 {
   $name = str_replace("_", " ", $name);
-  if(Contest::where('name', $name)->where('status','=',1)->firstOrFail())
+  $contest = Contest::where('name', $name)->where('status','=',1)->firstOrFail();
+  if($contest)
   {
-    $contest = Contest::where('name', $name)->get();
+    
     return view('competitions.scoreboard')
   ->with('contest', $contest);
   }
