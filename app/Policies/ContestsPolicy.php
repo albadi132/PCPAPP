@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Contest;
-use App\Models\ContestOrganizer;
+use App\Models\ContestUser;
 
 class ContestsPolicy
 {
@@ -40,8 +40,8 @@ class ContestsPolicy
        }
        else
        {
-        if(ContestOrganizer::where('user_id' , Auth::user()->id )
-        ->where('contest_id' , $ContestId )->firstOrFail())
+        if(!is_null(ContestUser::where('user_id' , Auth::user()->id )
+        ->where('contest_id' , $ContestId )->where('role' , 'organizer')->first()))
         {
             return true;
 
@@ -54,6 +54,16 @@ class ContestsPolicy
        }}
        else
        return FALSE;
+    }
+
+    public function IAmCompetitor( $request ,$ContestId)
+    {
+
+        if(is_null(ContestUser::where('user_id' , Auth::user()->id)->where('contest_id' , $ContestId )->first()))
+        return FALSE;
+        else
+        return TRUE;
+        
     }
 
 

@@ -27,6 +27,8 @@ class User extends Authenticatable
         'email_verified_at',
         'gender',
         'is_verified',
+        'job',
+        'workplace'
     ];
 
     /**

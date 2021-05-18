@@ -18,7 +18,7 @@ class CreateContestTeamTable extends Migration
             $table->foreignId('contest_id')->constrained();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

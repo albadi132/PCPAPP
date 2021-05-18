@@ -10,6 +10,7 @@ use App\Models\Problem;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\ProblemResource;
+use App\Http\Resources\ParticipantsResource;
 use App\Models\User;
 use App\Models\ContestUser;
 use Illuminate\Support\Facades\Auth;
@@ -141,11 +142,31 @@ public function challenges($name)
 public function participants($name)
 {
   $name = str_replace("_", " ", $name);
-  $contest = Contest::where('name', $name)->where('status','=',1)->firstOrFail();
+  $contest = Contest::with('competitor')->where('name', $name)->where('status','=',1)->firstOrFail();
   if($contest)
   {
-    return view('competitions.participants')
-  ->with('contest', $contest);
+    //check if contest is solo
+    if( $contest->participation == 'solo')
+    {
+
+      $AllCompetitor = ParticipantsResource::collection($contest->competitor,$name);
+      //dd(json_encode($AllCompetitor));
+      $admin = FALSE;
+      if(Gate::allows('OrganizerOrAdmin', $contest->id))
+      {$admin = TRUE;}
+
+
+      return view('competitions.participants')
+  ->with('contest', $contest)
+  ->with('AllCompetitor',$AllCompetitor)
+  ->with('admin',$admin);
+
+    }
+    else
+    {
+      abort(404);
+    }
+    
   }
   else{abort(404);}
 
@@ -156,9 +177,16 @@ public function teams($name)
   $contest = Contest::where('name', $name)->where('status','=',1)->firstOrFail();
   if($contest)
   {
-   
+   //check if contest is team
+   if( $contest->participation == 'team')
+   {
+
     return view('competitions.teams')
   ->with('contest', $contest);
+  
+   }
+   else
+   {abort(404);}
   }
   else{abort(404);}
 

@@ -33,6 +33,9 @@
  Vue.component('pcp-modle', require('./components/test.vue').default);
  Vue.component('pcp-problems', require('./components/ProblemTable.vue').default);
  Vue.component('pcp-participant', require('./components/ParticipantModal.vue').default);
+ Vue.component('pcp-competitor', require('./components/CompetitorTable.vue').default);
+ Vue.component('pcp-teammodal', require('./components/TeamModal.vue').default);
+
  
 
  

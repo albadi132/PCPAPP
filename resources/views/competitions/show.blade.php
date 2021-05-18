@@ -27,15 +27,6 @@
                             </div>
                         </p>
                     </div>
-                    @can('OrganizerOrAdmin', $contest->id)
-                    <div class="py-5 lg:space-x-3 space-y-3 lg:space-y-0">
-                      <div class="flex space-x-3">
-                        <div id="app">
-                          <pcp-participant :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'"></pcp-participant>
-                        </div>
-                      </div>
-                    </div>
-                    @endcan
 
  
                 </div>

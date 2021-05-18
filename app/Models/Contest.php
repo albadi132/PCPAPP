@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Problem;
 use App\Models\Language;
 use App\Models\User;
+use App\Models\Team;
 
 class Contest extends Model
 {
     use HasFactory;
+
     public $table='contests';
 
     public function problems()
@@ -29,6 +31,11 @@ class Contest extends Model
     {
         return $this->belongsToMany(User::class)->wherePivot('role', 'organizer');
     }
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class);
+    }
+
 
     
 }

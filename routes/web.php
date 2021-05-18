@@ -13,6 +13,7 @@ use App\Http\Controllers\users\ProfileController;
 use App\Http\Controllers\competitions\primarycontroller;
 use App\Http\Controllers\competitions\DealWithProblem;
 use App\Http\Controllers\competitions\Subscription;
+use App\Http\Controllers\competitions\DealWithTeam;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,8 @@ Route::get('/competition/{name}/subscription/{id}', [Subscription::class, 'subsc
 //Competitions Problem
 Route::get('/competition/{name}/challenges/{problem}', [DealWithProblem::class, 'problem'])->middleware('auth');
 
+//competitions team
+Route::post('/competition/{name}/creatnewteam', [DealWithTeam::class, 'CreatNewTeam'])->name('teamtest')->middleware('auth');
 
 
 

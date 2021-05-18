@@ -18,7 +18,7 @@ class CreateTeamUserTable extends Migration
             $table->foreignId('user_id')->constrained();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

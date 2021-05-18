@@ -44,9 +44,12 @@ class Subscription extends Controller
 
                     $user = User::where('email' , $sup['email'])->first();
                     
+                    
                     if(!is_null($user))
                     {
-                       
+                        //check if sup before
+                        if($this->IsNotSubscribe($request->contestid , $user->id))
+                    {
                         $dataSet[] = [
                             'user_id'  => $user->id,
                             'contest_id'    => $request->contestid,
@@ -54,6 +57,15 @@ class Subscription extends Controller
                             'created_at' =>  \Carbon\Carbon::now(), # new \Datetime()
                             'updated_at' => \Carbon\Carbon::now(),  # new \Datetime()
                         ];
+                    }
+                    else
+                    {
+                        return [
+                            'status' => 402,
+                            'description' => "There is an error, This email is ".$sup['email']." already registered in the competition",
+                        ];
+
+                    }
                         
                     }
                     else{
@@ -62,6 +74,7 @@ class Subscription extends Controller
                             'description' => "There is an error, make sure that this email ".$sup['email']." is linked to an account",
                         ];
 
+                        
                     }
                     
                    
@@ -119,15 +132,27 @@ class Subscription extends Controller
                 //check if sup is not privet
                 if($this->ContestStatus($id))
                 {
-    
+
+                    //check if sup before
+                    $userid = Auth::user()->id;
+
+
+                    if($this->IsNotSubscribe($id , $userid))
+                    {
+
                     //all Done
                     $competitor = new ContestUser;
-
-                    $competitor->user_id = Auth::user()->id;
+                    $competitor->user_id = $userid;
                     $competitor->contest_id = $id;
                     $competitor->role = 'competitor';
                     $competitor->save();
                     return redirect()->route('competition', ['name' => $name ])->with(session()->flash('alert-success', 'Successful subscription, good luck.'));
+
+                    }
+                    else
+                    {
+                        return redirect()->route('competition', ['name' => $name])->with(session()->flash('alert-danger', 'You are already registered in the competition.'));
+                    }
     
     
     
@@ -193,6 +218,18 @@ else
         else
         return TRUE;
        
+
+    }
+
+    public function IsNotSubscribe($id,$userid)
+    {
+        $contestuser = ContestUser::where('user_id' , $userid)->where('contest_id' , $id )->first();
+
+        if(is_null($contestuser))
+        return TRUE;
+        else
+        return FALSE;
+
 
     }
 
