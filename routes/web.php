@@ -80,9 +80,9 @@ Route::get('/competition/{name}/challenges/{problem}', [DealWithProblem::class, 
 
 //competitions team
 Route::post('/competition/{name}/creatnewteam', [DealWithTeam::class, 'CreatNewTeam'])->name('teamtest')->middleware('auth');
-
-
-
+Route::get('/competition/{name}/deleteteam/{id}', [DealWithTeam::class, 'deleteteam'])->middleware('auth');
+Route::get('/competition/{name}/joiningtteam/{id}', [DealWithTeam::class, 'joiningtteam'])->middleware('auth');
+Route::get('/competition/{name}/leftteam/{id}/{username?}', [DealWithTeam::class, 'leftteam'])->middleware('auth');
 
 
 

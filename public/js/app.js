@@ -2578,15 +2578,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.HasError.name, vform__WEBPACK_IMPORTED_MODULE_1__.HasError);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK_IMPORTED_MODULE_1__.AlertError);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["contest", "urlname"],
+  props: ["contest", "urlname", "ihaveteam"],
   name: "AddRemove",
   data: function data() {
     return {
       toggleModal: false,
+      onteam: this.ihaveteam,
       resp: false,
       url: this.urlname,
       form: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
@@ -2645,8 +2647,271 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
     }
   },
   mounted: function mounted() {
-    console.log(this.urlname);
+    console.log(this.ihaveteam);
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TeamsTable.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TeamsTable.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["teamwithuser", "urlname", "contest", "admin", "myuser", "actuion", "ihaveteam"],
+  data: function data() {
+    return {
+      teams: JSON.parse(this.teamwithuser),
+      url: this.urlname,
+      contestid: this.contest,
+      onteam: this.ihaveteam,
+      allow: this.admin,
+      me: this.myuser,
+      imin: this.actuion,
+      currentSort: "name",
+      currentSortDir: "asc",
+      pageSize: 100,
+      currentPage: 1,
+      countpage: 0,
+      filter: ""
+    };
+  },
+  methods: {
+    deletetheteam: function deletetheteam(teamid, teamname) {
+      var _this = this;
+
+      toast.fire({
+        title: 'Do you want to delete ' + teamname + ' team?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: "Delete",
+        confirmButtonColor: '#EC7063'
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          window.location = "/competition/" + _this.url + "/deleteteam/" + teamid;
+        }
+      });
+    },
+    joiningtteam: function joiningtteam(teamid, teamname) {
+      window.location = "/competition/" + this.url + "/deleteteam/" + teamid;
+    },
+    leftteam: function leftteam(teamid, teamname, username) {
+      if (typeof username !== 'undefined') {
+        console.log(username);
+      } else {
+        console.log("not");
+      }
+    },
+    isExist: function isExist(m, t) {
+      for (var i = 0; i < t.length; i++) {
+        if (t[i].username == m) {
+          return true;
+        }
+      }
+
+      return false;
+    },
+    sort: function sort(s) {
+      //if s == current sort, reverse
+      if (s === this.currentSort) {
+        this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
+      }
+
+      this.currentSort = s;
+    },
+    firstPage: function firstPage() {
+      this.currentPage = 1;
+    },
+    nextPage: function nextPage() {
+      if (this.currentPage * this.pageSize < this.teams.length) this.currentPage++;
+    },
+    prevPage: function prevPage() {
+      if (this.currentPage > 1) this.currentPage--;
+    },
+    lastPage: function lastPage() {
+      if (Number.isInteger(this.teams.length / this.pageSize)) {
+        this.currentPage = this.teams.length / this.pageSize;
+      } else {
+        this.currentPage = Math.floor(this.teams.length / this.pageSize) + 1;
+      }
+    }
+  },
+  computed: {
+    sortedteams: function sortedteams() {
+      var _this2 = this;
+
+      return this.teams.sort(function (a, b) {
+        var modifier = 1;
+        if (_this2.currentSortDir === "desc") modifier = -1;
+        if (a[_this2.currentSort] < b[_this2.currentSort]) return -1 * modifier;
+        if (a[_this2.currentSort] > b[_this2.currentSort]) return 1 * modifier;
+        return 0;
+      }).filter(function (row, index) {
+        var start = (_this2.currentPage - 1) * _this2.pageSize;
+        var end = _this2.currentPage * _this2.pageSize;
+        if (index >= start && index < end) return true;
+      });
+    }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -3519,6 +3784,7 @@ Vue.component('pcp-problems', __webpack_require__(/*! ./components/ProblemTable.
 Vue.component('pcp-participant', __webpack_require__(/*! ./components/ParticipantModal.vue */ "./resources/js/components/ParticipantModal.vue").default);
 Vue.component('pcp-competitor', __webpack_require__(/*! ./components/CompetitorTable.vue */ "./resources/js/components/CompetitorTable.vue").default);
 Vue.component('pcp-teammodal', __webpack_require__(/*! ./components/TeamModal.vue */ "./resources/js/components/TeamModal.vue").default);
+Vue.component('pcp-teamstable', __webpack_require__(/*! ./components/TeamsTable.vue */ "./resources/js/components/TeamsTable.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -44365,6 +44631,45 @@ component.options.__file = "resources/js/components/TeamModal.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/TeamsTable.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/TeamsTable.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _TeamsTable_vue_vue_type_template_id_0b6bf463___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./TeamsTable.vue?vue&type=template&id=0b6bf463& */ "./resources/js/components/TeamsTable.vue?vue&type=template&id=0b6bf463&");
+/* harmony import */ var _TeamsTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./TeamsTable.vue?vue&type=script&lang=js& */ "./resources/js/components/TeamsTable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _TeamsTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _TeamsTable_vue_vue_type_template_id_0b6bf463___WEBPACK_IMPORTED_MODULE_0__.render,
+  _TeamsTable_vue_vue_type_template_id_0b6bf463___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/TeamsTable.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/contests.vue":
 /*!**********************************************!*\
   !*** ./resources/js/components/contests.vue ***!
@@ -44523,6 +44828,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/TeamsTable.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/TeamsTable.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamsTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TeamsTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TeamsTable.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamsTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/contests.vue?vue&type=script&lang=js&":
 /*!***********************************************************************!*\
   !*** ./resources/js/components/contests.vue?vue&type=script&lang=js& ***!
@@ -44636,6 +44957,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamModal_vue_vue_type_template_id_9e388716___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamModal_vue_vue_type_template_id_9e388716___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TeamModal.vue?vue&type=template&id=9e388716& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TeamModal.vue?vue&type=template&id=9e388716&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/TeamsTable.vue?vue&type=template&id=0b6bf463&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/TeamsTable.vue?vue&type=template&id=0b6bf463& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamsTable_vue_vue_type_template_id_0b6bf463___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamsTable_vue_vue_type_template_id_0b6bf463___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_TeamsTable_vue_vue_type_template_id_0b6bf463___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./TeamsTable.vue?vue&type=template&id=0b6bf463& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TeamsTable.vue?vue&type=template&id=0b6bf463&");
 
 
 /***/ }),
@@ -45963,35 +46301,40 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "button",
-      {
-        staticClass:
-          "md:flex hidden items-center text-gray-500 space-x-2 border border-gray-400 px-4 py-1.5 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700",
-        on: { click: _vm.showmodal }
-      },
-      [
-        _c(
-          "svg",
+    !_vm.onteam
+      ? _c(
+          "button",
           {
-            staticClass: "fill-current w-4 h-4",
-            attrs: { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24" }
+            staticClass:
+              "md:flex hidden items-center text-gray-500 space-x-2 border border-gray-400 px-4 py-1.5 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700",
+            on: { click: _vm.showmodal }
           },
           [
-            _c("path", {
-              attrs: {
-                d:
-                  "M19.769 9.923l-12.642 12.639-7.127 1.438 1.438-7.128 12.641-12.64 5.69 5.691zm1.414-1.414l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z"
-              }
-            })
+            _c(
+              "svg",
+              {
+                staticClass: "fill-current w-4 h-4",
+                attrs: {
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 24 24"
+                }
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M19.769 9.923l-12.642 12.639-7.127 1.438 1.438-7.128 12.641-12.64 5.69 5.691zm1.414-1.414l2.817-2.82-5.691-5.689-2.816 2.817 5.69 5.692z"
+                  }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("span", { staticClass: "uppercase text-sm font-semibold" }, [
+              _vm._v("Creat Team")
+            ])
           ]
-        ),
-        _vm._v(" "),
-        _c("span", { staticClass: "uppercase text-sm font-semibold" }, [
-          _vm._v("Creat Team")
-        ])
-      ]
-    ),
+        )
+      : _vm._e(),
     _vm._v(" "),
     _vm.toggleModal
       ? _c(
@@ -46167,6 +46510,386 @@ var staticRenderFns = [
     )
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TeamsTable.vue?vue&type=template&id=0b6bf463&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/TeamsTable.vue?vue&type=template&id=0b6bf463& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass:
+        "-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 pr-10 lg:px-8"
+    },
+    [
+      _c("div", { staticClass: "bg-white shadow-md rounded my-6" }, [
+        _c(
+          "table",
+          { staticClass: "min-w-max w-full table-auto" },
+          [
+            _c("thead", [
+              _c(
+                "tr",
+                {
+                  staticClass:
+                    "bg-gray-200 text-gray-600 uppercase text-sm leading-normal"
+                },
+                [
+                  _c(
+                    "th",
+                    {
+                      staticClass: "py-3 px-6 text-left",
+                      on: {
+                        click: function($event) {
+                          return _vm.sort("name")
+                        }
+                      }
+                    },
+                    [_vm._v("TEAM NAME")]
+                  ),
+                  _vm._v(" "),
+                  _c("th", { staticClass: "py-3 px-6 text-left" }, [
+                    _vm._v("MEMBERS")
+                  ]),
+                  _vm._v(" "),
+                  _vm.imin
+                    ? _c("th", { staticClass: "py-3 px-6 text-center" }, [
+                        _vm._v("Actions")
+                      ])
+                    : _vm._e()
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.sortedteams, function(team) {
+              return _c(
+                "tbody",
+                {
+                  key: team.id,
+                  staticClass: "text-gray-600 text-sm font-light"
+                },
+                [
+                  _c(
+                    "tr",
+                    {
+                      staticClass: "border-b border-gray-200 hover:bg-gray-100"
+                    },
+                    [
+                      _c(
+                        "td",
+                        {
+                          staticClass: "py-3 px-6 text-left whitespace-nowrap"
+                        },
+                        [
+                          _c("a", [
+                            _c("div", { staticClass: "flex items-center" }, [
+                              _c("span", { staticClass: "font-medium" }, [
+                                _vm._v(_vm._s(team.name))
+                              ])
+                            ])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "py-3 px-6 text-center" }, [
+                        _c(
+                          "div",
+                          { staticClass: "flex text-center items-center" },
+                          _vm._l(team.users, function(user) {
+                            return _c("div", { key: user.username }, [
+                              team.leader == user.username
+                                ? _c("div", [
+                                    _c("p", { staticClass: "font-bold" }, [
+                                      _vm._v(
+                                        "\n                    " +
+                                          _vm._s(
+                                            "[ " +
+                                              user.first_name +
+                                              " " +
+                                              user.last_name +
+                                              " ]"
+                                          ) +
+                                          "\n                     \n                  "
+                                      )
+                                    ])
+                                  ])
+                                : _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "flex text-center items-center"
+                                    },
+                                    [
+                                      team.leader == _vm.me || _vm.allow
+                                        ? _c(
+                                            "div",
+                                            {
+                                              staticClass: "flex items-center"
+                                            },
+                                            [
+                                              _c("p", [
+                                                _vm._v(
+                                                  "\n                      " +
+                                                    _vm._s(
+                                                      "[ " +
+                                                        user.first_name +
+                                                        " " +
+                                                        user.last_name +
+                                                        " ]"
+                                                    ) +
+                                                    "\n                    "
+                                                )
+                                              ]),
+                                              _vm._v(" "),
+                                              _c(
+                                                "svg",
+                                                {
+                                                  staticClass:
+                                                    "h-4 w-4 hover:text-red-500 hover:scale-110 transform",
+                                                  attrs: {
+                                                    xmlns:
+                                                      "http://www.w3.org/2000/svg",
+                                                    fill: "none",
+                                                    viewBox: "0 0 24 24",
+                                                    stroke: "currentColor"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.leftteam(
+                                                        team.id,
+                                                        team.name,
+                                                        user.username
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("path", {
+                                                    attrs: {
+                                                      "stroke-linecap": "round",
+                                                      "stroke-linejoin":
+                                                        "round",
+                                                      "stroke-width": "2",
+                                                      d:
+                                                        "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        : _c("p", [
+                                            _vm._v(
+                                              "\n                    " +
+                                                _vm._s(
+                                                  "[ " +
+                                                    user.first_name +
+                                                    " " +
+                                                    user.last_name +
+                                                    " ]"
+                                                ) +
+                                                "\n                  "
+                                            )
+                                          ]),
+                                      _vm._v(
+                                        "\n                   \n                "
+                                      )
+                                    ]
+                                  )
+                            ])
+                          }),
+                          0
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm.imin
+                        ? _c("td", { staticClass: "py-3 px-6 text-center" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "flex item-center justify-center"
+                              },
+                              [
+                                team.leader == _vm.me || _vm.allow
+                                  ? _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "w-4 mr-2 transform hover:text-red-500 hover:scale-110"
+                                      },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            attrs: {
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              fill: "none",
+                                              viewBox: "0 0 24 24",
+                                              stroke: "currentColor"
+                                            },
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.deletetheteam(
+                                                  team.id,
+                                                  team.name
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                "stroke-linecap": "round",
+                                                "stroke-linejoin": "round",
+                                                "stroke-width": "2",
+                                                d:
+                                                  "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                              }
+                                            })
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  : _c("div", [
+                                      _vm.isExist(_vm.me, team.users)
+                                        ? _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "w-4 mr-2 transform hover:text-red-500 hover:scale-110"
+                                            },
+                                            [
+                                              _c(
+                                                "svg",
+                                                {
+                                                  attrs: {
+                                                    xmlns:
+                                                      "http://www.w3.org/2000/svg",
+                                                    fill: "none",
+                                                    viewBox: "0 0 24 24",
+                                                    stroke: "currentColor"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.leftteam(
+                                                        team.id,
+                                                        team.name
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("path", {
+                                                    attrs: {
+                                                      "stroke-linecap": "round",
+                                                      "stroke-linejoin":
+                                                        "round",
+                                                      "stroke-width": "2",
+                                                      d:
+                                                        "M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        : team.users.length < 4 && !_vm.onteam
+                                        ? _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "w-4 mr-2 transform hover:text-green-500 hover:scale-110"
+                                            },
+                                            [
+                                              _c(
+                                                "svg",
+                                                {
+                                                  attrs: {
+                                                    xmlns:
+                                                      "http://www.w3.org/2000/svg",
+                                                    fill: "none",
+                                                    viewBox: "0 0 24 24",
+                                                    stroke: "currentColor"
+                                                  },
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.joiningtteam(
+                                                        team.id,
+                                                        team.name
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("path", {
+                                                    attrs: {
+                                                      "stroke-linecap": "round",
+                                                      "stroke-linejoin":
+                                                        "round",
+                                                      "stroke-width": "2",
+                                                      d:
+                                                        "M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                                                    }
+                                                  })
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        : _vm._e()
+                                    ])
+                              ]
+                            )
+                          ])
+                        : _vm._e()
+                    ]
+                  )
+                ]
+              )
+            })
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "sm:flex-1 sm:flex sm:items-center sm:justify-between mt-4 work-sans"
+          },
+          [
+            _c("div", [
+              _c("p", { staticClass: "text-sm leading-5 text-blue-700" }, [
+                _vm._v("\n          Teams:\n          "),
+                _c("span", { staticClass: "font-medium" }, [
+                  _vm._v(_vm._s(this.teams.length))
+                ])
+              ])
+            ])
+          ]
+        )
+      ])
+    ]
+  )
+}
+var staticRenderFns = []
 render._withStripped = true
 
 

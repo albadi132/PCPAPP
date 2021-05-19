@@ -12,6 +12,7 @@ use App\Models\Team;
 class Contest extends Model
 {
     use HasFactory;
+   
 
     public $table='contests';
 

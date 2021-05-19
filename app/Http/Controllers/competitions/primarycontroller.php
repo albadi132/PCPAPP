@@ -11,7 +11,9 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\ProblemResource;
 use App\Http\Resources\ParticipantsResource;
+use App\Http\Resources\TeamResource;
 use App\Models\User;
+use App\Models\Team;
 use App\Models\ContestUser;
 use Illuminate\Support\Facades\Auth;
 
@@ -174,15 +176,48 @@ public function participants($name)
 public function teams($name)
 {
   $name = str_replace("_", " ", $name);
-  $contest = Contest::where('name', $name)->where('status','=',1)->firstOrFail();
+  $contest = Contest::with('teams')->where('name', $name)->where('status','=',1)->firstOrFail();
   if($contest)
   {
+      
    //check if contest is team
    if( $contest->participation == 'team')
    {
+    $teamwithuser = [];
+    $part=array();
+    foreach ($contest->teams as $team) {
+      $teamwithuser[] = Team::with('users')->where('id',$team->id)->first();
+      foreach($team->users as $user)
+      {
+        array_push($part,$user->username);
+      }
 
+      }
+
+
+$admin = FALSE;
+      if(Gate::allows('OrganizerOrAdmin', $contest->id))
+      {$admin = TRUE;}
+$myuser = null;
+$actuion = FALSE;
+$ihaveteam = FALSE;
+if(!is_null(Auth::user()))
+      {
+        $myuser = Auth::user();
+        if(!is_null(ContestUser::where( 'user_id', '=' , $myuser->id )->where( 'contest_id' , '=' ,  $contest->id )->first()))
+        {$actuion = TRUE;
+          if(in_array($myuser->username, $part))
+          {$ihaveteam = True;}
+        }
+
+      }
     return view('competitions.teams')
-  ->with('contest', $contest);
+  ->with('contest', $contest)
+  ->with('teamwithuser', $teamwithuser)
+  ->with('admin',$admin)
+  ->with('myuser',$myuser)
+  ->with('actuion',$actuion)
+  ->with('ihaveteam',$ihaveteam);
   
    }
    else

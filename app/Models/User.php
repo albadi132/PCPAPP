@@ -30,7 +30,6 @@ class User extends Authenticatable
         'job',
         'workplace'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -40,6 +39,7 @@ class User extends Authenticatable
         'password',
         'remember_token',
         'verification_code',
+        'pivot'
     ];
 
     /**

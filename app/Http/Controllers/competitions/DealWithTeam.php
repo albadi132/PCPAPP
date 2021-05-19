@@ -10,6 +10,7 @@ use App\Models\ContestUser;
 use App\Models\Team;
 use App\Models\ContestTeam;
 use App\Models\TeamUser;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 class DealWithTeam extends Controller
 {
@@ -49,7 +50,7 @@ class DealWithTeam extends Controller
             //creat team
             $team = new Team;
             $team->name = $request->name;
-            $team->leader = $user->id;
+            $team->leader = $user->username;
             $save =  $team->save();
 
             if( $save )
@@ -151,6 +152,84 @@ class DealWithTeam extends Controller
 
     }
 
+    public function deleteteam($name,$id)
+    {
+
+  $contestname = str_replace("_", " ", $name);
+  $contest = Contest::where('name', $contestname)->where('status','=',1)->first();
+  if(!is_null($contest))
+  {
+
+      //comp time
+      if($this->RegistrationIsOpen($contest->id))
+        {
+      //are you admin
+      if(Gate::allows('OrganizerOrAdmin', $contest->id))
+      { 
+        $team = Team::find($id);
+
+        if(!is_null($team))
+        {
+        if($this->TeamRemove($team->id))
+        {
+            return redirect()->route('UserTeams', ['name' => $name])->with(session()->flash('alert-success', 'Team has been successfully deleted.'));
+        }
+        else
+        {
+            return redirect()->route('UserTeams', ['name' => $name])->with(session()->flash('alert-danger', 'Something went wrong!!'));
+        }
+        }
+        else{
+            return redirect()->route('UserTeams', ['name' => $name])->with(session()->flash('alert-danger', 'Something went wrong!!'));
+            
+        }
+
+      }
+      else
+      {
+        //are you the leader
+        $team = Team::find($id);
+
+        if(!is_null($team))
+        {
+            if($team->leader == Auth::user()->username)
+            {
+                if($this->TeamRemove($team->id))
+                {
+                    return redirect()->route('UserTeams', ['name' => $name])->with(session()->flash('alert-success', 'Team has been successfully deleted.'));
+                }
+                else{
+                    return redirect()->route('UserTeams', ['name' => $name])->with(session()->flash('alert-danger', 'Something went wrong!!'));
+                }
+               
+            }
+            else
+            {
+                return redirect()->route('UserTeams', ['name' => $name])->with(session()->flash('alert-danger', 'You do not have permission to delete the team.'));
+            }
+            
+        }
+        else{
+            return redirect()->route('UserTeams', ['name' => $name])->with(session()->flash('alert-danger', 'Something went wrong!!'));
+        }
+
+      }
+        }
+        else
+        { return redirect()->route('UserTeams', ['name' => $name])->with(session()->flash('alert-danger', 'The team cannot be deleted, the competition has already started'));}
+
+
+  }
+  else{
+
+    return redirect()->route('UserTeams', ['name' => $name])->with(session()->flash('alert-danger', 'Something went wrong!!'));
+
+  }
+
+
+
+    }
+
     public function RegistrationIsOpen($id)
     {
         $contest = Contest::find($id);
@@ -216,6 +295,12 @@ class DealWithTeam extends Controller
             
         return $have ;
 
+
+    }
+
+    public function TeamRemove($teamid)
+    {
+        return TRUE;
 
     }
     
