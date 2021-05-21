@@ -10,11 +10,10 @@ class ProfileController extends Controller
 {
     public function profile($username)
     {
-        
-        if(User::where('username', $username)->firstOrFail())
-        {
-            $user = User::select('id','username','first_name','last_name','email','about','gender','role','avatar','is_verified','created_at')
+        $user = User::with('Contests')->select('id','username','first_name','last_name','email','about','gender','role','avatar','is_verified','created_at' , 'workplace' ,'job')
             ->where('username' , $username)->first();
+        if(!is_null($user))
+        {
             
             return view('users.profile')->with('user',$user);
 

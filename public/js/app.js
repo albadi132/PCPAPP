@@ -2815,6 +2815,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["teamwithuser", "urlname", "contest", "admin", "myuser", "actuion", "ihaveteam"],
   data: function data() {
@@ -2850,14 +2851,14 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    joiningtteam: function joiningtteam(teamid, teamname) {
-      window.location = "/competition/" + this.url + "/deleteteam/" + teamid;
+    joiningtteam: function joiningtteam(teamid) {
+      window.location = "/competition/" + this.url + "/joiningtteam/" + teamid;
     },
-    leftteam: function leftteam(teamid, teamname, username) {
+    leftteam: function leftteam(teamid, username) {
       if (typeof username !== 'undefined') {
-        console.log(username);
+        window.location = "/competition/" + this.url + "/leftteam/" + teamid + "/" + username;
       } else {
-        console.log("not");
+        window.location = "/competition/" + this.url + "/leftteam/" + teamid;
       }
     },
     isExist: function isExist(m, t) {
@@ -46674,7 +46675,6 @@ var render = function() {
                                                     click: function($event) {
                                                       return _vm.leftteam(
                                                         team.id,
-                                                        team.name,
                                                         user.username
                                                       )
                                                     }
@@ -46790,8 +46790,7 @@ var render = function() {
                                                   on: {
                                                     click: function($event) {
                                                       return _vm.leftteam(
-                                                        team.id,
-                                                        team.name
+                                                        team.id
                                                       )
                                                     }
                                                   }
@@ -46804,7 +46803,7 @@ var render = function() {
                                                         "round",
                                                       "stroke-width": "2",
                                                       d:
-                                                        "M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                                                        "M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
                                                     }
                                                   })
                                                 ]
@@ -46832,8 +46831,7 @@ var render = function() {
                                                   on: {
                                                     click: function($event) {
                                                       return _vm.joiningtteam(
-                                                        team.id,
-                                                        team.name
+                                                        team.id
                                                       )
                                                     }
                                                   }

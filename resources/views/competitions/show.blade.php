@@ -48,13 +48,13 @@
                         <h1 class="text-2xl text-gray-700 mb-5">Conditions</h1>
                         <h3 class="text-1xl text-gray-500 mb-5">Rules concerning the platform are included.
                             <br>
-                            - Sharing the flags between different teams is prohibited.
+                            - Sharing the solution between different Participants is prohibited.
                             <br>
                             - Brute Force attacks on the challenges submission portal or challenges links are not allowed.
                             <br>
-                            - Any attack against the site or the hosted servers will be observed and the player will be banned from participating in the CTF immediately.
+                            - Any attack against the site or the hosted servers will be observed and the player will be banned from participating in the contest immediately.
                             <br>
-                            - Organizers have the permission to disqualify teams for any unethical behavior or any trials to interrupt the CTF.
+                            - Organizers have the permission to disqualify teams for any unethical behavior or any trials to interrupt the contest.
                         </h3>
             </div>
             <div class="bg-white py-4 px-4 shadow-sm rounded-lg my-4 mx-4">

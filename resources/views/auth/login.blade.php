@@ -38,7 +38,7 @@
                         </label>
 
                         <input id="email" type="email"
-                            class="form-input w-full @error('email') border-red-500 @enderror" name="email"
+                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('email') border-red-500 @enderror" name="email"
                             value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                         @error('email')
@@ -54,7 +54,7 @@
                         </label>
 
                         <input id="password" type="password"
-                            class="form-input w-full @error('password') border-red-500 @enderror" name="password"
+                        class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('password') border-red-500 @enderror" name="password"
                             required>
 
                         @error('password')

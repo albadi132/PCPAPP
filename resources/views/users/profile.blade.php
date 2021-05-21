@@ -60,24 +60,15 @@
                             <span>Participate in competitions</span>
                         </div>
                         <div class="grid grid-cols-3">
+                            @foreach ($user->contests as $contest)
                             <div class="text-center my-2">
                                 <img class="h-16 w-16 rounded-full mx-auto"
-                                    src=""
-                                    alt="test photo">
-                                <a href="#" class="text-main-color">Test</a>
+                                src="{{url('/contests/images/'. $contest['logo']) }}"
+                                    alt="contests">
+                                <a href="{{route('competition', ['name' => NameToUrl($contest['name']) ])}}" class="text-main-color">{{$contest['name']}}</a>
                             </div>
-                            <div class="text-center my-2">
-                                <img class="h-16 w-16 rounded-full mx-auto"
-                                    src=""
-                                    alt="test photo">
-                                <a href="#" class="text-main-color">Test</a>
-                            </div>
-                            <div class="text-center my-2">
-                                <img class="h-16 w-16 rounded-full mx-auto"
-                                    src=""
-                                    alt="test photo">
-                                <a href="#" class="text-main-color">Test</a>
-                            </div>
+                            @endforeach
+
                         </div>
                     </div>
                    
@@ -141,8 +132,7 @@
                                 </div>
                                 <ul class="list-inside space-y-2">
                                     <li>
-                                        <div class="text-teal-600">test jop</div>
-                                        <div class="text-gray-500 text-xs">test place</div>
+                                        <div class="text-teal-600">{{$user->job}}</div>
                                     </li>
 
                                 </ul>
@@ -163,8 +153,7 @@
                                 </div>
                                 <ul class="list-inside space-y-2">
                                     <li>
-                                        <div class="text-teal-600">Test Degree</div>
-                                        <div class="text-gray-500 text-xs">test place & date</div>
+                                        <div class="text-teal-600">{{$user->workplace}}</div>
                                     </li>
                                 </ul>
                             </div>
