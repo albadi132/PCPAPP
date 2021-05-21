@@ -31,9 +31,7 @@
                 <div v-for="user in team.users" v-bind:key="user.username">
                   <div v-if="team.leader == user.username">
                     <p class="font-bold">
-                      {{
-                        "[ " + user.first_name + " " + user.last_name + " ]"
-                      }}
+                      {{ "[ " + user.first_name + " " + user.last_name + " ]" }}
                       &nbsp;
                     </p>
                   </div>
@@ -47,7 +45,8 @@
                           "[ " + user.first_name + " " + user.last_name + " ]"
                         }}
                       </p>
-                      <svg @click="leftteam(team.id , team.name , user.username )"
+                      <svg
+                        @click="leftteam(team.id, user.username)"
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-4 w-4 hover:text-red-500 hover:scale-110 transform"
                         fill="none"
@@ -70,13 +69,14 @@
                 </div>
               </div>
             </td>
-            <td  v-if="imin" class="py-3 px-6 text-center">
+            <td v-if="imin" class="py-3 px-6 text-center">
               <div class="flex item-center justify-center">
                 <div
-                v-if="team.leader == me || allow"
+                  v-if="team.leader == me || allow"
                   class="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
                 >
-                  <svg @click="deletetheteam(team.id , team.name)"
+                  <svg
+                    @click="deletetheteam(team.id, team.name)"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -91,42 +91,44 @@
                   </svg>
                 </div>
                 <div v-else>
-                <div
-                v-if="isExist(me , team.users)"
-                  class="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
-                >
-                  <svg  @click="leftteam(team.id , team.name )"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                  <div
+                    v-if="isExist(me, team.users)"
+                    class="w-4 mr-2 transform hover:text-red-500 hover:scale-110"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                    />
-                  </svg>
-                </div>
-                      <div
-                v-else-if="(team.users.length < 4) && !(onteam)"
-                  class="w-4 mr-2 transform hover:text-green-500 hover:scale-110"
-                >
-                  <svg @click="joiningtteam(team.id , team.name)"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
+                    <svg
+                      @click="leftteam(team.id)"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                      />
+                    </svg>
+                  </div>
+                  <div
+                    v-else-if="team.users.length < 4 && !onteam"
+                    class="w-4 mr-2 transform hover:text-green-500 hover:scale-110"
                   >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
-                    />
-                  </svg>
-                </div>
+                    <svg
+                      @click="joiningtteam(team.id)"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </div>
             </td>
@@ -140,7 +142,7 @@
         <div>
           <p class="text-sm leading-5 text-blue-700">
             Teams:
-            <span class="font-medium">{{this.teams.length}}</span>
+            <span class="font-medium">{{ this.teams.length }}</span>
           </p>
         </div>
       </div>
@@ -151,11 +153,19 @@
 
 <script>
 export default {
-  props: ["teamwithuser", "urlname" ,"contest", "admin", "myuser", "actuion","ihaveteam" ],
+  props: [
+    "teamwithuser",
+    "urlname",
+    "contest",
+    "admin",
+    "myuser",
+    "actuion",
+    "ihaveteam",
+  ],
   data() {
     return {
       teams: JSON.parse(this.teamwithuser),
-      url : this.urlname,
+      url: this.urlname,
       contestid: this.contest,
       onteam: this.ihaveteam,
       allow: this.admin,
@@ -170,33 +180,37 @@ export default {
     };
   },
   methods: {
-    deletetheteam: function (teamid , teamname){
-      toast.fire({
-  title: 'Do you want to delete ' + teamname +' team?',
-  type: 'warning',
-  showCancelButton: true,
-  confirmButtonText: `Delete`,
-  confirmButtonColor: '#EC7063',
-}).then((result) => {
-  if (result.isConfirmed) {
-     window.location = "/competition/"+this.url+"/deleteteam/"+teamid;
-  }
-})
-
+    deletetheteam: function (teamid, teamname) {
+      toast
+        .fire({
+          title: "Do you want to delete " + teamname + " team?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonText: `Delete`,
+          confirmButtonColor: "#EC7063",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            window.location =
+              "/competition/" + this.url + "/deleteteam/" + teamid;
+          }
+        });
     },
-     joiningtteam: function (teamid , teamname){
-     window.location = "/competition/"+this.url+"/deleteteam/"+teamid;
+    joiningtteam: function (teamid) {
+      window.location = "/competition/" + this.url + "/joiningtteam/" + teamid;
     },
-     leftteam: function (teamid , teamname ,username){
-       if((typeof username !== 'undefined'))
-       {console.log(username);}
-       else
-       {console.log("not");}
+    leftteam: function (teamid, username) {
+      if (typeof username !== "undefined") {
+        window.location =
+          "/competition/" + this.url + "/leftteam/" + teamid + "/" + username;
+      } else {
+        window.location = "/competition/" + this.url + "/leftteam/" + teamid;
+      }
     },
-    isExist: function (m , t){
-        for(var i=0; i < t.length; i++){
-        if( t[i].username == m){
-          return true
+    isExist: function (m, t) {
+      for (var i = 0; i < t.length; i++) {
+        if (t[i].username == m) {
+          return true;
         }
       }
       return false;
@@ -244,9 +258,6 @@ export default {
         });
     },
   },
-  mounted() {
-  
-    
-  },
+  mounted() {},
 };
 </script>
