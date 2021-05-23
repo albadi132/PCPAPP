@@ -104,7 +104,8 @@
   <h3 class="text-1xl text-gray-500 mb-5">Upload your program with input file and specifying the programming language.</h3>
   <br>
   <div class="bg-white">
-  <form action="" method="post" enctype="multipart/form-data">
+  <form action="{{ route('testexu') }}" method="post" enctype="multipart/form-data">
+    
     @csrf
 
     <h3 class="text-1xl text-gray-500 ">Select Language:</h3>
@@ -120,18 +121,11 @@
     </div>
     <h3 class="text-1xl text-gray-500 ">Upload your code:</h3>
     <input
-                  id="logo"
-                  name="logo"
+                  id="code"
+                  name="code"
                   type="file"
                   class="w-11/12 focus:outline-none focus:text-gray-600 p-2" 
      />
-     <h3 class="text-1xl text-gray-500 ">Upload your input file:</h3>
-    <input
-                id="logo"
-                name="logo"
-                type="file"
-                class="w-11/12 focus:outline-none focus:text-gray-600 p-2" 
-    />
     <br>
     <div class="w-full p-4 text-right text-gray-500">
       <button type="submit" class="inline-flex items-center focus:outline-none mr-4">

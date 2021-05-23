@@ -9,13 +9,12 @@
         <span class="text-2xl tracking-wide">Home</span>
       </div>
     </div>
-    <form action="{{route('teamtest' , ['name' => 'test' ])}}" method="post">
-      @csrf
-      <label for="name">name:</label>
-      <input type="text" id="name" name="name"><br><br>
-      <label for="contestid">contestid:</label>
-      <input type="text" id="contestid" name="contestid"><br><br>
-      <input type="submit" value="Submit">
-    </form>
+
+    <div class="w-8/12 bg-white p-6 rounded-lg">
+      <div id="app">
+        <pcp-vuemodal></pcp-vuemodal>
+      </div>
+      
+    </div>
   </div>
   @endsection

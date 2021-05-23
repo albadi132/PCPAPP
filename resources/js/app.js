@@ -9,11 +9,14 @@
  window.Vue = require('vue').default;
  import { Form, HasError, AlertError } from 'vform';
  import swal from 'sweetalert2'
+ import VueModal from '@kouts/vue-modal'
+import '@kouts/vue-modal/dist/vue-modal.css'
  window.swal = swal;
 
  const toast = swal.mixin({
   });
   window.toast = toast;
+  Vue.component('Modal', VueModal)
  
 
 
@@ -36,7 +39,8 @@
  Vue.component('pcp-competitor', require('./components/CompetitorTable.vue').default);
  Vue.component('pcp-teammodal', require('./components/TeamModal.vue').default);
  Vue.component('pcp-teamstable', require('./components/TeamsTable.vue').default);
- 
+ Vue.component('pcp-vuemodal', require('./components/TestVueModal.vue').default);
+
 
  
 

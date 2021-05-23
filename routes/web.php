@@ -83,3 +83,8 @@ Route::post('/competition/{name}/creatnewteam', [DealWithTeam::class, 'CreatNewT
 Route::get('/competition/{name}/deleteteam/{id}', [DealWithTeam::class, 'deleteteam'])->middleware('auth');
 Route::get('/competition/{name}/joiningtteam/{id}', [DealWithTeam::class, 'joiningtteam'])->middleware('auth');
 Route::get('/competition/{name}/leftteam/{id}/{username?}', [DealWithTeam::class, 'leftteam'])->middleware('auth');
+
+
+//test
+Route::post('/controlpanel', [ControlPanel::class, 'testcase'])->name('testcase')->middleware('auth');
+Route::post('/competition/challenges', [DealWithProblem::class, 'testpy'])->name('testexu')->middleware('auth');

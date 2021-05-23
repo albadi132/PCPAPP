@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProblemsLibraryTable extends Migration
+class CreateTestcasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateProblemsLibraryTable extends Migration
      */
     public function up()
     {
-        Schema::create('problems_library', function (Blueprint $table) {
+        Schema::create('testcases', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
-            $table->longText('description');
-            $table->string('file');
-            $table->integer('points');
-            $table->integer('author_id');
+            $table->longText('input');
+            $table->longText('output');
             $table->timestamps();
         });
     }
+
     /**
      * Reverse the migrations.
      *
@@ -30,6 +28,6 @@ class CreateProblemsLibraryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('problems_library');
+        Schema::dropIfExists('testcases');
     }
 }

@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Contest;
 use App\Models\Problem;
+use App\Models\TestCase;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\InputStream;
+
 class ControlPanel extends Controller
 {
 
@@ -19,7 +24,16 @@ class ControlPanel extends Controller
         //Auth::user()
         //Gate::allows('show')
         if(Gate::allows('show')){
-        return view('admin.home');
+
+
+            
+            /*$process = new Process(['/home/albadi/Desktop/shell/hello-with-input']);
+            $process->setInput("3 2 salim ali");
+            $process->run();
+            dd($process->getOutput());
+            */
+            return view('admin.home');
+
         }
         else
         {abort(401);}
@@ -243,6 +257,17 @@ abort(404);
          }
          else
          {abort(401);}
+    }
+
+    public function testcase(Request $request)
+    {
+       
+        $TestCase = new TestCase();
+        $TestCase->input =  $request->input;
+        $TestCase->output =   $request->output;
+        $TestCase->save();
+        return view('admin.home');
+
     }
 
 

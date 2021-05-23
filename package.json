@@ -28,6 +28,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@kouts/vue-modal": "^2.0.10",
         "vform": "^1.0.1",
         "vue-router": "^3.5.1"
     }
