@@ -228,20 +228,21 @@ if(!is_null(Auth::user()))
   
 
 }
-public function scoreboard($name)
+
+
+public function competitionlog($name)
 {
   $name = str_replace("_", " ", $name);
   $contest = Contest::where('name', $name)->where('status','=',1)->firstOrFail();
   if($contest)
   {
     
-    return view('competitions.scoreboard')
+    return view('competitions.competitionlog')
   ->with('contest', $contest);
   }
   else{abort(404);}
 
-  
-
 }
+
 
 }
