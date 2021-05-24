@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class SubmissionsLog extends Model
 {
     use HasFactory;
-    public $table='submissions_log';
+    public $table='submissionlogs';
 }

@@ -9,6 +9,8 @@ use App\Models\Problem;
 use App\Models\ContestUser;
 use App\Models\ContestProblem;
 use App\Models\ContestLanguage;
+use App\Models\Language;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -35,8 +37,7 @@ class DealWithProblem extends Controller
     }
   }
 
-
-
+  
   public function testcplus(Request $request)
   {
 
@@ -146,43 +147,5 @@ class DealWithProblem extends Controller
   }
 
 
-  public function SubmittingIsOpen($id)
-  {
-    $contest = Contest::find($id);
-    if (!is_null($contest)) {
-      if (($contest->starting_date < date('Y-m-d H:i:s')) && ($contest->ending_date > date('Y-m-d H:i:s')) && ($contest->status == 1)) {
-        return True;
-      } else
-        return FALSE;
-    } else {
-      return FALSE;
-    }
-  }
 
-  public function IsSubscribe($id, $userid)
-  {
-    $contestuser = ContestUser::where('user_id', $userid)->where('contest_id', $id)->first();
-
-    if (!is_null($contestuser))
-      return TRUE;
-    else
-      return FALSE;
-  }
-
-  public function QuestionInCompetition($compid, $probid)
-  {
-    $ContestProblem = ContestProblem::where('problem_id', $probid)->where('contest_id', $compid)->first();
-    if (!is_null($ContestProblem))
-      return TRUE;
-    else
-      return FALSE;
-  }
-  public function LanguageInCompetition($compid, $langid)
-  {
-    $ContestLanguage = ContestLanguage::where('language_id', $langid)->where('contest_id', $compid)->first();
-    if (!is_null($ContestLanguage))
-      return TRUE;
-    else
-      return FALSE;
-  }
 }

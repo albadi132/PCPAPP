@@ -82,6 +82,18 @@
       Scoreboard
     </span>
   </a>
+  @can('OrganizerOrAdmin', $contest->id)
+  <a href="{{route('competitionlog', ['name' => NameToUrl($contest->name) ])}}" class=" {{ 'competition/'.NameToUrl($contest->name).'/competitionlog' == request()->is('competition/'.NameToUrl($contest->name).'/competitionlog*') ? 'border-white text-white bg-green-400 ' : ' border-green-400 text-green-400 bg-white ' }} hover:bg-green-400 hover:text-white hover:border-white border-2  px-4 py-2 text-lg font-semibold tracking-wider  inline-flex items-center space-x-2 rounded ">
+    <span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+      </svg>
+    </span>
+    <span>
+      Competition Log
+    </span>
+  </a>
+  @endcan
     </div>
   
 

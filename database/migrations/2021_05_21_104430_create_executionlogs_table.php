@@ -21,7 +21,7 @@ class CreateExecutionlogsTable extends Migration
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

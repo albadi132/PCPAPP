@@ -14,6 +14,8 @@ use App\Http\Controllers\competitions\primarycontroller;
 use App\Http\Controllers\competitions\DealWithProblem;
 use App\Http\Controllers\competitions\Subscription;
 use App\Http\Controllers\competitions\DealWithTeam;
+use App\Http\Controllers\competitions\DealWithScoreboard;
+use App\Http\Controllers\judge\JudgeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,7 +70,9 @@ Route::get('/competition/{name}', [primarycontroller::class, 'ShowCompetition'])
 Route::get('/competition/{name}/challenges', [primarycontroller::class, 'challenges'])->name('UserChallenges')->middleware('auth');
 Route::get('/competition/{name}/participants', [primarycontroller::class, 'participants'])->name('UserParticipants');
 Route::get('/competition/{name}/teams', [primarycontroller::class, 'teams'])->name('UserTeams');
-Route::get('/competition/{name}/scoreboard', [primarycontroller::class, 'scoreboard'])->name('scoreboard');
+Route::get('/competition/{name}/scoreboard', [DealWithScoreboard::class, 'scoreboard'])->name('scoreboard');
+Route::get('/competition/{name}/competitionlog', [primarycontroller::class, 'competitionlog'])->name('competitionlog')->middleware('auth');
+
 
 //competitions Subscription
 Route::post('/competition/{name}/registration', [Subscription::class, 'registration'])->middleware('auth');
@@ -83,6 +87,9 @@ Route::post('/competition/{name}/creatnewteam', [DealWithTeam::class, 'CreatNewT
 Route::get('/competition/{name}/deleteteam/{id}', [DealWithTeam::class, 'deleteteam'])->middleware('auth');
 Route::get('/competition/{name}/joiningtteam/{id}', [DealWithTeam::class, 'joiningtteam'])->middleware('auth');
 Route::get('/competition/{name}/leftteam/{id}/{username?}', [DealWithTeam::class, 'leftteam'])->middleware('auth');
+
+// Judge System
+Route::post('/competition/{name}/challenges/{problem}', [JudgeController::class, 'JudgeSystem'])->name('JudgeSystem')->middleware('auth');
 
 
 //test

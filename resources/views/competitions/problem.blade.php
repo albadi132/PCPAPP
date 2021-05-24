@@ -104,7 +104,7 @@
   <h3 class="text-1xl text-gray-500 mb-5">Upload your program with input file and specifying the programming language.</h3>
   <br>
   <div class="bg-white">
-  <form action="{{ route('testexu') }}" method="post" enctype="multipart/form-data">
+  <form action="{{route('JudgeSystem', ['name' => NameToUrl($contest->name) , 'problem' => NameToUrl($problem->name) ] )}}" method="post" enctype="multipart/form-data">
     
     @csrf
 
@@ -115,9 +115,15 @@
         <option value="{{ $language->id }}" >{{ $language->name}}</option>
       @endforeach
       </select>
+      
       <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
       </div>
+      @error('language')
+      <p class="text-red-500 text-xs italic mt-4">
+          {{ $message }}
+      </p>
+      @enderror
     </div>
     <h3 class="text-1xl text-gray-500 ">Upload your code:</h3>
     <input
@@ -127,6 +133,21 @@
                   class="w-11/12 focus:outline-none focus:text-gray-600 p-2" 
      />
     <br>
+    @error('code')
+    <p class="text-red-500 text-xs italic mt-4">
+        {{ $message }}
+    </p>
+    @enderror
+    @foreach (['danger', 'success'] as $msg)
+    @if(Session::has('judge-' . $msg)) 
+    <div class="{{ $msg == 'danger' ? 'bg-red-100 border border-red-400 text-red-700' : 'bg-green-100 border border-green-400 text-green-700' }}  px-4 py-3 rounded relative" role="alert">
+      <span class="block sm:inline">{{Session::get('judge-' . $msg)}}</span>
+      <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+      </span>
+    </div>
+        
+   @endif 
+@endforeach
     <div class="w-full p-4 text-right text-gray-500">
       <button type="submit" class="inline-flex items-center focus:outline-none mr-4">
         SUBMET
