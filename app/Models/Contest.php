@@ -12,6 +12,7 @@ use App\Models\Team;
 class Contest extends Model
 {
     use HasFactory;
+    use \Staudenmeir\EloquentHasManyDeep\HasRelationships;
    
 
     public $table='contests';
@@ -36,6 +37,13 @@ class Contest extends Model
     {
         return $this->belongsToMany(Team::class);
     }
+
+    public function teamwithuser()
+    {
+        return $this->hasManyDeep(User::class, ['contest_team', Team::class, 'team_user']);
+    }
+
+    
 
 
     
