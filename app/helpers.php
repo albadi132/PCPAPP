@@ -25,7 +25,17 @@ function UrlToName($string) {
   return $string;
 }
 
+function teamscore($users , $score)
+{
+  $teamscore = 0 ;
+ foreach( $users as $user)
+ {
+  $teamscore += $score->where("user_id" , $user->user_id )->sum('points');
+   
+ }
 
+ return  $teamscore;
+}
 
 
 
