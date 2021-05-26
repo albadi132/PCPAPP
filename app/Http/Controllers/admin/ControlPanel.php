@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Contest;
 use App\Models\Problem;
 use App\Models\TestCase;
+use App\Models\ProblemTestReference;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\InputStream;
@@ -266,6 +267,12 @@ abort(404);
         $TestCase->input =  $request->input;
         $TestCase->output =   $request->output;
         $TestCase->save();
+        $ProblemTestReference = new ProblemTestReference();
+        $ProblemTestReference->problem_id = $request->id;
+        $ProblemTestReference->testcase_id = $TestCase->id;
+        $ProblemTestReference->timestamps  = false;
+        $ProblemTestReference->save();
+
         return view('admin.home');
 
     }

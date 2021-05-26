@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class ProblemTestReference extends Model
 {
     use HasFactory;
-    public $table='problem_test_reference';
+    public $table='problem_testcase';
 }
