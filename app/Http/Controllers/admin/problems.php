@@ -18,7 +18,7 @@ class problems extends Controller
        {
         
         $this->validate($request, [
-            'name' => ['required','unique:problems_library','regex:/^[a-zA-Z0-9 ]+$/', 'string', 'max:255'],
+            'name' => ['required','unique:problems','regex:/^[a-zA-Z0-9 ]+$/', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:1500'],
             'question' => ['required', 'mimes:pdf', 'max:10000'],
             'score' => ['required', 'integer', 'max:1000'],

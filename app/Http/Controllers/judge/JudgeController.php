@@ -123,6 +123,7 @@ class JudgeController extends Controller
                                                     $ExecutionsLog = new ExecutionsLog;
                                                     $ExecutionsLog->output = $error;
                                                     $ExecutionsLog->result = "Time out";
+                                                    $ExecutionsLog->testcase_id = $testcase->id;
                                                     $ExecutionsLog->save();
                                                     $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
 
@@ -139,6 +140,7 @@ class JudgeController extends Controller
                                                         $ExecutionsLog->output = $process->getOutput();
                                                         $ExecutionsLog->result = "pass";
                                                         $ExecutionsLog->status = 1;
+                                                        $ExecutionsLog->testcase_id = $testcase->id;
                                                         $ExecutionsLog->save();
                                                         $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
                                                         if ($failed != 1) {
@@ -150,6 +152,7 @@ class JudgeController extends Controller
                                                         $ExecutionsLog = new ExecutionsLog;
                                                         $ExecutionsLog->output = $process->getOutput();
                                                         $ExecutionsLog->result = "fail";
+                                                        $ExecutionsLog->testcase_id = $testcase->id;
                                                         $ExecutionsLog->save();
                                                         $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
 
@@ -252,6 +255,7 @@ class JudgeController extends Controller
                                                     $ExecutionsLog = new ExecutionsLog;
                                                     $ExecutionsLog->output = $error;
                                                     $ExecutionsLog->result = "Time out";
+                                                    $ExecutionsLog->testcase_id = $testcase->id;
                                                     $ExecutionsLog->save();
                                                     $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
 
@@ -268,6 +272,7 @@ class JudgeController extends Controller
                                                         $ExecutionsLog->output = $process->getOutput();
                                                         $ExecutionsLog->result = "pass";
                                                         $ExecutionsLog->status = 1;
+                                                        $ExecutionsLog->testcase_id = $testcase->id;
                                                         $ExecutionsLog->save();
                                                         $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
                                                         if ($failed != 1) {
@@ -279,6 +284,7 @@ class JudgeController extends Controller
                                                         $ExecutionsLog = new ExecutionsLog;
                                                         $ExecutionsLog->output = $process->getOutput();
                                                         $ExecutionsLog->result = "fail";
+                                                        $ExecutionsLog->testcase_id = $testcase->id;
                                                         $ExecutionsLog->save();
                                                         $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
 

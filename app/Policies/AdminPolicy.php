@@ -25,4 +25,10 @@ class AdminPolicy
         
         return Auth::user()->role === 'admin';
     }
+
+    public function AdminOrManger()
+    {
+        return (Auth::user()->role === 'admin') || (Auth::user()->role === 'manger');
+
+    }
 }

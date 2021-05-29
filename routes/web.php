@@ -15,6 +15,7 @@ use App\Http\Controllers\competitions\DealWithProblem;
 use App\Http\Controllers\competitions\Subscription;
 use App\Http\Controllers\competitions\DealWithTeam;
 use App\Http\Controllers\competitions\DealWithScoreboard;
+use App\Http\Controllers\competitions\mange;
 use App\Http\Controllers\judge\JudgeController;
 
 /*
@@ -72,7 +73,14 @@ Route::get('/competition/{name}/participants', [primarycontroller::class, 'parti
 Route::get('/competition/{name}/teams', [primarycontroller::class, 'teams'])->name('UserTeams');
 Route::get('/competition/{name}/participants/scoreboard', [DealWithScoreboard::class, 'scoreboardsolo'])->name('scoreboard-solo');
 Route::get('/competition/{name}/teams/scoreboard', [DealWithScoreboard::class, 'scoreboardteam'])->name('scoreboard-team');
-Route::get('/competition/{name}/competitionlog', [primarycontroller::class, 'competitionlog'])->name('competitionlog')->middleware('auth');
+
+//competitions mange
+Route::get('/competition/{name}/mange', [primarycontroller::class, 'competitionlog'])->name('competition-manage')->middleware('auth');
+Route::get('/competition/{name}/mange/participants', [primarycontroller::class, 'competitionparticipants'])->name('competition-manage-participants')->middleware('auth');
+Route::get('/competition/{name}/mange/participants/remove/{id}', [mange::class, 'removecompetitor'])->middleware('auth');
+Route::get('/competition/{name}/mange/organizers', [primarycontroller::class, 'competitionorganizers'])->name('competition-manage-organizers')->middleware('auth');
+Route::get('/competition/{name}/mange/organizers/remove/{id}', [mange::class, 'removeorganizers'])->middleware('auth');
+Route::post('/competition/{name}/mange/organizers', [mange::class, 'registrationorganizers'])->middleware('auth');
 
 
 //competitions Subscription
