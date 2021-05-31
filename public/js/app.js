@@ -2821,6 +2821,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2862,13 +2872,176 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.HasError.name, vform__WEBPACK_IMPORTED_MODULE_1__.HasError);
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK_IMPORTED_MODULE_1__.AlertError);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["contest", "urlname", "problems", "languages", "competitor"],
+  name: "AddRemove",
   data: function data() {
     return {
-      showfirstModal: false,
-      showSecondModal: false
+      contproblems: JSON.parse(this.problems),
+      contlanguages: JSON.parse(this.languages),
+      contcompetitor: JSON.parse(this.competitor),
+      toggleModal: false,
+      resp: false,
+      url: this.urlname,
+      form: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        problem: "",
+        languages: '',
+        competitor: '',
+        contestid: this.contest
+      })
     };
-  }
+  },
+  methods: {
+    showmodal: function showmodal() {
+      this.toggleModal = true;
+    },
+    judge: function judge() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.form.post("/competition/" + _this.url + "/mange/manualjudge").then(function (_ref) {
+                  var data = _ref.data;
+
+                  if (data.status == 200) {
+                    _this.toggleModal = false;
+                    toast.fire({
+                      icon: "success",
+                      title: data.description,
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
+                  } else {
+                    toast.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: data.description
+                    });
+                  }
+                });
+
+              case 2:
+                response = _context.sent;
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -47483,123 +47656,499 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c(
-        "button",
-        {
-          staticClass:
-            "md:flex hidden items-center text-gray-500 space-x-2 border border-gray-400 px-4 py-1.5 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400",
-          on: {
-            click: function($event) {
-              _vm.showfirstModal = true
-            }
-          }
-        },
-        [
-          _c(
-            "svg",
-            {
-              staticClass: "fill-current w-4 h-4",
-              attrs: {
-                xmlns: "http://www.w3.org/2000/svg",
-                viewBox: "0 0 24 24"
-              }
-            },
-            [
-              _c("path", {
+  return _c("div", [
+    !_vm.onteam
+      ? _c(
+          "button",
+          {
+            staticClass:
+              "md:flex hidden items-center text-gray-500 space-x-2 border border-gray-400 px-4 py-1.5 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400",
+            on: { click: _vm.showmodal }
+          },
+          [
+            _c(
+              "svg",
+              {
+                staticClass: "fill-current w-4 h-4",
                 attrs: {
-                  d:
-                    "M6.188 8.719c.439-.439.926-.801 1.444-1.087 2.887-1.591 6.589-.745 8.445 2.069l-2.246 2.245c-.644-1.469-2.243-2.305-3.834-1.949-.599.134-1.168.433-1.633.898l-4.304 4.306c-1.307 1.307-1.307 3.433 0 4.74 1.307 1.307 3.433 1.307 4.74 0l1.327-1.327c1.207.479 2.501.67 3.779.575l-2.929 2.929c-2.511 2.511-6.582 2.511-9.093 0s-2.511-6.582 0-9.093l4.304-4.306zm6.836-6.836l-2.929 2.929c1.277-.096 2.572.096 3.779.574l1.326-1.326c1.307-1.307 3.433-1.307 4.74 0 1.307 1.307 1.307 3.433 0 4.74l-4.305 4.305c-1.311 1.311-3.44 1.3-4.74 0-.303-.303-.564-.68-.727-1.051l-2.246 2.245c.236.358.481.667.796.982.812.812 1.846 1.417 3.036 1.704 1.542.371 3.194.166 4.613-.617.518-.286 1.005-.648 1.444-1.087l4.304-4.305c2.512-2.511 2.512-6.582.001-9.093-2.511-2.51-6.581-2.51-9.092 0z"
+                  xmlns: "http://www.w3.org/2000/svg",
+                  viewBox: "0 0 24 24"
                 }
-              })
-            ]
-          ),
-          _vm._v(" "),
-          _c("span", { staticClass: "uppercase text-sm font-semibold" }, [
-            _vm._v("MANUAL JUDGE")
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "ClientOnly",
-        [
-          _c(
-            "Modal",
-            {
-              attrs: { title: "Manual Judge" },
-              model: {
-                value: _vm.showfirstModal,
-                callback: function($$v) {
-                  _vm.showfirstModal = $$v
-                },
-                expression: "showfirstModal"
-              }
-            },
-            [
-              _c("form", { attrs: { novalidate: "" } }, [
-                _c("h3", { staticClass: "text-1xl text-gray-500 " }, [
-                  _vm._v("Select Language:")
-                ]),
+              },
+              [
+                _c("path", {
+                  attrs: {
+                    d:
+                      "M6.188 8.719c.439-.439.926-.801 1.444-1.087 2.887-1.591 6.589-.745 8.445 2.069l-2.246 2.245c-.644-1.469-2.243-2.305-3.834-1.949-.599.134-1.168.433-1.633.898l-4.304 4.306c-1.307 1.307-1.307 3.433 0 4.74 1.307 1.307 3.433 1.307 4.74 0l1.327-1.327c1.207.479 2.501.67 3.779.575l-2.929 2.929c-2.511 2.511-6.582 2.511-9.093 0s-2.511-6.582 0-9.093l4.304-4.306zm6.836-6.836l-2.929 2.929c1.277-.096 2.572.096 3.779.574l1.326-1.326c1.307-1.307 3.433-1.307 4.74 0 1.307 1.307 1.307 3.433 0 4.74l-4.305 4.305c-1.311 1.311-3.44 1.3-4.74 0-.303-.303-.564-.68-.727-1.051l-2.246 2.245c.236.358.481.667.796.982.812.812 1.846 1.417 3.036 1.704 1.542.371 3.194.166 4.613-.617.518-.286 1.005-.648 1.444-1.087l4.304-4.305c2.512-2.511 2.512-6.582.001-9.093-2.511-2.51-6.581-2.51-9.092 0z"
+                  }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c("span", { staticClass: "uppercase text-sm font-semibold" }, [
+              _vm._v("MANUAL JUDGE")
+            ])
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.toggleModal
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "fixed overflow-xhidden overflow-y-auto inset-0 flex justify-center items-center z-50"
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl"
+              },
+              [
+                _vm._m(0),
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "relative inline-block w-full text-gray-700" },
+                  { staticClass: "flex flex-col px-6 py-5 bg-gray-50" },
                   [
-                    _c(
-                      "select",
-                      {
-                        staticClass:
-                          "w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline",
-                        attrs: {
-                          placeholder: "Select Language",
-                          name: "language"
-                        }
-                      },
-                      [_c("option", { attrs: { value: "" } })]
-                    ),
+                    _c("h3", { staticClass: "font-bold text-green-700" }, [
+                      _vm._v("What is manual judge?")
+                    ]),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "py-4 text-sm text-gray-400" }, [
+                      _vm._v(
+                        "manual judging enables the organizers to give a solved mark for contestant who solved the question correctly, but a problem occurred in the automated judging system."
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("hr"),
                     _vm._v(" "),
                     _c(
-                      "div",
+                      "form",
                       {
-                        staticClass:
-                          "absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+                        attrs: { method: "POST" },
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.judge($event)
+                          },
+                          keydown: function($event) {
+                            return _vm.form.onKeydown($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("AlertError", { attrs: { form: _vm.form } }),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("h3", { staticClass: "text-1xl text-gray-500 " }, [
+                            _vm._v("Select Problem:")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "relative inline-block w-full text-gray-700"
+                            },
+                            [
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.problem,
+                                      expression: "form.problem"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline",
+                                  attrs: {
+                                    placeholder: "Select Problem",
+                                    name: "problem"
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "problem",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                _vm._l(_vm.contproblems, function(problem) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: problem.id,
+                                      domProps: { value: problem.id }
+                                    },
+                                    [_vm._v(_vm._s(problem.name))]
+                                  )
+                                }),
+                                0
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+                                },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "w-4 h-4 fill-current",
+                                      attrs: { viewBox: "0 0 20 20" }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
+                                          "clip-rule": "evenodd",
+                                          "fill-rule": "evenodd"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.form.errors.has("problem")
+                                ? _c("div", {
+                                    staticClass: "text-red-500",
+                                    domProps: {
+                                      innerHTML: _vm._s(
+                                        _vm.form.errors.get("problem")
+                                      )
+                                    }
+                                  })
+                                : _vm._e()
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("h3", { staticClass: "text-1xl text-gray-500 " }, [
+                            _vm._v("Select Languages:")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "relative inline-block w-full text-gray-700"
+                            },
+                            [
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.languages,
+                                      expression: "form.languages"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline",
+                                  attrs: {
+                                    placeholder: "Select Languages",
+                                    name: "languages"
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "languages",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                _vm._l(_vm.contlanguages, function(languages) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: languages.id,
+                                      domProps: { value: languages.id }
+                                    },
+                                    [_vm._v(_vm._s(languages.name))]
+                                  )
+                                }),
+                                0
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+                                },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "w-4 h-4 fill-current",
+                                      attrs: { viewBox: "0 0 20 20" }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
+                                          "clip-rule": "evenodd",
+                                          "fill-rule": "evenodd"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.form.errors.has("languages")
+                                ? _c("div", {
+                                    staticClass: "text-red-500",
+                                    domProps: {
+                                      innerHTML: _vm._s(
+                                        _vm.form.errors.get("languages")
+                                      )
+                                    }
+                                  })
+                                : _vm._e()
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("h3", { staticClass: "text-1xl text-gray-500 " }, [
+                            _vm._v("Select Competitor:")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "relative inline-block w-full text-gray-700"
+                            },
+                            [
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.competitor,
+                                      expression: "form.competitor"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline",
+                                  attrs: {
+                                    placeholder: "Select Competitor",
+                                    name: "competitor"
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$selectedVal = Array.prototype.filter
+                                        .call($event.target.options, function(
+                                          o
+                                        ) {
+                                          return o.selected
+                                        })
+                                        .map(function(o) {
+                                          var val =
+                                            "_value" in o ? o._value : o.value
+                                          return val
+                                        })
+                                      _vm.$set(
+                                        _vm.form,
+                                        "competitor",
+                                        $event.target.multiple
+                                          ? $$selectedVal
+                                          : $$selectedVal[0]
+                                      )
+                                    }
+                                  }
+                                },
+                                _vm._l(_vm.contcompetitor, function(
+                                  competitor
+                                ) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: competitor.id,
+                                      domProps: { value: competitor.id }
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          competitor.first_name +
+                                            " " +
+                                            competitor.last_name
+                                        )
+                                      )
+                                    ]
+                                  )
+                                }),
+                                0
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+                                },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "w-4 h-4 fill-current",
+                                      attrs: { viewBox: "0 0 20 20" }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
+                                          "clip-rule": "evenodd",
+                                          "fill-rule": "evenodd"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.form.errors.has("competitor")
+                                ? _c("div", {
+                                    staticClass: "text-red-500",
+                                    domProps: {
+                                      innerHTML: _vm._s(
+                                        _vm.form.errors.get("competitor")
+                                      )
+                                    }
+                                  })
+                                : _vm._e()
+                            ]
+                          )
+                        ])
+                      ],
+                      1
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "flex flex-row items-center justify-between p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg"
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            _vm.toggleModal = false
+                          }
+                        }
                       },
                       [
                         _c(
-                          "svg",
-                          {
-                            staticClass: "w-4 h-4 fill-current",
-                            attrs: { viewBox: "0 0 20 20" }
-                          },
-                          [
-                            _c("path", {
-                              attrs: {
-                                d:
-                                  "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
-                                "clip-rule": "evenodd",
-                                "fill-rule": "evenodd"
-                              }
-                            })
-                          ]
+                          "p",
+                          { staticClass: "font-semibold text-gray-600" },
+                          [_vm._v("Cancel")]
                         )
                       ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "px-4 py-2 text-white font-semibold bg-green-500 rounded",
+                        attrs: { disabled: _vm.form.busy },
+                        on: { click: _vm.judge }
+                      },
+                      [_vm._v("\n            Save\n          ")]
                     )
                   ]
                 )
-              ])
-            ]
-          )
-        ],
-        1
-      )
-    ],
-    1
-  )
+              ]
+            )
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.toggleModal
+      ? _c("div", {
+          staticClass:
+            "pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center opacity-25 bg-black"
+        })
+      : _vm._e()
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
+      },
+      [
+        _c(
+          "p",
+          {
+            staticClass: "text-2xl justify-center font-semibold text-gray-800"
+          },
+          [_vm._v("\n            Manual Judge\n          ")]
+        )
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 

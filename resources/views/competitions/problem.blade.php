@@ -54,7 +54,7 @@
                               Total attempts
                             </div>
                             <div class="text-xl font-bold">
-                                0
+                                {{$contest->submissionlog->count()}}
                             </div>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current text-gray-500 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -71,7 +71,7 @@
                               Ccorrect Submission
                             </div>
                             <div class="text-xl font-bold">
-                               0
+                              {{$contest->submissionlog->where('result','pass')->count()}}
                             </div>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current text-gray-500 h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -197,10 +197,54 @@
           <!-- Total Price -->
           <div class="flex justify-center items-center text-center">
             <div > 
-              
+              @if ($contest->participation  == 'solo')
+                  
               <h2 class="text-xl font-semibold">FIRST 3 ANSWERS</h2>
-            <h3 class=" text-gray-500 text-1xl " > List of top 33 members who were the first to submit correct program for this challenge</h3>
-             
+              <h3 class=" text-gray-500 text-1xl " > List of top 3 members who were the first to submit correct program for this challenge</h3>
+              <br>
+              <div class="m-auto flex flex-col gap-6">
+              @foreach ($top3 as $n=>$top)
+              
+        
+                <div class="
+                @if($n == 0)
+                border-yellow-300  text-yellow-400 hover:bg-yellow-300 hover:text-yellow-100
+                @elseif($n == 1)
+                border-gray-300  text-gray-400 hover:bg-gray-300 hover:text-gray-100
+                @else
+                border-yellow-600  text-yellow-700 hover:bg-yellow-600 hover:text-yellow-500
+                @endif
+                
+                border-2  rounded-lg px-3 py-2">
+                  {{getUsername($top->user_id)}}
+                </div>
+                
+              @endforeach
+              </div>
+              @else
+              <h2 class="text-xl font-semibold">FIRST 3 ANSWERS</h2>
+              <h3 class=" text-gray-500 text-1xl " > List of top 3 teams who were the first to submit correct program for this challenge</h3>
+              <br>
+              <div class="m-auto flex flex-col gap-6">
+                @foreach ($top3 as $n=>$top)
+              
+        
+                <div class="
+                @if($n == 0)
+                border-yellow-300  text-yellow-400 hover:bg-yellow-300 hover:text-yellow-100
+                @elseif($n == 1)
+                border-gray-300  text-gray-400 hover:bg-gray-300 hover:text-gray-100
+                @else
+                border-yellow-600  text-yellow-700 hover:bg-yellow-600 hover:text-yellow-500
+                @endif
+                
+                border-2  rounded-lg px-3 py-2">
+                  {{getMyTeamName($contest->id,$top->user_id)}}
+                </div>
+                
+              @endforeach
+                </div>
+              @endif
             </div>
           </div>
           <!-- End Total PRice -->

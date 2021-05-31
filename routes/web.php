@@ -86,6 +86,7 @@ Route::post('/competition/{name}/mange/organizers', [mange::class, 'registration
 //competitions Subscription
 Route::post('/competition/{name}/registration', [Subscription::class, 'registration'])->middleware('auth');
 Route::get('/competition/{name}/subscription/{id}', [Subscription::class, 'subscribe'])->name('subscribe')->middleware('auth');
+Route::get('/competition/{name}/unsubscription/{id}', [Subscription::class, 'unsubscribe'])->name('unsubscribe')->middleware('auth');
 
 
 //Competitions Problem
@@ -99,6 +100,8 @@ Route::get('/competition/{name}/leftteam/{id}/{username?}', [DealWithTeam::class
 
 // Judge System
 Route::post('/competition/{name}/challenges/{problem}', [JudgeController::class, 'JudgeSystem'])->name('JudgeSystem')->middleware('auth');
+Route::post('/competition/{name}/mange/manualjudge', [JudgeController::class, 'manualjudge'])->middleware('auth');
+
 
 
 //test

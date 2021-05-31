@@ -1,7 +1,8 @@
 <template>
   <div>
     <button
-      @click="showfirstModal = true"
+      v-if="!onteam"
+      @click="showmodal"
       class="md:flex hidden items-center text-gray-500 space-x-2 border border-gray-400 px-4 py-1.5 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400"
     >
       <svg
@@ -15,37 +16,183 @@
       </svg>
       <span class="uppercase text-sm font-semibold">MANUAL JUDGE</span>
     </button>
-    <ClientOnly>
-      <Modal v-model="showfirstModal" title="Manual Judge">
-        <form novalidate>
-             <h3 class="text-1xl text-gray-500 ">Select Language:</h3>
-    <div class="relative inline-block w-full text-gray-700">
-      <select class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Select Language" name="language">
+    <!-- Start Modal -->
+
+    <div
+      v-if="toggleModal"
+      class="fixed overflow-xhidden overflow-y-auto inset-0 flex justify-center items-center z-50"
+    >
+      <div
+        class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl"
+      >
+        <div
+          class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
+        >
+          <p class="text-2xl justify-center font-semibold text-gray-800">
+            Manual Judge
+          </p>
+        </div>
         
-        <option value="" > </option>
+        <div class="flex flex-col px-6 py-5 bg-gray-50">
+          
+        <h3 class="font-bold text-green-700">What is manual judge?</h3>
+        <p class="py-4 text-sm text-gray-400">manual judging enables the organizers to give a solved mark for contestant who solved the question correctly, but a problem occurred in the automated judging system.</p>
+  
+
+          <hr />
+          <!-- Form Start -->
+
+          <form
+            method="POST"
+            @submit.prevent="judge"
+            @keydown="form.onKeydown($event)"
+          >
+            <AlertError :form="form" />
+            
+<div>
+          <h3 class="text-1xl text-gray-500 ">Select Problem:</h3>
+    <div class="relative inline-block w-full text-gray-700">
+      <select class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Select Problem" name="problem"
+     v-model="form.problem">
+        
+        <option v-for="problem   in contproblems"
+          v-bind:key="problem.id" v-bind:value="problem.id" >{{problem.name}}</option>
       
       </select>
-      
       <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
         <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
       </div>
+       <div
+                class="text-red-500"
+                v-if="form.errors.has('problem')"
+                v-html="form.errors.get('problem')"
+              />
     </div>
-    
-        </form>
-      </Modal>
+    </div>
+    <div>
+          <h3 class="text-1xl text-gray-500 ">Select Languages:</h3>
+    <div class="relative inline-block w-full text-gray-700">
+      <select class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Select Languages" name="languages"
+      v-model="form.languages">
+        
+        <option v-for="languages   in contlanguages"
+          v-bind:key="languages.id" v-bind:value="languages.id" >{{languages.name}}</option>
+      
+      </select>
+      <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+      </div>
+      <div
+                class="text-red-500"
+                v-if="form.errors.has('languages')"
+                v-html="form.errors.get('languages')"
+              />
+    </div>
+    </div>
+    <div>
+          <h3 class="text-1xl text-gray-500 ">Select Competitor:</h3>
+    <div class="relative inline-block w-full text-gray-700">
+      <select class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline" placeholder="Select Competitor" name="competitor"
+      v-model="form.competitor">
+        
+        <option v-for="competitor   in contcompetitor"
+          v-bind:key="competitor.id" v-bind:value="competitor.id" >{{competitor.first_name + ' ' + competitor.last_name}}</option>
+      
+      </select>
+      <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+        <svg class="w-4 h-4 fill-current" viewBox="0 0 20 20"><path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+      </div>
+         <div
+                class="text-red-500"
+                v-if="form.errors.has('competitor')"
+                v-html="form.errors.get('competitor')"
+              />
+    </div>
+    </div>
+            <!-- Form End -->
+          </form>
+        </div>
+        <div
+          class="flex flex-row items-center justify-between p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg"
+        >
+          <button @click="toggleModal = false">
+            <p class="font-semibold text-gray-600">Cancel</p>
+          </button>
+          <button
+            @click="judge"
+            :disabled="form.busy"
+            class="px-4 py-2 text-white font-semibold bg-green-500 rounded"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal -->
 
-    </ClientOnly>
+    <!-- change screen to black -->
+    <div
+      v-if="toggleModal"
+      class="pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center opacity-25 bg-black"
+    ></div>
+
+    <!-- end screen to black -->
   </div>
 </template>
 
-
 <script>
+import { Form, HasError, AlertError } from "vform";
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
+
 export default {
+  props: ["contest", "urlname", "problems" , "languages" , "competitor"],
+  name: "AddRemove",
   data() {
     return {
-      showfirstModal: false,
-      showSecondModal: false,
+      contproblems: JSON.parse(this.problems),
+      contlanguages: JSON.parse(this.languages),
+      contcompetitor: JSON.parse(this.competitor),
+      toggleModal: false,
+      resp: false,
+      url: this.urlname,
+      form: new Form({
+        problem: "",
+        languages: '',
+        competitor: '',
+        contestid: this.contest,
+      }),
     };
+  },
+  methods: {
+    showmodal() {
+      this.toggleModal = true;
+    },
+    async judge() {
+      const response = await this.form
+        .post("/competition/" + this.url + "/mange/manualjudge")
+        .then(({ data }) => {
+          if (data.status == 200) {
+            this.toggleModal = false;
+            toast.fire({
+              icon: "success",
+              title: data.description,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          } else {
+            toast.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.description,
+            });
+          }
+        });
+
+      // ...
+    },
+  },
+  mounted() {
   },
 };
 </script>

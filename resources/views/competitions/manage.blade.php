@@ -20,7 +20,7 @@
         @can('AdminOrManger')
         <pcp-organizer :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'"></pcp-organizer>
         @endcan
-        <pcp-manualjudge :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'"></pcp-manualjudge>
+        <pcp-manualjudge :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'" :problems="'{{ json_encode($contest->problems) }}'" :languages="'{{ json_encode($contest->languages) }}'" :competitor="'{{ json_encode($contest->competitor) }}'"></pcp-manualjudge>
         
         
     </div>

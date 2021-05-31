@@ -175,7 +175,6 @@ class primarycontroller extends Controller
           }
         }
 
-
         $admin = FALSE;
         if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
           $admin = TRUE;
@@ -211,7 +210,7 @@ class primarycontroller extends Controller
   public function competitionlog($name)
   {
     $name = str_replace("_", " ", $name);
-    $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems')->where('name', $name)->where('status', '=', 1)->firstOrFail();
+    $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
     if ($contest) {
 
       //dd($contest->submissionlog);
@@ -248,7 +247,7 @@ class primarycontroller extends Controller
   public function competitionparticipants($name)
   {
     $name = str_replace("_", " ", $name);
-    $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems')->where('name', $name)->where('status', '=', 1)->firstOrFail();
+    $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
     if ($contest) {
 
 
@@ -283,7 +282,7 @@ class primarycontroller extends Controller
   public function  competitionorganizers($name)
   {
     $name = str_replace("_", " ", $name);
-    $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'organizer')->where('name', $name)->where('status', '=', 1)->firstOrFail();
+    $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'organizer', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
     if ($contest) {
 
 

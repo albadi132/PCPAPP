@@ -3,7 +3,7 @@
   
 <div class="space-y-16">
             <div>
-                <div class="h-48 w-full bg-cover bg-black" style="background-image:url({{url('contests/programming-code.jpg')}})">
+                <div class="h-48 w-full bg-cover bg-black" style="background-image:url({{url('contests/profile/'.$contest->profile)}})">
         
                 </div>
                 <div class="px-6 md:px-32 flex justify-between lg:flex-row flex-col">
@@ -43,26 +43,23 @@
                                 <h3 class="text-1xl text-gray-500 mb-5">{{$contest->description}}
                                 </h3>
                     </div>
+                    @if (!is_null($contest->conditions))
                     <div class="bg-white py-4 px-4 shadow-sm rounded-lg my-4 mx-4">
-                        
-                        <h1 class="text-2xl text-gray-700 mb-5">Conditions</h1>
-                        <h3 class="text-1xl text-gray-500 mb-5">Rules concerning the platform are included.
-                            <br>
-                            - Sharing the solution between different Participants is prohibited.
-                            <br>
-                            - Brute Force attacks on the challenges submission portal or challenges links are not allowed.
-                            <br>
-                            - Any attack against the site or the hosted servers will be observed and the player will be banned from participating in the contest immediately.
-                            <br>
-                            - Organizers have the permission to disqualify teams for any unethical behavior or any trials to interrupt the contest.
-                        </h3>
-            </div>
+                    <h1 class="text-2xl text-gray-700 mb-5">Conditions</h1>
+                    <h3 class="text-1xl text-gray-500 mb-5">
+                      {{$contest->conditions}}
+                    </h3>
+                  </div>
+                    @endif
+                    
+                    @if (!is_null($contest->prizes))
             <div class="bg-white py-4 px-4 shadow-sm rounded-lg my-4 mx-4">
                         
                 <h1 class="text-2xl text-gray-700 mb-5">Prizes</h1>
-                <h3 class="text-1xl text-gray-500 mb-5">The winning team will be Winner!!.
+                <h3 class="text-1xl text-gray-500 mb-5">{{$contest->prizes}}
                 </h3>
     </div>
+    @endif
                   </div>
                   <div class="col-span-12 sm:col-span-12 md:col-span-5 lg:col-span-4 xxl:col-span-4">
                     <div class="bg-white py-4 px-4 shadow-sm rounded-lg my-4 mx-4">
@@ -184,7 +181,7 @@
                             @endguest
                             @auth
                             @if ($sub)
-                            <a href="#"  class=" border-green-400 text-white bg-green-300 hover:bg-green-400 hover:text-white hover:border-white border-2  px-4 py-2 text-lg font-semibold tracking-wider  inline-flex items-center space-x-2 rounded">
+                            <a href="{{route('unsubscribe', ['name' => NameToUrl($contest->name) , 'id' => $contest->id] )}}"   class=" border-green-400 text-white bg-green-300 hover:bg-green-400 hover:text-white hover:border-white border-2  px-4 py-2 text-lg font-semibold tracking-wider  inline-flex items-center space-x-2 rounded">
                               <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
