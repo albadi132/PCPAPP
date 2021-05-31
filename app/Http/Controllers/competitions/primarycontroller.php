@@ -141,16 +141,12 @@ class primarycontroller extends Controller
 
         $AllCompetitor = ParticipantsResource::collection($contest->competitor, $name);
         //dd(json_encode($AllCompetitor));
-        $admin = FALSE;
-        if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
-          $admin = TRUE;
-        }
+        
 
 
         return view('competitions.participants')
           ->with('contest', $contest)
-          ->with('AllCompetitor', $AllCompetitor)
-          ->with('admin', $admin);
+          ->with('AllCompetitor', $AllCompetitor);
       } else {
         abort(404);
       }

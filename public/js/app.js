@@ -2711,20 +2711,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["participants", "admin"],
+  props: ["participants"],
   data: function data() {
     return {
       competitors: JSON.parse(this.participants),
-      allow: this.admin,
       currentSort: "name",
       currentSortDir: "asc",
       pageSize: 10,
@@ -47301,13 +47292,7 @@ var render = function() {
                       }
                     },
                     [_vm._v("Workplace")]
-                  ),
-                  _vm._v(" "),
-                  this.allow
-                    ? _c("th", { staticClass: "py-3 px-6 text-center" }, [
-                        _vm._v("Actions")
-                      ])
-                    : _vm._e()
+                  )
                 ]
               )
             ]),
@@ -47375,51 +47360,7 @@ var render = function() {
                               "\n                        "
                           )
                         ])
-                      ]),
-                      _vm._v(" "),
-                      _vm.allow
-                        ? _c("td", { staticClass: "py-3 px-6 text-center" }, [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "flex item-center justify-center"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "w-4 mr-2 transform hover:text-red-500 hover:scale-110"
-                                  },
-                                  [
-                                    _c(
-                                      "svg",
-                                      {
-                                        attrs: {
-                                          xmlns: "http://www.w3.org/2000/svg",
-                                          fill: "none",
-                                          viewBox: "0 0 24 24",
-                                          stroke: "currentColor"
-                                        }
-                                      },
-                                      [
-                                        _c("path", {
-                                          attrs: {
-                                            "stroke-linecap": "round",
-                                            "stroke-linejoin": "round",
-                                            "stroke-width": "2",
-                                            d:
-                                              "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                          }
-                                        })
-                                      ]
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ])
-                        : _vm._e()
+                      ])
                     ]
                   )
                 ]

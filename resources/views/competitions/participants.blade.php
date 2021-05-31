@@ -2,7 +2,7 @@
   @section('competition')
  
   <div id="app" class="relative ">
-    <pcp-competitor :participants="'{{ json_encode($AllCompetitor) }}'" :admin="'{{$admin}}'"></pcp-competitor>
+    <pcp-competitor :participants="'{{ json_encode($AllCompetitor) }}'" ></pcp-competitor>
   </div>
   
   @endsection
