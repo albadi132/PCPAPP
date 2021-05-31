@@ -5,6 +5,7 @@ namespace App\Http\Controllers\judge;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Contest;
+use App\Models\Team;
 use App\Models\Problem;
 use App\Models\ContestUser;
 use App\Models\ContestProblem;
@@ -20,6 +21,7 @@ use App\Models\ProblemSubmissionlog;
 use App\Models\ContestSubmissionlog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use phpDocumentor\Reflection\PseudoTypes\True_;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\InputStream;
@@ -47,7 +49,7 @@ class JudgeController extends Controller
 
 
         //pring prob and contestt data
-        $contest = Contest::where('name', $Cname)->where('status', '=', 1)->firstOrFail();
+        $contest = Contest::with('teams')->where('name', $Cname)->where('status', '=', 1)->firstOrFail();
         $problem = Problem::with('Testcases')->where('name', $Pname)->firstOrFail();
 
         //dd(!empty($problem->Testcases->count()),$problem->Testcases);
@@ -56,10 +58,12 @@ class JudgeController extends Controller
         if (($contest) && ($problem)) {
 
             //did tthe user partspate
-            if ($this->IsSubscribe($contest->id, $user->id)) {
+            if ($this->IsSubscribe($contest, $user->id)) {
 
                 //conttestt is online
                 if ($this->SubmittingIsOpen($contest->id)) {
+                    //
+                    if (!$this->HasQuestionSolvBefore($contest, $problem->id, $user->id)){
 
                     //problem on compettation 
                     if ($this->QuestionInCompetition($contest->id, $problem->id)) {
@@ -224,7 +228,7 @@ class JudgeController extends Controller
                                         $reson = null;
 
                                         exec($command . " 2>&1", $output);
-                                        
+
 
                                         if (empty($output)) {
 
@@ -352,19 +356,133 @@ class JudgeController extends Controller
 
                         return back()->with(session()->flash('alert-danger', 'This problem does not exist in contest'));
                     }
+                    //
+                    }
+                    else
+                    {
+                        return back()->with(session()->flash('alert-danger', 'This question was solved before'));
+                    }
                 } else {
 
                     return back()->with(session()->flash('alert-danger', 'Answers cannot be submited for this contest'));
                 }
             } else {
+                if ($contest->participation == 'solo') {
                 return back()->with(session()->flash('alert-danger', 'You are not subscribe in this competition'));
+                }
+                else
+                {
+                    return back()->with(session()->flash('alert-danger', 'You are not subscribe or you have not joined a team in this competition'));
+                }
             }
         } else {
             return back()->with(session()->flash('alert-danger', 'Something went wrong!!'));
         }
+    }
+
+    public function manualjudge(Request $request)
+    {
+        $this->validate($request, [
+            'problem' => ['required', 'integer'],
+            'languages' => ['required', 'integer'],
+            'competitor' => ['required', 'integer'],
+            'contestid' => ['required', 'integer'],
+        ]);
 
 
-        dd($request, $Cname, $Pname);
+        $contest = Contest::find($request->contestid);
+
+        if ($contest) {
+            if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
+
+
+                if ($this->IsSubscribe($contest, $request->competitor)) {
+
+
+                    //problem on compettation 
+                    if ($this->QuestionInCompetition($contest->id, $request->problem)) {
+                        $problem = Problem::find($request->problem);
+
+                        if (!$this->HasQuestionSolvBefore($contest, $problem->id, $request->competitor)){
+                        //langeg on compettation 
+                        
+                        if ($this->LanguageInCompetition($contest->id, $request->languages)) {
+
+                            $SubmissionsLog = new SubmissionsLog;
+                            $SubmissionsLog->file = 'MANUAL JUDGE';
+                            $SubmissionsLog->result = 'pass';
+                            $SubmissionsLog->save();
+                            $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
+                            $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
+                            $this->SubmissionForUser($SubmissionsLog->id, $request->competitor);
+                            $this->SubmissionForLanguage($SubmissionsLog->id, $request->languages);
+
+                            //score
+                            $Score = new Score;
+                            $Score->points = $problem->points;
+                            $Score->user_id =  $request->competitor;
+                            $Score->contest_id =  $contest->id;
+                            $Score->problem_id =  $problem->id;
+                            $Score->language_id = $request->languages;
+                            $Score->submissionlog_id = $SubmissionsLog->id;
+                            $Score->save();
+
+                            return [
+                                'status' => 200,
+                                'description' => "Team have been successfully Created",
+                            ];
+                        } else {
+                            return [
+
+                                'status' => 401,
+                                'description' => "This language is not supported in contest",
+                            ];
+                        }
+                    }else {
+                        return [
+
+                            'status' => 401,
+                            'description' => "This question was solved before",
+                        ];
+                    }
+                    } else {
+                        return [
+
+                            'status' => 401,
+                            'description' => "This problem does not exist in contest",
+                        ];
+                    }
+                } else {
+                    if ($contest->participation == 'solo') {
+                        return [
+
+                            'status' => 401,
+                            'description' => "This competitor in not subscribe in this competition",
+                        ];
+                        }
+                        else
+                        {  return [
+
+                            'status' => 401,
+                            'description' => "This competitor is not subscribe or not joined a team in this competition",
+                        ];
+                        }
+
+                }
+            } else {
+
+                return [
+
+                    'status' => 401,
+                    'description' => "You do not have permission to add participants",
+                ];
+            }
+        } else {
+            return [
+                'status' => 402,
+                'description' => "Sorry, There is an error!!",
+            ];
+        }
     }
 
 
@@ -383,14 +501,58 @@ class JudgeController extends Controller
         }
     }
 
-    public function IsSubscribe($id, $userid)
+    public function IsSubscribe($comp, $userid)
     {
-        $contestuser = ContestUser::where('user_id', $userid)->where('contest_id', $id)->first();
+
+        $contest = $comp;
+
+        if ($contest->participation == 'solo') {
+
+        $contestuser = ContestUser::where('user_id', $userid)->where('contest_id', $contest->id)->first();
 
         if (!is_null($contestuser))
             return TRUE;
         else
             return FALSE;
+
+        }
+        else
+        {
+            return Gate::allows('IAmCompetitorOnTeam', [$contest->id , $userid]);
+     
+        }
+    }
+
+    public function HasQuestionSolvBefore($comp, $probid, $userid)
+    {
+        $contest = $comp;
+
+        if ($contest->participation == 'solo') {
+            $score = Score::where('user_id', $userid)->where('contest_id', $contest->id)->where('problem_id', $probid)->first();
+            if (!is_null($score))
+                //change this
+                return FALSE;
+            else
+                return FALSE;
+        } else {
+            foreach ($contest->teams as $team) {
+                $users = Team::with('users')->find($team->id);
+
+                foreach ($users->users as $user) {
+                    if ($user->id == $userid) {
+                        foreach ($users->users as $user) {
+                            $score = Score::where('user_id', $user->id)->where('contest_id', $contest->id)->where('problem_id', $probid)->first();
+                            if (!is_null($score)) {
+                                //change this
+                                return FALSE;
+                            }
+                        }
+
+                        return FALSE;
+                    }
+                }
+            }
+        }
     }
 
     public function QuestionInCompetition($compid, $probid)
