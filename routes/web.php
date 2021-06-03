@@ -64,6 +64,7 @@ Route::get('/controlpanel/problems/delate/{id}', [ControlPanel::class, 'problems
 
 //user
 Route::get('/profile/{username}', [ProfileController::class, 'profile'])->name('Profile-show')->middleware('auth');
+Route::post('/profile/{username}', [ProfileController::class, 'editprofile'])->name('Profilet')->middleware('auth');
 
 //competitions
 Route::get('/competitions/{sort?}', [primarycontroller::class, 'competitions'])->name('competitions-show');
@@ -105,5 +106,3 @@ Route::post('/competition/{name}/mange/manualjudge', [JudgeController::class, 'm
 
 
 //test
-Route::post('/controlpanel', [ControlPanel::class, 'testcase'])->name('testcase')->middleware('auth');
-Route::post('/competition/challenges', [DealWithProblem::class, 'testpy'])->name('testexu')->middleware('auth');

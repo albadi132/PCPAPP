@@ -43,10 +43,9 @@ import '@kouts/vue-modal/dist/vue-modal.css'
  Vue.component('pcp-competitordelate', require('./components/CompetitorDelate.vue').default);
  Vue.component('pcp-organizerdelate', require('./components/OrganizerDelate.vue').default);
  Vue.component('pcp-manualjudge', require('./components/ManualJudge.vue').default);
+ Vue.component('pcp-profile', require('./components/Profile.vue').default);
  Vue.component('pcp-vuemodal', require('./components/TestVueModal.vue').default);
 
-
- 
 
  
  /**

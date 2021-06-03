@@ -20,7 +20,7 @@ class UserPolicy
         //
     }
 
-    public function Myprofile($username)
+    public function Myprofile($request,$username)
 {
     
     return Auth::user()->username === $username;
