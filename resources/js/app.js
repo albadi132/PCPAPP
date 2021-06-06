@@ -4,20 +4,30 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-
+ //bootstrap
  require('./bootstrap');
- window.Vue = require('vue').default;
- import { Form, HasError, AlertError } from 'vform';
- import swal from 'sweetalert2'
- import VueModal from '@kouts/vue-modal'
-import '@kouts/vue-modal/dist/vue-modal.css'
- window.swal = swal;
 
- const toast = swal.mixin({
-  });
-  window.toast = toast;
-  Vue.component('Modal', VueModal)
- 
+ //vue
+ window.Vue = require('vue').default;
+
+ //vForm
+ import { Form, HasError, AlertError } from 'vform';
+
+ //sweetAlert
+ import swal from 'sweetalert2';
+ window.swal = swal;
+ const toast = swal.mixin({});
+ window.toast = toast;
+
+ //vueModal
+ import VueModal from '@kouts/vue-modal';
+ import '@kouts/vue-modal/dist/vue-modal.css';
+ import '../css/vmodal.css';
+import Vue from 'vue';
+ Vue.component('Modal', VueModal)
+
+ //Alpine.js
+ //import 'alpinejs';
 
 
  /**
@@ -27,10 +37,10 @@ import '@kouts/vue-modal/dist/vue-modal.css'
   *
   * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
   */
- 
+
  // const files = require.context('./', true, /\.vue$/i)
  // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
- 
+
  Vue.component('pcp-app', require('./components/ExampleComponent.vue').default);
  Vue.component('pcp-contests', require('./components/contests.vue').default);
  Vue.component('pcp-modle', require('./components/test.vue').default);
@@ -44,18 +54,26 @@ import '@kouts/vue-modal/dist/vue-modal.css'
  Vue.component('pcp-organizerdelate', require('./components/OrganizerDelate.vue').default);
  Vue.component('pcp-manualjudge', require('./components/ManualJudge.vue').default);
  Vue.component('pcp-profile', require('./components/Profile.vue').default);
- Vue.component('pcp-vuemodal', require('./components/TestVueModal.vue').default);
+
+ //pcp vue components
+ Vue.component('pcp-userbadge', require('./components/pcp/user-badge.vue').default);
+
+ //control panel vue components
+ Vue.component('pcp-cp-navmenu', require('./components/ControlPanel/nav/menu.vue').default);
+ Vue.component('pcp-cp', require('./components/ControlPanel/nav/panel.vue').default);
+ Vue.component('pcp-cp-home', require('./components/ControlPanel/home.vue').default);
+ Vue.component('pcp-cp-auth', require('./components/ControlPanel/auth/auth.vue').default);
+ Vue.component('pcp-cp-contests', require('./components/ControlPanel/contests/contests.vue').default);
+ Vue.component('pcp-cp-problems', require('./components/ControlPanel/problems/problems.vue').default);
 
 
- 
  /**
   * Next, we will create a fresh Vue application instance and attach it to
   * the page. Then, you may begin adding components to this application
   * or customize the JavaScript scaffolding to fit your unique needs.
   */
- 
+
  const app = new Vue({
      el: '#app',
  });
 
- 
