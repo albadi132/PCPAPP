@@ -1,5 +1,4 @@
-<template>
-  <div>
+<div>
     <div class="text-white">
       <div class="flex p-2 bg-bluegray-800">
         <div class="flex items-center px-2 py-3">
@@ -7,7 +6,7 @@
           <p class="ml-2 font-semibold uppercase font-italic">control panel</p>
         </div>
       </div>
-      <slot/>
+      <x-pcp-logo/>
       <div>
         <ul class="mt-6 leading-10">
           <li class="relative px-2 py-1">
@@ -30,15 +29,4 @@
         </ul>
       </div>
     </div>
-  </div>
-</template>
-
-<script>
-export default {
-
-}
-</script>
-
-<style scoped>
-
-</style>
+</div>
