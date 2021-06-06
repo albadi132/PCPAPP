@@ -9,7 +9,6 @@
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
         <script src="{{asset('js/app.js')}}" defer></script>
-        {{--<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>--}}
     </head>
     <body class="bg-bluegray-800">
         <div id="app">
