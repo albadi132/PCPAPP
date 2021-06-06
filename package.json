@@ -29,6 +29,7 @@
     },
     "dependencies": {
         "@kouts/vue-modal": "^2.0.10",
+        "@ocrv/vue-tailwind-pagination": "0.0.4",
         "alpinejs": "^2.8.2",
         "vform": "^1.0.1",
         "vue-router": "^3.5.1"
