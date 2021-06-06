@@ -1,14 +1,7 @@
 @extends('admin.controlpanel')
 
-@section('admin')
-<div class="flex flex-col w-full">
-
-    
-  
-
-   hi
-    
-
-
-  </div>
-  @endsection
+@section('page')
+    <div id="app">
+        <pcp-cp-home/>
+    </div>
+ @endsection
