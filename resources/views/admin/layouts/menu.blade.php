@@ -6,6 +6,17 @@
           <p class="ml-2 font-semibold uppercase font-italic">control panel</p>
         </div>
       </div>
+      
+      <div class="flex items-center pl-2 h-20 border-b border-gray-800">
+        <img src="{{url('/images/avatar') .'/'. auth()->user()->avatar }}"  alt="" class="rounded-full h-12 w-12 flex items-center justify-center mr-3 border-2 border-green-500">
+        <div class="ml-1">
+            <p class="ml-1 text-md font-medium tracking-wide truncate text-gray-100 font-sans">{{auth()->user()->first_name . ' ' . auth()->user()->last_name}}</p>
+            <div class="badge">
+                   <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-blue-800 bg-blue-50 rounded-full">{{auth()->user()->role}}</span>
+            </div>
+        </div>
+    </div>
+    <hr class="bg-gray-600">
       <div>
         <ul class="mt-6 leading-10">
           <li class="{{ 'controlpanel' == request()->path() ? 'text-green-500 ' : 'text-white cursor-pointer transition-colors duration-150 hover:text-green-500 ' }} relative px-2 py-1 inline-flex items-center w-full text-sm font-semibold">
