@@ -59,6 +59,8 @@
  Vue.component('pcp-cp-user-role', require('./components/ControlPanel/authentications/role.vue').default);
  Vue.component('pcp-cp-user-restpass', require('./components/ControlPanel/authentications/restpass.vue').default);
  Vue.component('pcp-cp-user-status', require('./components/ControlPanel/authentications/status.vue').default);
+ Vue.component('pcp-cp-contests', require('./components/ControlPanel/contests/ContestTable.vue').default);
+ 
 
  /**
   * Next, we will create a fresh Vue application instance and attach it to
