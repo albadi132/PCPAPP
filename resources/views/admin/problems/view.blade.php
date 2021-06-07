@@ -1,7 +1,6 @@
-@extends('admin.controlpanel')
+@extends('admin.layouts.app')
+@section('content')
 
-@section('admin')
-<main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
   <div class="container mx-auto px-6 py-8">
     @if ($message = Session::get('success'))
     <div class="flex justify-center items-center m-1 font-medium py-1 px-2 rounded-md text-green-700 bg-green-100 border border-green-300 ">
@@ -154,5 +153,4 @@
           </div>
       </div>
   </div>
-</main>
   @endsection

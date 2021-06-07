@@ -27,12 +27,7 @@ class ControlPanel extends Controller
         if(Gate::allows('show')){
 
 
-            
-            /*$process = new Process(['/home/albadi/Desktop/shell/hello-with-input']);
-            $process->setInput("3 2 salim ali");
-            $process->run();
-            dd($process->getOutput());
-            */
+           
             return view('admin.home');
 
         }

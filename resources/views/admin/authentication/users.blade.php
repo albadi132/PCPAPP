@@ -1,9 +1,6 @@
-@extends('admin.controlpanel')
-@section('admin')
-<div>
-    <div class="flex h-screen bg-gray-200">
-        <div class="flex flex-col flex-1 overflow-hidden">
-            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
+@extends('admin.layouts.app')
+@section('content')
+
                 <div class="container px-6 py-8 mx-auto">
                     <div class="mt-4">
                         <div class="flex flex-wrap -mx-6">
@@ -163,8 +160,5 @@
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
-    </div>
-</div>
+   
 @endsection
