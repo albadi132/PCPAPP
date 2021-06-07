@@ -34,7 +34,7 @@
                 x-transition:leave-end="opacity-0 transform -translate-x-20" @click.away="closeSideMenu"
                 @keydown.escape="closeSideMenu">
                 @include('admin.layouts.menu')
-              
+
             </aside>
 
             <div class="flex flex-col flex-1 w-full overflow-y-auto">
@@ -51,18 +51,12 @@
                         </button>
                     </div>
                 </header>
-                <main class="">
-                  <div class="grid mb-4 pb-10 px-8 mx-4 h-full rounded-3xl bg-blue-50 border-4 border-green-400 ">
-  
-                      <div class="grid grid-cols-12 gap-6">
-                          <div class="grid grid-cols-12 col-span-12 gap-6 xxl:col-span-9">
-                              <div class="col-span-12 mt-8 h-screen"> 
-                        @yield('content')
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  
+                <main class="flex flex-col m-1 border-4 border-green-400 bg-blue-50 rounded-3xl md:m-3">
+                    <div style="min-height: 89vh; width: 100%">
+                        <div class="flex flex-col items-center w-full p-4 md:p-6">
+                            @yield('content')
+                        </div>
+                    </div>
                 </main>
             </div>
         </div>

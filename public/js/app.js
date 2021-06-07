@@ -40323,12 +40323,9 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 /*!*******************************!*\
   !*** ./resources/css/app.css ***!
   \*******************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ (() => {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-// extracted by mini-css-extract-plugin
-
+throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/postcss-loader/dist/cjs.js):\nSyntaxError: Unexpected token (43:5)\n    at _class.pp$4.raise (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2927:15)\n    at _class.pp.unexpected (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:698:10)\n    at _class.pp$3.parseExprAtom (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2326:12)\n    at _class.parseExprAtom (/home/kj/Desktop/PCPAPP/node_modules/acorn-node/lib/dynamic-import/index.js:77:117)\n    at _class.pp$3.parseExprSubscripts (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2129:21)\n    at _class.pp$3.parseMaybeUnary (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2106:19)\n    at _class.parseMaybeUnary (/home/kj/Desktop/PCPAPP/node_modules/acorn-node/lib/private-class-elements/index.js:122:54)\n    at _class.pp$3.parseExprOps (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2041:21)\n    at _class.pp$3.parseMaybeConditional (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2024:21)\n    at _class.pp$3.parseMaybeAssign (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:1997:21)\n    at _class.pp$3.parsePropertyValue (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2630:89)\n    at _class.pp$3.parseProperty (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2621:10)\n    at _class.pp$3.parseObj (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2567:23)\n    at _class.pp$3.parseExprAtom (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2302:19)\n    at _class.parseExprAtom (/home/kj/Desktop/PCPAPP/node_modules/acorn-node/lib/dynamic-import/index.js:77:117)\n    at _class.pp$3.parseExprSubscripts (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2129:21)\n    at processResult (/home/kj/Desktop/PCPAPP/node_modules/webpack/lib/NormalModule.js:598:19)\n    at /home/kj/Desktop/PCPAPP/node_modules/webpack/lib/NormalModule.js:692:5\n    at /home/kj/Desktop/PCPAPP/node_modules/loader-runner/lib/LoaderRunner.js:399:11\n    at /home/kj/Desktop/PCPAPP/node_modules/loader-runner/lib/LoaderRunner.js:251:18\n    at context.callback (/home/kj/Desktop/PCPAPP/node_modules/loader-runner/lib/LoaderRunner.js:124:13)\n    at Object.loader (/home/kj/Desktop/PCPAPP/node_modules/postcss-loader/dist/index.js:104:7)");
 
 /***/ }),
 
@@ -68030,12 +68027,6 @@ Vue.compile = compileToFunctions;
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = __webpack_modules__;
-/******/ 	
-/******/ 	// the startup function
-/******/ 	// It's empty as some runtime module handles the default behavior
-/******/ 	__webpack_require__.x = x => {};
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -68098,100 +68089,13 @@ Vue.compile = compileToFunctions;
 /******/ 		};
 /******/ 	})();
 /******/ 	
-/******/ 	/* webpack/runtime/jsonp chunk loading */
-/******/ 	(() => {
-/******/ 		// no baseURI
-/******/ 		
-/******/ 		// object to store loaded and loading chunks
-/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 		// Promise = chunk loading, 0 = chunk loaded
-/******/ 		var installedChunks = {
-/******/ 			"/js/app": 0
-/******/ 		};
-/******/ 		
-/******/ 		var deferredModules = [
-/******/ 			["./resources/js/app.js"],
-/******/ 			["./resources/css/app.css"]
-/******/ 		];
-/******/ 		// no chunk on demand loading
-/******/ 		
-/******/ 		// no prefetching
-/******/ 		
-/******/ 		// no preloaded
-/******/ 		
-/******/ 		// no HMR
-/******/ 		
-/******/ 		// no HMR manifest
-/******/ 		
-/******/ 		var checkDeferredModules = x => {};
-/******/ 		
-/******/ 		// install a JSONP callback for chunk loading
-/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
-/******/ 			var [chunkIds, moreModules, runtime, executeModules] = data;
-/******/ 			// add "moreModules" to the modules object,
-/******/ 			// then flag all "chunkIds" as loaded and fire callback
-/******/ 			var moduleId, chunkId, i = 0, resolves = [];
-/******/ 			for(;i < chunkIds.length; i++) {
-/******/ 				chunkId = chunkIds[i];
-/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
-/******/ 					resolves.push(installedChunks[chunkId][0]);
-/******/ 				}
-/******/ 				installedChunks[chunkId] = 0;
-/******/ 			}
-/******/ 			for(moduleId in moreModules) {
-/******/ 				if(__webpack_require__.o(moreModules, moduleId)) {
-/******/ 					__webpack_require__.m[moduleId] = moreModules[moduleId];
-/******/ 				}
-/******/ 			}
-/******/ 			if(runtime) runtime(__webpack_require__);
-/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
-/******/ 			while(resolves.length) {
-/******/ 				resolves.shift()();
-/******/ 			}
-/******/ 		
-/******/ 			// add entry modules from loaded chunk to deferred list
-/******/ 			if(executeModules) deferredModules.push.apply(deferredModules, executeModules);
-/******/ 		
-/******/ 			// run deferred modules when all chunks ready
-/******/ 			return checkDeferredModules();
-/******/ 		}
-/******/ 		
-/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
-/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
-/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
-/******/ 		
-/******/ 		function checkDeferredModulesImpl() {
-/******/ 			var result;
-/******/ 			for(var i = 0; i < deferredModules.length; i++) {
-/******/ 				var deferredModule = deferredModules[i];
-/******/ 				var fulfilled = true;
-/******/ 				for(var j = 1; j < deferredModule.length; j++) {
-/******/ 					var depId = deferredModule[j];
-/******/ 					if(installedChunks[depId] !== 0) fulfilled = false;
-/******/ 				}
-/******/ 				if(fulfilled) {
-/******/ 					deferredModules.splice(i--, 1);
-/******/ 					result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
-/******/ 				}
-/******/ 			}
-/******/ 			if(deferredModules.length === 0) {
-/******/ 				__webpack_require__.x();
-/******/ 				__webpack_require__.x = x => {};
-/******/ 			}
-/******/ 			return result;
-/******/ 		}
-/******/ 		var startup = __webpack_require__.x;
-/******/ 		__webpack_require__.x = () => {
-/******/ 			// reset startup function so it can be called again when more startup code is added
-/******/ 			__webpack_require__.x = startup || (x => {});
-/******/ 			return (checkDeferredModules = checkDeferredModulesImpl)();
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /************************************************************************/
 /******/ 	
-/******/ 	// run startup
-/******/ 	var __webpack_exports__ = __webpack_require__.x();
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	__webpack_require__("./resources/js/app.js");
+/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
+/******/ 	var __webpack_exports__ = __webpack_require__("./resources/css/app.css");
 /******/ 	
 /******/ })()
 ;
