@@ -64,10 +64,6 @@ class ControlPanel extends Controller
         if(Gate::allows('show')){
             $contests = Contest::all();
 
-            $live = Contest::where('starting_date', '<=', date('Y-m-d H:i:s'))
-            ->where('ending_date', '>=', date('Y-m-d H:i:s'))->count();
-            $upcoming= Contest::where('starting_date', '>', date('Y-m-d H:i:s'))->count();
-            $archived= Contest::where('ending_date', '<', date('Y-m-d H:i:s'))->count();
 
             
             
@@ -75,10 +71,7 @@ class ControlPanel extends Controller
 
         //return view('admin.contests.view',['contests'=>$contests],['live'=>$live],['upcoming'=>$upcoming],['archived'=>$archived]);
         return view('admin.contests.view')
-            ->with('contests', $contests)
-            ->with('live', $live)
-            ->with('upcoming', $upcoming)
-            ->with('archived', $archived);
+            ->with('contests', $contests);
         }
         else
         {abort(401);}

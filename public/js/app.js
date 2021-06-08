@@ -5001,11 +5001,61 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["contests"],
+  props: ["contests", 'time'],
   data: function data() {
     return {
       allcontests: JSON.parse(this.contests),
+      timenow: this.time,
       currentSort: "name",
       currentSortDir: "asc",
       pageSize: 10,
@@ -5014,9 +5064,66 @@ __webpack_require__.r(__webpack_exports__);
       filter: ''
     };
   },
-  mounted: function mounted() {
-    console.log(this.allcontests);
-  }
+  methods: {
+    sort: function sort(s) {
+      //if s == current sort, reverse
+      if (s === this.currentSort) {
+        this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
+      }
+
+      this.currentSort = s;
+    },
+    OpenPage: function OpenPage(page) {
+      this.currentPage = page;
+    },
+    firstPage: function firstPage() {
+      this.currentPage = 1;
+    },
+    nextPage: function nextPage() {
+      if (this.currentPage * this.pageSize < this.allcontests.length) this.currentPage++;
+    },
+    prevPage: function prevPage() {
+      if (this.currentPage > 1) this.currentPage--;
+    },
+    lastPage: function lastPage() {
+      if (Number.isInteger(this.allcontests.length / this.pageSize)) {
+        this.currentPage = this.allcontests.length / this.pageSize;
+      } else {
+        this.currentPage = Math.floor(this.allcontests.length / this.pageSize) + 1;
+      }
+    }
+  },
+  watch: {
+    filter: function filter() {
+      this.currentPage = 1;
+    }
+  },
+  computed: {
+    filteredContests: function filteredContests() {
+      var _this = this;
+
+      return this.allcontests.filter(function (c) {
+        if (_this.filter == '') return true;
+        return c.name.toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0;
+      });
+    },
+    sortedContests: function sortedContests() {
+      var _this2 = this;
+
+      return this.filteredContests.sort(function (a, b) {
+        var modifier = 1;
+        if (_this2.currentSortDir === 'desc') modifier = -1;
+        if (a[_this2.currentSort] < b[_this2.currentSort]) return -1 * modifier;
+        if (a[_this2.currentSort] > b[_this2.currentSort]) return 1 * modifier;
+        return 0;
+      }).filter(function (row, index) {
+        var start = (_this2.currentPage - 1) * _this2.pageSize;
+        var end = _this2.currentPage * _this2.pageSize;
+        if (index >= start && index < end) return true;
+      });
+    }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -40323,9 +40430,12 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/**
 /*!*******************************!*\
   !*** ./resources/css/app.css ***!
   \*******************************/
-/***/ (() => {
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-throw new Error("Module build failed (from ./node_modules/mini-css-extract-plugin/dist/loader.js):\nModuleBuildError: Module build failed (from ./node_modules/postcss-loader/dist/cjs.js):\nSyntaxError: Unexpected token (43:5)\n    at _class.pp$4.raise (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2927:15)\n    at _class.pp.unexpected (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:698:10)\n    at _class.pp$3.parseExprAtom (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2326:12)\n    at _class.parseExprAtom (/home/kj/Desktop/PCPAPP/node_modules/acorn-node/lib/dynamic-import/index.js:77:117)\n    at _class.pp$3.parseExprSubscripts (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2129:21)\n    at _class.pp$3.parseMaybeUnary (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2106:19)\n    at _class.parseMaybeUnary (/home/kj/Desktop/PCPAPP/node_modules/acorn-node/lib/private-class-elements/index.js:122:54)\n    at _class.pp$3.parseExprOps (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2041:21)\n    at _class.pp$3.parseMaybeConditional (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2024:21)\n    at _class.pp$3.parseMaybeAssign (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:1997:21)\n    at _class.pp$3.parsePropertyValue (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2630:89)\n    at _class.pp$3.parseProperty (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2621:10)\n    at _class.pp$3.parseObj (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2567:23)\n    at _class.pp$3.parseExprAtom (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2302:19)\n    at _class.parseExprAtom (/home/kj/Desktop/PCPAPP/node_modules/acorn-node/lib/dynamic-import/index.js:77:117)\n    at _class.pp$3.parseExprSubscripts (/home/kj/Desktop/PCPAPP/node_modules/acorn/dist/acorn.js:2129:21)\n    at processResult (/home/kj/Desktop/PCPAPP/node_modules/webpack/lib/NormalModule.js:598:19)\n    at /home/kj/Desktop/PCPAPP/node_modules/webpack/lib/NormalModule.js:692:5\n    at /home/kj/Desktop/PCPAPP/node_modules/loader-runner/lib/LoaderRunner.js:399:11\n    at /home/kj/Desktop/PCPAPP/node_modules/loader-runner/lib/LoaderRunner.js:251:18\n    at context.callback (/home/kj/Desktop/PCPAPP/node_modules/loader-runner/lib/LoaderRunner.js:124:13)\n    at Object.loader (/home/kj/Desktop/PCPAPP/node_modules/postcss-loader/dist/index.js:104:7)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
 
 /***/ }),
 
@@ -50778,9 +50888,26 @@ var render = function() {
     _c("div", { staticClass: "w-full flex justify-end px-2 mt-2" }, [
       _c("div", { staticClass: "w-full sm:w-64 inline-block relative " }, [
         _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.filter,
+              expression: "filter"
+            }
+          ],
           staticClass:
             "leading-snug border border-gray-300 block w-full appearance-none bg-gray-100 text-sm text-gray-600 py-1 px-4 pl-8 rounded-lg",
-          attrs: { type: "", name: "", placeholder: "Search" }
+          attrs: { type: "search", name: "", placeholder: "Search" },
+          domProps: { value: _vm.filter },
+          on: {
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.filter = $event.target.value
+            }
+          }
         }),
         _vm._v(" "),
         _c(
@@ -50818,9 +50945,98 @@ var render = function() {
         "table",
         { staticClass: "table-auto border-collapse w-full" },
         [
-          _vm._m(0),
+          _c("thead", [
+            _c(
+              "tr",
+              {
+                staticClass:
+                  "rounded-lg text-sm font-medium text-gray-700 text-left",
+                staticStyle: { "font-size": "0.9674rem" }
+              },
+              [
+                _c(
+                  "th",
+                  {
+                    staticClass: "px-4 py-2 bg-gray-200 ",
+                    staticStyle: { "background-color": "#f8f8f8" },
+                    on: {
+                      click: function($event) {
+                        return _vm.sort("name")
+                      }
+                    }
+                  },
+                  [_vm._v("Contest")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "px-4 py-2 ",
+                    staticStyle: { "background-color": "#f8f8f8" },
+                    on: {
+                      click: function($event) {
+                        return _vm.sort("name")
+                      }
+                    }
+                  },
+                  [_vm._v("Date")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "px-4 py-2 ",
+                    staticStyle: { "background-color": "#f8f8f8" },
+                    on: {
+                      click: function($event) {
+                        return _vm.sort("starting_date")
+                      }
+                    }
+                  },
+                  [_vm._v("Status")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "px-4 py-2 ",
+                    staticStyle: { "background-color": "#f8f8f8" },
+                    on: {
+                      click: function($event) {
+                        return _vm.sort("type")
+                      }
+                    }
+                  },
+                  [_vm._v("type")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "px-4 py-2 ",
+                    staticStyle: { "background-color": "#f8f8f8" },
+                    on: {
+                      click: function($event) {
+                        return _vm.sort("participation")
+                      }
+                    }
+                  },
+                  [_vm._v("participation")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "th",
+                  {
+                    staticClass: "px-4 py-2 ",
+                    staticStyle: { "background-color": "#f8f8f8" }
+                  },
+                  [_vm._v("Action")]
+                )
+              ]
+            )
+          ]),
           _vm._v(" "),
-          _vm._l(_vm.allcontests, function(contest) {
+          _vm._l(_vm.sortedContests, function(contest) {
             return _c(
               "tbody",
               {
@@ -50877,6 +51093,172 @@ var render = function() {
                           _vm._s(contest.starting_date) +
                           "\n            "
                       )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "px-4 py-4" }, [
+                      contest.status === 0
+                        ? _c(
+                            "span",
+                            {
+                              staticClass:
+                                "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-800 text-gray-50"
+                            },
+                            [_vm._v("Not Active")]
+                          )
+                        : _c("div", [
+                            contest.ending_date < _vm.timenow
+                              ? _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-700 text-gray-50"
+                                  },
+                                  [_vm._v("Finished")]
+                                )
+                              : (contest.starting_date <= _vm.timenow) &
+                                (contest.ending_date >= _vm.timenow)
+                              ? _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-400 text-gray-50"
+                                  },
+                                  [_vm._v("Live")]
+                                )
+                              : _c(
+                                  "span",
+                                  {
+                                    staticClass:
+                                      "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-400 text-gray-50"
+                                  },
+                                  [_vm._v("Upcoming")]
+                                )
+                          ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "px-4 py-4" }, [
+                      _vm._v(
+                        "\n               " +
+                          _vm._s(contest.type) +
+                          "\n            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "px-4 py-4" }, [
+                      _vm._v(
+                        "\n               " +
+                          _vm._s(contest.participation) +
+                          "\n            "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "py-3 px-6 " }, [
+                      _c("div", { staticClass: "flex " }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  fill: "none",
+                                  viewBox: "0 0 24 24",
+                                  stroke: "currentColor"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d:
+                                      "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  fill: "none",
+                                  viewBox: "0 0 24 24",
+                                  stroke: "currentColor"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d:
+                                      "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  fill: "none",
+                                  viewBox: "0 0 24 24",
+                                  stroke: "currentColor"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d:
+                                      "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      ])
                     ])
                   ]
                 )
@@ -50892,93 +51274,194 @@ var render = function() {
       "div",
       {
         staticClass:
-          "w-full flex justify-center border-t border-gray-100 pt-4 items-center",
+          "w-full flex justify-center border-t border-gray-100 pt-4 items-center ",
         attrs: { id: "pagination" }
       },
       [
         _c(
           "svg",
           {
-            staticClass: "h-6 w-6",
+            staticClass: "h-5 w-5",
+            class:
+              this.currentPage != 1
+                ? "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
+                : "",
             attrs: {
-              width: "24",
-              height: "24",
-              viewBox: "0 0 24 24",
+              xmlns: "http://www.w3.org/2000/svg",
               fill: "none",
-              xmlns: "http://www.w3.org/2000/svg"
-            }
+              viewBox: "0 0 24 24",
+              stroke: "currentColor"
+            },
+            on: { click: _vm.firstPage }
           },
           [
-            _c("g", { attrs: { opacity: "0.4" } }, [
-              _c("path", {
-                attrs: {
-                  "fill-rule": "evenodd",
-                  "clip-rule": "evenodd",
-                  d:
-                    "M9 12C9 12.2652 9.10536 12.5196 9.29289 12.7071L13.2929 16.7072C13.6834 17.0977 14.3166 17.0977 14.7071 16.7072C15.0977 16.3167 15.0977 15.6835 14.7071 15.293L11.4142 12L14.7071 8.70712C15.0977 8.31659 15.0977 7.68343 14.7071 7.29289C14.3166 6.90237 13.6834 6.90237 13.2929 7.29289L9.29289 11.2929C9.10536 11.4804 9 11.7348 9 12Z",
-                  fill: "#2C2C2C"
-                }
-              })
-            ])
+            _c("path", {
+              attrs: {
+                "stroke-linecap": "round",
+                "stroke-linejoin": "round",
+                "stroke-width": "2",
+                d: "M11 19l-7-7 7-7m8 14l-7-7 7-7"
+              }
+            })
           ]
-        ),
-        _vm._v(" "),
-        _c(
-          "p",
-          {
-            staticClass:
-              "leading-relaxed cursor-pointer mx-2 text-blue-600 hover:text-blue-600 text-sm"
-          },
-          [_vm._v("1")]
-        ),
-        _vm._v(" "),
-        _c(
-          "p",
-          {
-            staticClass:
-              "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
-          },
-          [_vm._v("2")]
-        ),
-        _vm._v(" "),
-        _c(
-          "p",
-          {
-            staticClass:
-              "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
-          },
-          [_vm._v(" 3 ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "p",
-          {
-            staticClass:
-              "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
-          },
-          [_vm._v(" 4 ")]
         ),
         _vm._v(" "),
         _c(
           "svg",
           {
-            staticClass: "h-6 w-6",
+            staticClass: "h-5 w-5",
+            class:
+              this.currentPage != 1
+                ? "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
+                : "",
             attrs: {
-              width: "24",
-              height: "24",
-              viewBox: "0 0 24 24",
+              xmlns: "http://www.w3.org/2000/svg",
               fill: "none",
-              xmlns: "http://www.w3.org/2000/svg"
-            }
+              viewBox: "0 0 24 24",
+              stroke: "currentColor"
+            },
+            on: { click: _vm.prevPage }
           },
           [
             _c("path", {
               attrs: {
-                "fill-rule": "evenodd",
-                "clip-rule": "evenodd",
-                d:
-                  "M15 12C15 11.7348 14.8946 11.4804 14.7071 11.2929L10.7071 7.2929C10.3166 6.9024 9.6834 6.9024 9.2929 7.2929C8.9024 7.6834 8.9024 8.3166 9.2929 8.7071L12.5858 12L9.2929 15.2929C8.9024 15.6834 8.9024 16.3166 9.2929 16.7071C9.6834 17.0976 10.3166 17.0976 10.7071 16.7071L14.7071 12.7071C14.8946 12.5196 15 12.2652 15 12Z",
-                fill: "#18A0FB"
+                "stroke-linecap": "round",
+                "stroke-linejoin": "round",
+                "stroke-width": "2",
+                d: "M15 19l-7-7 7-7"
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        this.currentPage - 2 > 0
+          ? _c(
+              "p",
+              {
+                staticClass:
+                  "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600",
+                on: {
+                  click: function($event) {
+                    return _vm.OpenPage(_vm.currentPage - 2)
+                  }
+                }
+              },
+              [_vm._v(" " + _vm._s(this.currentPage - 2))]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        this.currentPage - 1 > 0
+          ? _c(
+              "p",
+              {
+                staticClass:
+                  "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600",
+                on: {
+                  click: function($event) {
+                    return _vm.OpenPage(_vm.currentPage - 1)
+                  }
+                }
+              },
+              [_vm._v(" " + _vm._s(this.currentPage - 1))]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "p",
+          {
+            staticClass:
+              "leading-relaxed cursor-pointer mx-2 text-sm text-blue-600"
+          },
+          [_vm._v(" " + _vm._s(this.currentPage) + " ")]
+        ),
+        _vm._v(" "),
+        this.currentPage + 1 <=
+        Math.ceil(this.allcontests.length / this.pageSize)
+          ? _c(
+              "p",
+              {
+                staticClass:
+                  "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600",
+                on: {
+                  click: function($event) {
+                    return _vm.OpenPage(_vm.currentPage + 1)
+                  }
+                }
+              },
+              [_vm._v(" " + _vm._s(this.currentPage + 1))]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        this.currentPage + 2 <=
+        Math.ceil(this.allcontests.length / this.pageSize)
+          ? _c(
+              "p",
+              {
+                staticClass:
+                  "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600",
+                on: {
+                  click: function($event) {
+                    return _vm.OpenPage(_vm.currentPage + 2)
+                  }
+                }
+              },
+              [_vm._v(" " + _vm._s(this.currentPage + 2))]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c(
+          "svg",
+          {
+            staticClass: "h-5 w-5 ",
+            class:
+              this.currentPage <
+              Math.ceil(this.allcontests.length / this.pageSize)
+                ? "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
+                : "",
+            attrs: {
+              xmlns: "http://www.w3.org/2000/svg",
+              fill: "none",
+              viewBox: "0 0 24 24",
+              stroke: "currentColor"
+            },
+            on: { click: _vm.nextPage }
+          },
+          [
+            _c("path", {
+              attrs: {
+                "stroke-linecap": "round",
+                "stroke-linejoin": "round",
+                "stroke-width": "2",
+                d: "M9 5l7 7-7 7"
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "svg",
+          {
+            staticClass: "h-5 w-5 ",
+            class:
+              this.currentPage <
+              Math.ceil(this.allcontests.length / this.pageSize)
+                ? "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
+                : "",
+            attrs: {
+              xmlns: "http://www.w3.org/2000/svg",
+              fill: "none",
+              viewBox: "0 0 24 24",
+              stroke: "currentColor"
+            },
+            on: { click: _vm.lastPage }
+          },
+          [
+            _c("path", {
+              attrs: {
+                "stroke-linecap": "round",
+                "stroke-linejoin": "round",
+                "stroke-width": "2",
+                d: "M13 5l7 7-7 7M5 5l7 7-7 7"
               }
             })
           ]
@@ -50987,77 +51470,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c(
-        "tr",
-        {
-          staticClass: "rounded-lg text-sm font-medium text-gray-700 text-left",
-          staticStyle: { "font-size": "0.9674rem" }
-        },
-        [
-          _c(
-            "th",
-            {
-              staticClass: "px-4 py-2 bg-gray-200 ",
-              staticStyle: { "background-color": "#f8f8f8" }
-            },
-            [_vm._v("Contest")]
-          ),
-          _vm._v(" "),
-          _c(
-            "th",
-            {
-              staticClass: "px-4 py-2 ",
-              staticStyle: { "background-color": "#f8f8f8" }
-            },
-            [_vm._v("Date")]
-          ),
-          _vm._v(" "),
-          _c(
-            "th",
-            {
-              staticClass: "px-4 py-2 ",
-              staticStyle: { "background-color": "#f8f8f8" }
-            },
-            [_vm._v("Status")]
-          ),
-          _vm._v(" "),
-          _c(
-            "th",
-            {
-              staticClass: "px-4 py-2 ",
-              staticStyle: { "background-color": "#f8f8f8" }
-            },
-            [_vm._v("type")]
-          ),
-          _vm._v(" "),
-          _c(
-            "th",
-            {
-              staticClass: "px-4 py-2 ",
-              staticStyle: { "background-color": "#f8f8f8" }
-            },
-            [_vm._v("participation")]
-          ),
-          _vm._v(" "),
-          _c(
-            "th",
-            {
-              staticClass: "px-4 py-2 ",
-              staticStyle: { "background-color": "#f8f8f8" }
-            },
-            [_vm._v("Action")]
-          )
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -68027,6 +68440,12 @@ Vue.compile = compileToFunctions;
 /******/ 		return module.exports;
 /******/ 	}
 /******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
+/******/ 	
+/******/ 	// the startup function
+/******/ 	// It's empty as some runtime module handles the default behavior
+/******/ 	__webpack_require__.x = x => {};
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
 /******/ 	(() => {
@@ -68089,13 +68508,100 @@ Vue.compile = compileToFunctions;
 /******/ 		};
 /******/ 	})();
 /******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		// no baseURI
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// Promise = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			"/js/app": 0
+/******/ 		};
+/******/ 		
+/******/ 		var deferredModules = [
+/******/ 			["./resources/js/app.js"],
+/******/ 			["./resources/css/app.css"]
+/******/ 		];
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		var checkDeferredModules = x => {};
+/******/ 		
+/******/ 		// install a JSONP callback for chunk loading
+/******/ 		var webpackJsonpCallback = (parentChunkLoadingFunction, data) => {
+/******/ 			var [chunkIds, moreModules, runtime, executeModules] = data;
+/******/ 			// add "moreModules" to the modules object,
+/******/ 			// then flag all "chunkIds" as loaded and fire callback
+/******/ 			var moduleId, chunkId, i = 0, resolves = [];
+/******/ 			for(;i < chunkIds.length; i++) {
+/******/ 				chunkId = chunkIds[i];
+/******/ 				if(__webpack_require__.o(installedChunks, chunkId) && installedChunks[chunkId]) {
+/******/ 					resolves.push(installedChunks[chunkId][0]);
+/******/ 				}
+/******/ 				installedChunks[chunkId] = 0;
+/******/ 			}
+/******/ 			for(moduleId in moreModules) {
+/******/ 				if(__webpack_require__.o(moreModules, moduleId)) {
+/******/ 					__webpack_require__.m[moduleId] = moreModules[moduleId];
+/******/ 				}
+/******/ 			}
+/******/ 			if(runtime) runtime(__webpack_require__);
+/******/ 			if(parentChunkLoadingFunction) parentChunkLoadingFunction(data);
+/******/ 			while(resolves.length) {
+/******/ 				resolves.shift()();
+/******/ 			}
+/******/ 		
+/******/ 			// add entry modules from loaded chunk to deferred list
+/******/ 			if(executeModules) deferredModules.push.apply(deferredModules, executeModules);
+/******/ 		
+/******/ 			// run deferred modules when all chunks ready
+/******/ 			return checkDeferredModules();
+/******/ 		}
+/******/ 		
+/******/ 		var chunkLoadingGlobal = self["webpackChunk"] = self["webpackChunk"] || [];
+/******/ 		chunkLoadingGlobal.forEach(webpackJsonpCallback.bind(null, 0));
+/******/ 		chunkLoadingGlobal.push = webpackJsonpCallback.bind(null, chunkLoadingGlobal.push.bind(chunkLoadingGlobal));
+/******/ 		
+/******/ 		function checkDeferredModulesImpl() {
+/******/ 			var result;
+/******/ 			for(var i = 0; i < deferredModules.length; i++) {
+/******/ 				var deferredModule = deferredModules[i];
+/******/ 				var fulfilled = true;
+/******/ 				for(var j = 1; j < deferredModule.length; j++) {
+/******/ 					var depId = deferredModule[j];
+/******/ 					if(installedChunks[depId] !== 0) fulfilled = false;
+/******/ 				}
+/******/ 				if(fulfilled) {
+/******/ 					deferredModules.splice(i--, 1);
+/******/ 					result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
+/******/ 				}
+/******/ 			}
+/******/ 			if(deferredModules.length === 0) {
+/******/ 				__webpack_require__.x();
+/******/ 				__webpack_require__.x = x => {};
+/******/ 			}
+/******/ 			return result;
+/******/ 		}
+/******/ 		var startup = __webpack_require__.x;
+/******/ 		__webpack_require__.x = () => {
+/******/ 			// reset startup function so it can be called again when more startup code is added
+/******/ 			__webpack_require__.x = startup || (x => {});
+/******/ 			return (checkDeferredModules = checkDeferredModulesImpl)();
+/******/ 		};
+/******/ 	})();
+/******/ 	
 /************************************************************************/
 /******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	__webpack_require__("./resources/js/app.js");
-/******/ 	// This entry module doesn't tell about it's top-level declarations so it can't be inlined
-/******/ 	var __webpack_exports__ = __webpack_require__("./resources/css/app.css");
+/******/ 	// run startup
+/******/ 	var __webpack_exports__ = __webpack_require__.x();
 /******/ 	
 /******/ })()
 ;
