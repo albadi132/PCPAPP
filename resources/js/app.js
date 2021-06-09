@@ -62,6 +62,12 @@
  Vue.component('pcp-cp-user-restpass', require('./components/ControlPanel/authentications/restpass.vue').default);
  Vue.component('pcp-cp-user-status', require('./components/ControlPanel/authentications/status.vue').default);
  Vue.component('pcp-cp-contests', require('./components/ControlPanel/contests/ContestTable.vue').default);
+<<<<<<< HEAD
+
+=======
+ Vue.component('pcp-cp-new-contest', require('./components/ControlPanel/contests/NewContest.vue').default);
+ 
+>>>>>>> dc74cd91271303efde38c3f4709c368d3b449cf2
 
 
  /**
