@@ -21,13 +21,13 @@ class ControlPanel extends Controller
 
     public function index()
     {
-        
+
         //Auth::user()
         //Gate::allows('show')
         if(Gate::allows('show')){
 
 
-           
+
             return view('admin.home');
 
         }
@@ -35,23 +35,13 @@ class ControlPanel extends Controller
         {abort(401);}
     }
 
-   
+
 
     public function AuthenticationUsers()
     {
-        
         if(Gate::allows('show')){
-        return view('admin.authentication.users');
-        }
-        else
-        {abort(401);}
-    }
-
-    public function AuthenticationRole()
-    {
-        
-        if(Gate::allows('show')){
-        return view('admin.authentication.role');
+            $users = User::all();
+            return view('admin.authentication.users')->with('users', $users);
         }
         else
         {abort(401);}
@@ -60,14 +50,14 @@ class ControlPanel extends Controller
 
     public function contestsView()
     {
-        
+
         if(Gate::allows('show')){
             $contests = Contest::all();
 
 
-            
-            
-            
+
+
+
 
         //return view('admin.contests.view',['contests'=>$contests],['live'=>$live],['upcoming'=>$upcoming],['archived'=>$archived]);
         return view('admin.contests.view')
@@ -79,7 +69,7 @@ class ControlPanel extends Controller
 
     public function contestsCreat()
     {
-        
+
         if(Gate::allows('show')){
         return view('admin.contests.creat');
         }
@@ -89,22 +79,22 @@ class ControlPanel extends Controller
 
     public function contestsEdit($id)
     {
-        
+
         if(Gate::allows('show')){
 
            if(Contest::findOrFail($id))
            {
             $contest= Contest::where('id', $id)->get();
-            
+
             return view('admin.contests.edit',['contest'=>$contest]);
 
            }
            else{
 abort(404);
            }
-           
 
-        
+
+
         }
         else
         {abort(401);}
@@ -127,15 +117,15 @@ abort(404);
                 $contest->save();
                 return redirect()->route('contests-view')->with('success','Successfully activate');
              }
-             
- 
+
+
             }
             else{
  abort(404);
             }
-            
- 
-         
+
+
+
          }
          else
          {abort(401);}
@@ -150,14 +140,14 @@ abort(404);
                 $contest->delete();
                 return redirect()->route('contests-view')->with('success','The contest has been deleted');
 
- 
+
             }
             else{
  abort(404);
             }
-            
- 
-         
+
+
+
          }
          else
          {abort(401);}
@@ -178,7 +168,7 @@ abort(404);
     ->orderByDesc('count')
     ->limit(1)
     ->get();
-  
+
         return view('admin.problems.view')
         ->with('problems', $problems)
             ->with('count', $count)
@@ -191,34 +181,34 @@ abort(404);
 
     public function ProblemsCreat()
     {
-        
+
         if(Gate::allows('show')){
         return view('admin.problems.creat');
         }
         else
         {abort(401);}
     }
-    
-    
+
+
 
     public function problemsEdit($id)
     {
-        
+
         if(Gate::allows('show')){
 
            if(Problem::findOrFail($id))
            {
             $Problem= Problem::where('id', $id)->get();
-            
+
             return view('admin.problems.edit',['problem'=>$Problem]);
 
            }
            else{
 abort(404);
            }
-           
 
-        
+
+
         }
         else
         {abort(401);}
@@ -235,14 +225,14 @@ abort(404);
                 $Problem->delete();
                 return redirect()->route('problems-view')->with('success','The problem has been deleted');
 
- 
+
             }
             else{
  abort(404);
             }
-            
- 
-         
+
+
+
          }
          else
          {abort(401);}
@@ -250,7 +240,7 @@ abort(404);
 
     public function testcase(Request $request)
     {
-       
+
         $TestCase = new TestCase();
         $TestCase->input =  $request->input;
         $TestCase->output =   $request->output;
@@ -266,5 +256,5 @@ abort(404);
     }
 
 
-    
+
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\ControlPanel;
 use App\Http\Controllers\admin\contests;
 use App\Http\Controllers\admin\problems;
+use App\Http\Controllers\admin\Users;
 use App\Http\Controllers\users\ProfileController;
 use App\Http\Controllers\competitions\primarycontroller;
 use App\Http\Controllers\competitions\DealWithProblem;
@@ -47,6 +48,7 @@ Route::get('/verify', [VerifyController::class, 'index'])->name('verify');
 //controlpanel
 Route::get('/controlpanel', [ControlPanel::class, 'index'])->name('controlpanel')->middleware('auth');
 Route::get('/controlpanel/authentication/users', [ControlPanel::class, 'AuthenticationUsers'])->name('authentication-users')->middleware('auth');
+Route::post('/controlpanel/authentication/users/role', [Users::class, 'editRole'])->middleware('auth');
 Route::get('/controlpanel/contests/', [ControlPanel::class, 'contestsView'])->name('contests-view')->middleware('auth');
 Route::get('/controlpanel/contests/creat', [ControlPanel::class, 'contestsCreat'])->name('contests-creat')->middleware('auth');
 Route::post('/controlpanel/contests/creat', [contests::class, 'creat'])->middleware('auth');

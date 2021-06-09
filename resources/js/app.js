@@ -28,7 +28,7 @@
 
  //AlpineJS
  import 'alpinejs';
- 
+
 
  /**
   * The following block of code may be used to automatically register your
@@ -57,11 +57,12 @@
 
 
  //control panel vue components
+ Vue.component('pcp-cp-users', require('./components/ControlPanel/authentications/usersTable.vue').default);
  Vue.component('pcp-cp-user-role', require('./components/ControlPanel/authentications/role.vue').default);
  Vue.component('pcp-cp-user-restpass', require('./components/ControlPanel/authentications/restpass.vue').default);
  Vue.component('pcp-cp-user-status', require('./components/ControlPanel/authentications/status.vue').default);
  Vue.component('pcp-cp-contests', require('./components/ControlPanel/contests/ContestTable.vue').default);
- 
+
 
  /**
   * Next, we will create a fresh Vue application instance and attach it to

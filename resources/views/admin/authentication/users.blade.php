@@ -1,9 +1,9 @@
 @extends('admin.layouts.app')
 @section('content')
-<div class="container mx-auto">
+<div class="w-full">
     <div class="">
         <div class="flex flex-wrap -mx-6">
-            <div class="w-full px-6 sm:w-1/2 xl:w-1/4">
+            <div class="self-stretch w-full px-6 sm:w-1/2 xl:w-1/4">
                 <div class="flex items-center px-5 py-6 bg-white rounded-md shadow-sm">
                     <div class="p-3 bg-indigo-600 bg-opacity-75 rounded-full">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-white" viewBox="0 0 20 20" fill="none">
@@ -11,7 +11,7 @@
                         </svg>
                     </div>
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">00,000</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ $users->count() }}</h4>
                         <div class="text-gray-500">Users</div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                         </svg>
                     </div>
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">00,000</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ $users->where('role', '===', 'manager')->count() }}</h4>
                         <div class="text-gray-500">Managers</div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                         </svg>
                     </div>
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">00,000</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ $users->where('is_verified', '=', '0')->count() }}</h4>
                         <div class="text-gray-500">Non-Verified</div>
                     </div>
                 </div>
@@ -53,109 +53,16 @@
                         </svg>
                     </div>
                     <div class="mx-5">
-                        <h4 class="text-2xl font-semibold text-gray-700">00,000</h4>
+                        <h4 class="text-2xl font-semibold text-gray-700">{{ $users->where('status', '=', '0')->count() }}</h4>
                         <div class="text-gray-500">Suspended</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="flex flex-col mx-6 mt-8">
-        <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-            <div
-                class="inline-block min-w-full overflow-hidden align-middle border-b border-gray-200 shadow sm:rounded-lg">
-                <table class="min-w-full">
-                    <thead>
-                        <tr>
-                            <th
-                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                Name</th>
-                            <th
-                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                Email</th>
-                            <th
-                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                Verification / Status</th>
-                            <th
-                                class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                Role</th>
-                            <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white">
-                        <tr>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <div class="flex items-center">
-                                    <div class="flex-shrink-0 w-10 h-10">
-                                        <img class="w-10 h-10 rounded-full"
-                                            src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                            alt="">
-                                    </div>
-                                    <div class="ml-4">
-                                        <div class="text-sm font-medium leading-5 text-gray-900">Username
-                                        </div>
-                                        <div class="text-sm leading-5 text-gray-500">First.name + Last.name</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <div class="text-sm leading-5 text-gray-900">
-                                    email@address
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                                    Verified
-                                </span>
-                                /
-                                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                                    Active
-                                </span>
-                            </br>
-                                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full">
-                                    Verified
-                                </span>
-                                /
-                                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-                                    Suspended
-                                </span>
-                            </br>
-                                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-                                    Non-Verified
-                                </span>
-                                /
-                                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-                                    Suspended
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-sm leading-5 text-gray-500 whitespace-no-wrap border-b border-gray-200">
-                                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-yellow-800 bg-yellow-100 rounded-full">
-                                    Admin
-                                </span>
-                            </br>
-                                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-indigo-800 bg-indigo-100 rounded-full">
-                                    Manager
-                                </span>
-                            </br>
-                                <span class="inline-flex px-2 text-xs font-semibold leading-5 text-gray-800 bg-gray-100 rounded-full">
-                                    Regular
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-sm font-medium leading-5 text-left whitespace-no-wrap border-b border-gray-200">
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                                    Change Role
-                                </a></br>
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                                    Change Status
-                                </a></br>
-                                <a href="#" class="text-indigo-600 hover:text-indigo-900">
-                                    Reset Password
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="flex flex-col mt-8">
+        <div id="app" class="w-full">
+            <pcp-cp-users :users="'{{ json_encode($users) }}'"></pcp-cp-users>
         </div>
     </div>
 </div>
