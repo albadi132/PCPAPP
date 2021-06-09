@@ -139,7 +139,7 @@
             <p class="font-semibold text-gray-600">Cancel</p>
           </button>
           <button
-            @click="creatteam"
+            @click="profile"
             :disabled="form.busy"
             class="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
           >
@@ -206,7 +206,7 @@ export default {
         
     
 
-    async creatteam() {
+    async profile() {
       console.log(this.form);
       const response = await this.form
         .post("/profile/" + this.profileinfo.username )

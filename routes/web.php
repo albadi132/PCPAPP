@@ -50,7 +50,6 @@ Route::get('/controlpanel', [ControlPanel::class, 'index'])->name('controlpanel'
 Route::get('/controlpanel/authentication/users', [ControlPanel::class, 'AuthenticationUsers'])->name('authentication-users')->middleware('auth');
 Route::post('/controlpanel/authentication/users/role', [Users::class, 'editRole'])->middleware('auth');
 Route::get('/controlpanel/contests/', [ControlPanel::class, 'contestsView'])->name('contests-view')->middleware('auth');
-Route::get('/controlpanel/contests/creat', [ControlPanel::class, 'contestsCreat'])->name('contests-creat')->middleware('auth');
 Route::post('/controlpanel/contests/creat', [contests::class, 'creat'])->middleware('auth');
 Route::get('/controlpanel/contests/edit/{id}', [ControlPanel::class, 'contestsEdit'])->name('contests-edit')->middleware('auth');
 Route::post('/controlpanel/contests/edit/{id}', [contests::class, 'edit'])->middleware('auth');

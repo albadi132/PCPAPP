@@ -67,7 +67,7 @@
                     <td class="py-3 px-6 ">
                                     <div class="flex ">
                                         <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg @click="show(contest.id)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg>
@@ -119,7 +119,26 @@
 
       </div>
 
+
+  <Modal v-model="showModal" title="Creat New Contest" wrapper-class="modal-wrapper" modal-class="modal">
+      <div class="flex flex-col">
+      <!-- form -->
+
+      <!-- end form -->
+
+        <div class="flex flex-row self-end">
+          <button type="button" @click="showModal = false"
+                  class="px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300">
+          Close</button>
+          <button type="button" @click="showModal = false"
+                  class="px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
+          Creat</button>
+        </div>
+      </div>
+    </Modal>
+
 </div>
+
 </template>
 
 <script>
@@ -127,6 +146,7 @@
         props: ["contests", 'time'],
   data() {
     return {
+      showModal: false,
       allcontests: JSON.parse(this.contests),
       timenow: this.time,
       currentSort: "name",
@@ -138,6 +158,13 @@
     };
   },
    methods: {
+     show: function(id){
+
+       this.showModal = true
+       console.log(id)
+
+
+     },
     sort: function (s) {
       //if s == current sort, reverse
       if (s === this.currentSort) {
