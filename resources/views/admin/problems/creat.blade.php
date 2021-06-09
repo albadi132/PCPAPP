@@ -1,6 +1,5 @@
-@extends('admin.controlpanel')
-
-@section('admin')
+@extends('admin.layouts.app')
+@section('content')
 <div class="container mx-auto px-6 py-8">
   @if ($message = Session::get('error'))
 <div class="flex justify-center items-center m-1 font-medium py-1 px-2 rounded-md text-red-700 bg-red-100 border border-red-300 ">

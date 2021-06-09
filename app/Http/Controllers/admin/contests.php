@@ -23,7 +23,10 @@ class contests extends Controller
 
        if(Gate::allows('creat'))
        {
-        
+        return [
+            'status' => 200,
+            'description' => "Profile updated successfully",
+        ];
         $this->validate($request, [
             'name' => ['required','unique:contests', 'string','regex:/^[a-zA-Z0-9 ]+$/', 'max:255'],
             'description' => ['required', 'string', 'max:1500'],
