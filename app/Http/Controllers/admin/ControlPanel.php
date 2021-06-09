@@ -184,7 +184,7 @@ abort(404);
             ->with('count', $count)
             ->with('last', $last)
             ->with('mostauthor', $mostauthor);
-        }
+        } 
         else
         {abort(401);}
     }
