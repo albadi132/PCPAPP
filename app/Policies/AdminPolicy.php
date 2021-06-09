@@ -20,6 +20,12 @@ class AdminPolicy
         //
     }
 
+    public function AdminOnly()
+    {
+        
+        return Auth::user()->role === 'admin';
+    }
+
     public function show()
     {
         

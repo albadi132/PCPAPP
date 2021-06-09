@@ -79,14 +79,7 @@
 
 <div id="app" class="w-full px-4 pb-4 bg-white rounded-md">
     <div class="flex justify-between w-full pt-6 ">
-<<<<<<< HEAD
-        <div class="flex flex-col px-2 md:flex-row">
-            <a href="{{ route('contests-creat') }}" class="px-4 py-2 font-semibold text-green-600 transition duration-200 ease-in transform bg-transparent border border-green-600 rounded hover:bg-green-600 hover:text-white hover:border-transparent hover:-translate-y-1 active:translate-y-0">
-              New Contest</a>
-          </div>
-=======
           <pcp-cp-new-contest></pcp-cp-new-contest>
->>>>>>> dc74cd91271303efde38c3f4709c368d3b449cf2
       <svg width="14" height="4" viewBox="0 0 14 4" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g opacity="0.4">
       <circle cx="2.19796" cy="1.80139" r="1.38611" fill="#222222"/>
