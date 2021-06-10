@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 
 class mange extends Controller
 {
-    
+
     public function removecompetitor($name, $id)
     {
         $cname = str_replace("_", " ", $name);
@@ -69,7 +69,7 @@ class mange extends Controller
         $contest = Contest::where('name', $cname)->where('status', '=', 1)->firstOrFail();
         if ($contest) {
 
-            if (Gate::allows('AdminOrManger', $contest->id))
+            if (Gate::allows('AdminOrManager', $contest->id))
             {
                 $user= User::find($id);
 
@@ -78,7 +78,7 @@ class mange extends Controller
                         $this->RemovFromCompetition($contest->id, $user->id);
 
                         return redirect()->route('competition-manage-organizers', ['name' => $name ])->with(session()->flash('alert-success', 'The organizer has been removed'));
-                 
+
                 }else
         {abort(404);}
 
@@ -98,18 +98,18 @@ class mange extends Controller
             'organizer.*.email' => ['required', 'string', 'email', 'max:255'],
             'contestid' => ['required'],
         ],
-        [   
+        [
             'organizer.*.email.required'    => 'Please Provide Email Address',
             'organizer.*.email.string'      => 'Please Provide Email Address',
             'organizer.*.email.email' => 'Please Provide Email Address',
             'organizer.*.email.max:255'      => 'Email Address cant be more than 255 charcater',
         ]);
-        
+
 
         //Check the permissions
-        if(Gate::allows('AdminOrManger', $request->contestid))
+        if(Gate::allows('AdminOrManager', $request->contestid))
         {
-            
+
 //Make sure of the competition
 $contest = Contest::find($request->contestid);
         if ($contest) {
@@ -118,8 +118,8 @@ $contest = Contest::find($request->contestid);
                 foreach ($request->organizer as $sup) {
 
                     $user = User::where('email' , $sup['email'])->first();
-                    
-                    
+
+
                     if(!is_null($user))
                     {
                         //check if sup before
@@ -141,7 +141,7 @@ $contest = Contest::find($request->contestid);
                         ];
 
                     }
-                        
+
                     }
                     else{
                         return [
@@ -149,10 +149,10 @@ $contest = Contest::find($request->contestid);
                             'description' => "There is an error, make sure that this email ".$sup['email']." is linked to an account",
                         ];
 
-                        
+
                     }
-                    
-                   
+
+
                 }
 
                 //All Done
@@ -172,7 +172,7 @@ $contest = Contest::find($request->contestid);
 
 
             }
-            else{ 
+            else{
                 return [
                     'status' => 404,
                     'description' => "Something went wrong!!",
@@ -189,7 +189,7 @@ $contest = Contest::find($request->contestid);
             ];
 
         }
-    
+
 }
 
 
@@ -228,7 +228,7 @@ $contest = Contest::find($request->contestid);
         else{
             TeamUser::where("user_id" , $userid)->delete();
         }
-        
+
 
 
 

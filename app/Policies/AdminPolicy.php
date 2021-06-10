@@ -22,19 +22,19 @@ class AdminPolicy
 
     public function AdminOnly()
     {
-        
+
         return Auth::user()->role === 'admin';
     }
 
     public function show()
     {
-        
+
         return Auth::user()->role === 'admin';
     }
 
-    public function AdminOrManger()
+    public function AdminOrManager()
     {
-        return (Auth::user()->role === 'admin') || (Auth::user()->role === 'manger');
+        return (Auth::user()->role === 'admin') || (Auth::user()->role === 'manager');
 
     }
 }

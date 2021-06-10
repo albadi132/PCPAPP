@@ -24,7 +24,7 @@ class ControlPanel extends Controller
 
         //Auth::user()
         //Gate::allows('show')
-        if(Gate::allows('show')){
+        if(Gate::allows('AdminOrManager')){
 
 
 
@@ -39,7 +39,7 @@ class ControlPanel extends Controller
 
     public function AuthenticationUsers()
     {
-        if(Gate::allows('show')){
+        if(Gate::allows('AdminOnly')){
             $users = User::all();
             return view('admin.authentication.users')->with('users', $users);
         }
@@ -174,7 +174,7 @@ abort(404);
             ->with('count', $count)
             ->with('last', $last)
             ->with('mostauthor', $mostauthor);
-        } 
+        }
         else
         {abort(401);}
     }

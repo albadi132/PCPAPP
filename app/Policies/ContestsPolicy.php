@@ -28,14 +28,14 @@ class ContestsPolicy
     {
 
 
-        return Auth::user()->role === 'admin' || Auth::user()->role === 'manger';
+        return Auth::user()->role === 'admin' || Auth::user()->role === 'manager';
     }
 
     public function OrganizerOrAdmin($request, $ContestId)
     {
 
         if (!is_null(Contest::find($ContestId))) {
-            if (Auth::user()->role === 'admin' || Auth::user()->role === 'manger') {
+            if (Auth::user()->role === 'admin' || Auth::user()->role === 'manager') {
                 return true;
             } else {
                 if (!is_null(ContestUser::where('user_id', Auth::user()->id)

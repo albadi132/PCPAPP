@@ -17,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        
+
     ];
 
     /**
@@ -28,15 +28,15 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        
+
         Gate::define('show', [AdminPolicy::class, 'show']);
         Gate::define('AdminOnly', [AdminPolicy::class, 'AdminOnly']);
-        Gate::define('AdminOrManger', [AdminPolicy::class, 'AdminOrManger']);
+        Gate::define('AdminOrManager', [AdminPolicy::class, 'AdminOrManager']);
         Gate::define('creat', [ContestsPolicy::class, 'creat']);
         Gate::define('Myprofile', [UserPolicy::class, 'Myprofile']);
         Gate::define('OrganizerOrAdmin', [ContestsPolicy::class, 'OrganizerOrAdmin']);
         Gate::define('IAmCompetitor', [ContestsPolicy::class, 'IAmCompetitor']);
         Gate::define('IAmCompetitorOnTeam', [ContestsPolicy::class, 'IAmCompetitorOnTeam']);
-         
+
     }
 }

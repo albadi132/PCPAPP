@@ -5183,7 +5183,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
                       icon: "success",
                       title: data.description,
                       showConfirmButton: false,
-                      timer: 3000
+                      timer: 4000
                     });
                     location.reload();
                   } else {
@@ -5236,9 +5236,6 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
         var end = _this3.currentPage * _this3.pageSize;
         if (index >= start && index < end) return true;
       });
-    },
-    getTarget: function getTarget() {
-      return this.vModals.target;
     }
   },
   mounted: function mounted() {}

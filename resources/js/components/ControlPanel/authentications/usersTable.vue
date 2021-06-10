@@ -225,7 +225,7 @@ export default {
     },
     /* role vueModal vForm */
     async changeRole() {
-this.roleForm.targetUser = this.vModals.target;
+      this.roleForm.targetUser = this.vModals.target;
       const response = await this.roleForm
         .post('/controlpanel/authentication/users/role')
         .then(({ data }) => {
@@ -235,7 +235,7 @@ this.roleForm.targetUser = this.vModals.target;
               icon: "success",
               title: data.description,
               showConfirmButton: false,
-              timer: 3000,
+              timer: 4000,
             });
             location.reload();
           } else {
@@ -276,9 +276,6 @@ this.roleForm.targetUser = this.vModals.target;
 
 		    if(index >= start && index < end) return true;
 	    });
-    },
-    getTarget: function () {
-      return this.vModals.target;
     },
   },
   mounted() {},
