@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Validator;
 use App\Models\Contest;
-
+use Intervention\Image\ImageManagerStatic as Image;
 
 
 
@@ -20,44 +20,99 @@ class contests extends Controller
     {
         
        //dd(Gate::allows('creat'));
-
-       if(Gate::allows('creat'))
+       if(Gate::allows('AdminOrManager'))
        {
-        return [
-            'status' => 200,
-            'description' => "Profile updated successfully",
-        ];
+       
+        
         $this->validate($request, [
             'name' => ['required','unique:contests', 'string','regex:/^[a-zA-Z0-9 ]+$/', 'max:255'],
-            'description' => ['required', 'string', 'max:1500'],
+            'description' => ['required',  'max:1500'],
             'startingtime' =>[ 'required','date','after_or_equal:now'],
             'endingtime' => ['required', 'date', 'after_or_equal:startingtime'],
-            'logo' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
-            
+            'logo' => ['required', 'base64image'],
+            'private' => ['required', 'boolean'],
+            'team' => ['required', 'boolean'],
+            'conditions' => [ 'max:1500'],
+            'prize' => [ 'max:1500'],
+            'profile' => [ 'required','base64image']
         ]);
+   
+
        // $logo = $request->file('logo')->getClientOriginalName();
         //dd($logo);
-
-        $newImageName = time() . '.png';
-        $newPath = 'contests/images/';
-        $request->logo->move(public_path($newPath), $newImageName);
-
+        
         $contest = new Contest();
+       
+            try {
+                $imglogo = Image::make($request->logo);
+                $logoname =  time() . '.png';
+                $imglogo->save(public_path('contests/images/' . $logoname));
+                $contest->logo = $logoname;
+
+            } catch (\Exception $e) {
+
+                return [
+                    'status' => 422,
+                    'description' => "There was an error uploading contest logo",
+                ];
+            }
+
+            try {
+                $imgprofile = Image::make($request->profile);
+                $profilename =  time() . '.png';
+                $imgprofile->save(public_path('contests/profile/' . $profilename));
+                $contest->profile = $profilename;
+
+            } catch (\Exception $e) {
+
+                return [
+                    'status' => 422,
+                    'description' => "There was an error uploading contest profile",
+                ];
+            }
+        
         $contest->name = $request->name;
         $contest->description = $request->description;
         $contest->starting_date = $request->startingtime;
         $contest->ending_date = $request->endingtime;
-        if(is_null($request->private)){$contest->type= 'public';}else{$contest->type= 'private';}
-        if(is_null($request->team)){$contest->participation= 'solo';}else{$contest->participation= 'team';}
-        $contest->logo = $newImageName;
+        if($request->private == 1)
+        $contest->type = 'private';
+        else
+        $contest->type = 'public';
+        if($request->team == 1)
+        $contest->participation = 'team';
+        else
+        $contest->participation = 'solo';
+
+        if(!is_null($request->conditions))
+        $contest->conditions = $request->conditions;
+       
+        if(!is_null($request->prize))
+        $contest->prizes = $request->prize;
+       
         $contest->save();
-        
-        if( $contest != null){ return redirect()->route('contests-view')->with('success','Contest created successfully!');}
-        else{return redirect()->route('contests-creat')->with('error','There is an error!');}
+       
+        if( $contest != null){ 
+            return [
+                'status' => 200,
+                'description' => "Contest created successfully",
+            ];
+        }
+        else{
+            return [
+                'status' => 200,
+                'description' => "There is an error",
+            ];
+        }
 
        }
        else
-        {abort(401);}
+        {
+            return [
+            'status' => 403,
+            'description' => "You do not have permission to creat a contest",
+        ];
+    }
 
 
     }
