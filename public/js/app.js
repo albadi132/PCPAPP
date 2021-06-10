@@ -5126,7 +5126,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
         roleVM: false
       },
       roleForm: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
-        targetUser: this.getTarget,
+        targetUser: '',
         userRole: JSON.parse(this.users).role
       })
     };
@@ -5172,7 +5172,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log(_this.roleForm);
+                _this.roleForm.targetUser = _this.vModals.target;
                 _context.next = 3;
                 return _this.roleForm.post('/controlpanel/authentication/users/role').then(function (_ref) {
                   var data = _ref.data;

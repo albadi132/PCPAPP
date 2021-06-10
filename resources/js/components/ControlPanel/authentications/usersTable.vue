@@ -188,7 +188,7 @@ export default {
         roleVM: false,
       },
       roleForm: new Form ({
-        targetUser: this.getTarget,
+        targetUser: '',
         userRole: JSON.parse(this.users).role,
       }),
     };
@@ -225,7 +225,7 @@ export default {
     },
     /* role vueModal vForm */
     async changeRole() {
-      console.log(this.roleForm);
+this.roleForm.targetUser = this.vModals.target;
       const response = await this.roleForm
         .post('/controlpanel/authentication/users/role')
         .then(({ data }) => {
