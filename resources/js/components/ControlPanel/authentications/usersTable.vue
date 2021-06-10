@@ -87,7 +87,7 @@
               </td>
               <td class="px-6 py-4 text-sm font-medium leading-5 text-left border-b border-gray-200">
                 <div class="flex flex-col">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900" @click="vModals.target = user.id, vModals.role = true">
+                  <a href="#" class="text-indigo-600 hover:text-indigo-900" @click="vModals.target = user.id, vModals.roleVM = true">
                     Change Role
                   </a>
                   <a href="#" class="text-indigo-600 hover:text-indigo-900">
@@ -124,7 +124,7 @@
       </div>
     </div>
     <!-- user role vueModal -->
-    <Modal v-model="vModals.role" title="User Role">
+    <Modal v-model="vModals.roleVM" title="User Role">
       <div class="flex flex-col">
         <div class="flex flex-row">
           This is user role modal. Changing user {{ vModals.target }} role
@@ -133,14 +133,23 @@
           <div class="flex flex-col my-6">
             <div class="flex items-center justify-center">
               __roles selection here__
+              <form method="POST" enctype="multipart/form-data" @submit.prevent="changeRole" @keydown="roleForm.onKeydown($event)">
+                <p class="mb-2 font-semibold text-gray-700">Role</p>
+                <select id="userRole" name="userRole"  v-model="roleForm.userRole" class="w-full h-12 mb-5 border-2 border-gray-300 rounded-md">
+                  <option value="user">User</option>
+                  <option value="manager">Manager</option>
+                  <option value="admin">Admin</option>
+                </select>
+                <div v-if="roleForm.errors.has('userRole')" v-html="form.errors.get('userRole')" class="text-red-500"/>
+              </form>
             </div>
           </div>
         </div>
         <div class="flex flex-row self-end">
-          <button type="button" @click="vModals.role = false"
+          <button type="button" @click="vModals.roleVM = false"
                   class="px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300">
           Close</button>
-          <button type="button" @click="vModals.role = false"
+          <button type="button" @click="changeRole" :disabled="roleForm.busy"
                   class="px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
           Apply</button>
         </div>
@@ -152,6 +161,10 @@
 </template>
 
 <script>
+import { Form, HasError, AlertError } from "vform";
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
+
 export default {
   props: [
     'users'
@@ -171,18 +184,24 @@ export default {
       filter:'',
       /* vueModals */
       vModals: {
-        target: null,
-        role: false,
+        target: 0,
+        roleVM: false,
       },
+      roleForm: new Form ({
+        targetUser: this.getTarget,
+        userRole: JSON.parse(this.users).role,
+      }),
     };
   },
   methods: {
+    /* sorting */
     sort: function (s) {
       if (s === this.currentSort) {
         this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
       }
       this.currentSort = s;
     },
+    /* pagination */
     OpenPage: function (page) {
       this.currentPage = page
     },
@@ -203,10 +222,34 @@ export default {
       } else {
         this.currentPage = Math.floor(this.userslist.length / this.pageSize) + 1;
       }
-
-    }
+    },
+    /* role vueModal vForm */
+    async changeRole() {
+      console.log(this.roleForm);
+      const response = await this.roleForm
+        .post('/controlpanel/authentication/users/role')
+        .then(({ data }) => {
+          if (data.status == 200) {
+            this.vModals.roleVM = false;
+            toast.fire({
+              icon: "success",
+              title: data.description,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            location.reload();
+          } else {
+            toast.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.description,
+            });
+          }
+        });
+    },
   },
   watch: {
+    /* search */
     filter() {
       this.currentPage = 1;
     }
@@ -233,7 +276,10 @@ export default {
 
 		    if(index >= start && index < end) return true;
 	    });
-    }
+    },
+    getTarget: function () {
+      return this.vModals.target;
+    },
   },
   mounted() {},
 }

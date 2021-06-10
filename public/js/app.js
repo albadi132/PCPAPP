@@ -4926,6 +4926,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -5079,6 +5089,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.HasError.name, vform__WEBPACK_IMPORTED_MODULE_1__.HasError);
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK_IMPORTED_MODULE_1__.AlertError);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['users'],
   data: function data() {
@@ -5100,12 +5122,17 @@ __webpack_require__.r(__webpack_exports__);
 
       /* vueModals */
       vModals: {
-        target: null,
-        role: false
-      }
+        target: 0,
+        roleVM: false
+      },
+      roleForm: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        targetUser: this.getTarget,
+        userRole: JSON.parse(this.users).role
+      })
     };
   },
   methods: {
+    /* sorting */
     sort: function sort(s) {
       if (s === this.currentSort) {
         this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
@@ -5113,6 +5140,8 @@ __webpack_require__.r(__webpack_exports__);
 
       this.currentSort = s;
     },
+
+    /* pagination */
     OpenPage: function OpenPage(page) {
       this.currentPage = page;
     },
@@ -5131,36 +5160,85 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.currentPage = Math.floor(this.userslist.length / this.pageSize) + 1;
       }
+    },
+
+    /* role vueModal vForm */
+    changeRole: function changeRole() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                console.log(_this.roleForm);
+                _context.next = 3;
+                return _this.roleForm.post('/controlpanel/authentication/users/role').then(function (_ref) {
+                  var data = _ref.data;
+
+                  if (data.status == 200) {
+                    _this.vModals.roleVM = false;
+                    toast.fire({
+                      icon: "success",
+                      title: data.description,
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
+                    location.reload();
+                  } else {
+                    toast.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: data.description
+                    });
+                  }
+                });
+
+              case 3:
+                response = _context.sent;
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
     }
   },
   watch: {
+    /* search */
     filter: function filter() {
       this.currentPage = 1;
     }
   },
   computed: {
     filteredUsers: function filteredUsers() {
-      var _this = this;
+      var _this2 = this;
 
       return this.userslist.filter(function (u) {
-        if (_this.filter == '') return true;
-        return u.email.toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0;
+        if (_this2.filter == '') return true;
+        return u.email.toLowerCase().indexOf(_this2.filter.toLowerCase()) >= 0;
       });
     },
     sortedUsers: function sortedUsers() {
-      var _this2 = this;
+      var _this3 = this;
 
       return this.filteredUsers.sort(function (a, b) {
         var modifier = 1;
-        if (_this2.currentSortDir === 'desc') modifier = -1;
-        if (a[_this2.currentSort] < b[_this2.currentSort]) return -1 * modifier;
-        if (a[_this2.currentSort] > b[_this2.currentSort]) return 1 * modifier;
+        if (_this3.currentSortDir === 'desc') modifier = -1;
+        if (a[_this3.currentSort] < b[_this3.currentSort]) return -1 * modifier;
+        if (a[_this3.currentSort] > b[_this3.currentSort]) return 1 * modifier;
         return 0;
       }).filter(function (row, index) {
-        var start = (_this2.currentPage - 1) * _this2.pageSize;
-        var end = _this2.currentPage * _this2.pageSize;
+        var start = (_this3.currentPage - 1) * _this3.pageSize;
+        var end = _this3.currentPage * _this3.pageSize;
         if (index >= start && index < end) return true;
       });
+    },
+    getTarget: function getTarget() {
+      return this.vModals.target;
     }
   },
   mounted: function mounted() {}
@@ -52015,7 +52093,7 @@ var render = function() {
                                     on: {
                                       click: function($event) {
                                         ;(_vm.vModals.target = user.id),
-                                          (_vm.vModals.role = true)
+                                          (_vm.vModals.roleVM = true)
                                       }
                                     }
                                   },
@@ -52272,11 +52350,11 @@ var render = function() {
         {
           attrs: { title: "User Role" },
           model: {
-            value: _vm.vModals.role,
+            value: _vm.vModals.roleVM,
             callback: function($$v) {
-              _vm.$set(_vm.vModals, "role", $$v)
+              _vm.$set(_vm.vModals, "roleVM", $$v)
             },
-            expression: "vModals.role"
+            expression: "vModals.roleVM"
           }
         },
         [
@@ -52292,7 +52370,89 @@ var render = function() {
             _c("div", { staticClass: "flex flex-row self-center" }, [
               _c("div", { staticClass: "flex flex-col my-6" }, [
                 _c("div", { staticClass: "flex items-center justify-center" }, [
-                  _vm._v("\n            __roles selection here__\n          ")
+                  _vm._v(
+                    "\n            __roles selection here__\n            "
+                  ),
+                  _c(
+                    "form",
+                    {
+                      attrs: { method: "POST", enctype: "multipart/form-data" },
+                      on: {
+                        submit: function($event) {
+                          $event.preventDefault()
+                          return _vm.changeRole($event)
+                        },
+                        keydown: function($event) {
+                          return _vm.roleForm.onKeydown($event)
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "mb-2 font-semibold text-gray-700" },
+                        [_vm._v("Role")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.roleForm.userRole,
+                              expression: "roleForm.userRole"
+                            }
+                          ],
+                          staticClass:
+                            "w-full h-12 mb-5 border-2 border-gray-300 rounded-md",
+                          attrs: { id: "userRole", name: "userRole" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.roleForm,
+                                "userRole",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "user" } }, [
+                            _vm._v("User")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "manager" } }, [
+                            _vm._v("Manager")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "admin" } }, [
+                            _vm._v("Admin")
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.roleForm.errors.has("userRole")
+                        ? _c("div", {
+                            staticClass: "text-red-500",
+                            domProps: {
+                              innerHTML: _vm._s(_vm.form.errors.get("userRole"))
+                            }
+                          })
+                        : _vm._e()
+                    ]
+                  )
                 ])
               ])
             ]),
@@ -52306,7 +52466,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.vModals.role = false
+                      _vm.vModals.roleVM = false
                     }
                   }
                 },
@@ -52318,12 +52478,8 @@ var render = function() {
                 {
                   staticClass:
                     "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      _vm.vModals.role = false
-                    }
-                  }
+                  attrs: { type: "button", disabled: _vm.roleForm.busy },
+                  on: { click: _vm.changeRole }
                 },
                 [_vm._v("\n        Apply")]
               )
