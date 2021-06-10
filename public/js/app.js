@@ -5707,6 +5707,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -5808,6 +5824,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       text: data.description
                     });
                   }
+                })["catch"](function (error) {
+                  toast.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: 'Something went wrong!!'
+                  });
                 });
 
               case 3:
@@ -53288,6 +53310,14 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.name,
+                            expression: "form.name"
+                          }
+                        ],
                         staticClass:
                           "flex-shrink flex-grow flex-auto leading-normal w-px  border border-l-0 h-10 border-grey-light rounded-lg rounded-l-none px-3 relative focus:border-blue focus:shadow",
                         attrs: {
@@ -53295,6 +53325,15 @@ var render = function() {
                           id: "name",
                           name: "name",
                           placeholder: "Contest Name"
+                        },
+                        domProps: { value: _vm.form.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.form, "name", $event.target.value)
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -53320,6 +53359,14 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.form.description,
+                            expression: "form.description"
+                          }
+                        ],
                         staticClass:
                           " min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4",
                         attrs: {
@@ -53327,6 +53374,19 @@ var render = function() {
                           name: "description",
                           id: "description",
                           placeholder: "Contest Desc.."
+                        },
+                        domProps: { value: _vm.form.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.form,
+                              "description",
+                              $event.target.value
+                            )
+                          }
                         }
                       }),
                       _vm._v(" "),
@@ -53423,12 +53483,33 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.startingtime,
+                                expression: "form.startingtime"
+                              }
+                            ],
                             staticClass:
                               "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4",
                             attrs: {
                               type: "datetime-local",
                               id: "startingtime",
                               name: "startingtime"
+                            },
+                            domProps: { value: _vm.form.startingtime },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "startingtime",
+                                  $event.target.value
+                                )
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -53457,12 +53538,33 @@ var render = function() {
                           ),
                           _vm._v(" "),
                           _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.endingtime,
+                                expression: "form.endingtime"
+                              }
+                            ],
                             staticClass:
                               "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4",
                             attrs: {
                               type: "datetime-local",
                               id: "endingtime",
                               name: "endingtime"
+                            },
+                            domProps: { value: _vm.form.endingtime },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.form,
+                                  "endingtime",
+                                  $event.target.value
+                                )
+                              }
                             }
                           }),
                           _vm._v(" "),
@@ -53637,7 +53739,34 @@ var render = function() {
                         [_vm._v("More Customize")]
                       )
                     ]
-                  )
+                  ),
+                  _vm._v(" "),
+                  _vm.form.errors.has("condition")
+                    ? _c("div", {
+                        staticClass: "text-xs text-red-500 text-left my-3",
+                        domProps: {
+                          innerHTML: _vm._s(_vm.form.errors.get("condition"))
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.form.errors.has("prize")
+                    ? _c("div", {
+                        staticClass: "text-xs text-red-500 text-left my-3",
+                        domProps: {
+                          innerHTML: _vm._s(_vm.form.errors.get("prize"))
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.form.errors.has("profile")
+                    ? _c("div", {
+                        staticClass: "text-xs text-red-500 text-left my-3",
+                        domProps: {
+                          innerHTML: _vm._s(_vm.form.errors.get("profile"))
+                        }
+                      })
+                    : _vm._e()
                 ])
               ]
             ),

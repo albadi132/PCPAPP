@@ -24,7 +24,7 @@
 </svg>
                                    </span>
 								</div>
-								<input type="text" id="name"
+								<input type="text" id="name" v-model="form.name"
                   name="name" class="flex-shrink flex-grow flex-auto leading-normal w-px  border border-l-0 h-10 border-grey-light rounded-lg rounded-l-none px-3 relative focus:border-blue focus:shadow" placeholder="Contest Name">
                 <div
                 class="text-xs text-red-500 text-left my-3"
@@ -35,7 +35,7 @@
 
                   	<div class="flex-auto w-full mb-1 text-xs space-y-2">
 									<label class="font-semibold text-gray-600 py-2">Description</label>
-									<textarea required="" name="description" id="description" class=" min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4" placeholder="Contest Desc.." ></textarea>
+									<textarea v-model="form.description" required="" name="description" id="description" class=" min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4" placeholder="Contest Desc.." ></textarea>
 								 <div
                 class="text-xs text-red-500 text-left my-3"
                 v-if="form.errors.has('description')"
@@ -67,6 +67,7 @@
 							<div class="mb-3 space-y-2 w-full text-xs">
 								<label class="font-semibold text-gray-600 py-2">Starting Date</label>
                   <input
+                  v-model="form.startingtime" 
                   type="datetime-local"
                   id="startingtime"
                   name="startingtime"
@@ -82,6 +83,7 @@
 								<label class="font-semibold text-gray-600 py-2">Finish Date</label>
 							  <input
                   type="datetime-local"
+                  v-model="form.endingtime" 
                   id="endingtime"
                   name="endingtime"
                   class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
@@ -140,7 +142,21 @@
 									<label @click="CustomizeModal = true" class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border">More Customize</label>
                    
 								</div>
-
+<div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="form.errors.has('condition')"
+                v-html="form.errors.get('condition')"
+              />
+              <div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="form.errors.has('prize')"
+                v-html="form.errors.get('prize')"
+              />
+              <div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="form.errors.has('profile')"
+                v-html="form.errors.get('profile')"
+              />
 
               </div>
 </form>
@@ -276,11 +292,12 @@ this.CustomizeModal =false;
             
 
             async creatcontest() {
-      console.log(this.form);
+console.log(this.form);
       const response = await this.form
         .post("/controlpanel/contests/creat" )
         .then(({ data }) => {
-          if (data.status == 200) {
+
+            if (data.status == 200) {
             this.showModal = false;
             toast.fire({
               icon: "success",
@@ -296,7 +313,15 @@ this.CustomizeModal =false;
               text: data.description,
             });
           }
-        });
+          
+        })
+.catch(error => {
+    toast.fire({
+              icon: "error",
+              title: "Oops...",
+              text: 'Something went wrong!!',
+            });
+});
 
       // ...
     },
@@ -304,3 +329,4 @@ this.CustomizeModal =false;
   }
 }
 </script>
+
