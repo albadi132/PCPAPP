@@ -5254,6 +5254,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -5397,6 +5407,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["contests", 'time'],
   data: function data() {
@@ -5409,13 +5427,134 @@ __webpack_require__.r(__webpack_exports__);
       pageSize: 10,
       currentPage: 1,
       countpage: 0,
-      filter: ''
+      filter: '',
+      active: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        status: '',
+        id: ''
+      }),
+      "delete": new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        id: ''
+      })
     };
   },
   methods: {
-    show: function show(id) {
-      this.showModal = true;
-      console.log(id);
+    showContest: function showContest(contest, e) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var messgae, buttontext, buttoncolor;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (e == 1) {
+                  messgae = "Do you want to show " + contest.name + " ?";
+                  buttontext = 'Show';
+                  buttoncolor = '#90EE90';
+                } else {
+                  messgae = "Do you want to hide " + contest.name + " ?";
+                  buttontext = 'Hide';
+                  buttoncolor = '#EC7063';
+                }
+
+                toast.fire({
+                  title: messgae,
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonText: buttontext,
+                  confirmButtonColor: buttoncolor
+                }).then(function (result) {
+                  if (result.isConfirmed) {
+                    var i;
+
+                    for (i = 0; i < _this.allcontests.length; i++) {
+                      if (contest.id == _this.allcontests[i].id) _this.allcontests[i].status = e;
+                    }
+
+                    _this.active.status = e;
+                    _this.active.id = contest.id;
+
+                    var response = _this.active.post("/controlpanel/contests/active").then(function (_ref) {
+                      var data = _ref.data;
+
+                      if (data.status == 200) {
+                        toast.fire({
+                          icon: "success",
+                          title: data.description,
+                          showConfirmButton: false,
+                          timer: 3000
+                        });
+                      } else {
+                        toast.fire({
+                          icon: "error",
+                          title: "Oops...",
+                          text: data.description
+                        });
+                      }
+                    });
+                  }
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    delateContest: function delateContest(contest) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                toast.fire({
+                  title: 'Do you want to delete ' + contest.name + ' contest?',
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonText: "Delete",
+                  confirmButtonColor: "#EC7063"
+                }).then(function (result) {
+                  if (result.isConfirmed) {
+                    var i;
+
+                    for (i = 0; i < _this2.allcontests.length; i++) {
+                      if (contest.id == _this2.allcontests[i].id) _this2.allcontests.splice(i);
+                    }
+
+                    _this2["delete"].id = contest.id;
+
+                    var response = _this2["delete"].post("/controlpanel/contests/delate").then(function (_ref2) {
+                      var data = _ref2.data;
+
+                      if (data.status == 200) {
+                        toast.fire({
+                          icon: "success",
+                          title: data.description,
+                          showConfirmButton: false,
+                          timer: 3000
+                        });
+                      } else {
+                        toast.fire({
+                          icon: "error",
+                          title: "Oops...",
+                          text: data.description
+                        });
+                      }
+                    });
+                  }
+                });
+
+              case 1:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
     },
     sort: function sort(s) {
       //if s == current sort, reverse
@@ -5452,25 +5591,25 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     filteredContests: function filteredContests() {
-      var _this = this;
+      var _this3 = this;
 
       return this.allcontests.filter(function (c) {
-        if (_this.filter == '') return true;
-        return c.name.toLowerCase().indexOf(_this.filter.toLowerCase()) >= 0;
+        if (_this3.filter == '') return true;
+        return c.name.toLowerCase().indexOf(_this3.filter.toLowerCase()) >= 0;
       });
     },
     sortedContests: function sortedContests() {
-      var _this2 = this;
+      var _this4 = this;
 
       return this.filteredContests.sort(function (a, b) {
         var modifier = 1;
-        if (_this2.currentSortDir === 'desc') modifier = -1;
-        if (a[_this2.currentSort] < b[_this2.currentSort]) return -1 * modifier;
-        if (a[_this2.currentSort] > b[_this2.currentSort]) return 1 * modifier;
+        if (_this4.currentSortDir === 'desc') modifier = -1;
+        if (a[_this4.currentSort] < b[_this4.currentSort]) return -1 * modifier;
+        if (a[_this4.currentSort] > b[_this4.currentSort]) return 1 * modifier;
         return 0;
       }).filter(function (row, index) {
-        var start = (_this2.currentPage - 1) * _this2.pageSize;
-        var end = _this2.currentPage * _this2.pageSize;
+        var start = (_this4.currentPage - 1) * _this4.pageSize;
+        var end = _this4.currentPage * _this4.pageSize;
         if (index >= start && index < end) return true;
       });
     }
@@ -5804,8 +5943,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                console.log(_this3.form);
-                _context.next = 3;
+                _context.next = 2;
                 return _this3.form.post("/controlpanel/contests/creat").then(function (_ref) {
                   var data = _ref.data;
 
@@ -5832,10 +5970,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   });
                 });
 
-              case 3:
+              case 2:
                 response = _context.sent;
 
-              case 4:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -52809,57 +52947,94 @@ var render = function() {
                       _vm._v(" "),
                       _c("td", { staticClass: "py-3 px-6 " }, [
                         _c("div", { staticClass: "flex " }, [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
-                            },
-                            [
-                              _c(
-                                "svg",
+                          contest.status === 0
+                            ? _c(
+                                "div",
                                 {
-                                  attrs: {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    fill: "none",
-                                    viewBox: "0 0 24 24",
-                                    stroke: "currentColor"
-                                  },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.show(contest.id)
-                                    }
-                                  }
+                                  staticClass:
+                                    "w-4 mr-2 transform hover:text-green-400 hover:scale-110"
                                 },
                                 [
-                                  _c("path", {
-                                    attrs: {
-                                      "stroke-linecap": "round",
-                                      "stroke-linejoin": "round",
-                                      "stroke-width": "2",
-                                      d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("path", {
-                                    attrs: {
-                                      "stroke-linecap": "round",
-                                      "stroke-linejoin": "round",
-                                      "stroke-width": "2",
-                                      d:
-                                        "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                    }
-                                  })
+                                  _c(
+                                    "svg",
+                                    {
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        fill: "none",
+                                        viewBox: "0 0 24 24",
+                                        stroke: "currentColor"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.showContest(contest, 1)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          "stroke-linecap": "round",
+                                          "stroke-linejoin": "round",
+                                          "stroke-width": "2",
+                                          d:
+                                            "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                                        }
+                                      })
+                                    ]
+                                  )
                                 ]
                               )
-                            ]
-                          ),
+                            : _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "w-4 mr-2 transform hover:text-red-400 hover:scale-110"
+                                },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      attrs: {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        fill: "none",
+                                        viewBox: "0 0 24 24",
+                                        stroke: "currentColor"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.showContest(contest, 0)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          "stroke-linecap": "round",
+                                          "stroke-linejoin": "round",
+                                          "stroke-width": "2",
+                                          d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("path", {
+                                        attrs: {
+                                          "stroke-linecap": "round",
+                                          "stroke-linejoin": "round",
+                                          "stroke-width": "2",
+                                          d:
+                                            "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              ),
                           _vm._v(" "),
                           _c(
                             "div",
                             {
                               staticClass:
-                                "w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                                "w-4 mr-2 transform hover:text-green-400 hover:scale-110"
                             },
                             [
                               _c(
@@ -52891,7 +53066,7 @@ var render = function() {
                             "div",
                             {
                               staticClass:
-                                "w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
+                                "w-4 mr-2 transform hover:text-red-400 hover:scale-110"
                             },
                             [
                               _c(
@@ -52902,6 +53077,11 @@ var render = function() {
                                     fill: "none",
                                     viewBox: "0 0 24 24",
                                     stroke: "currentColor"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.delateContest(contest)
+                                    }
                                   }
                                 },
                                 [

@@ -292,7 +292,6 @@ this.CustomizeModal =false;
             
 
             async creatcontest() {
-console.log(this.form);
       const response = await this.form
         .post("/controlpanel/contests/creat" )
         .then(({ data }) => {

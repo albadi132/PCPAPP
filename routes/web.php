@@ -53,8 +53,8 @@ Route::get('/controlpanel/contests/', [ControlPanel::class, 'contestsView'])->na
 Route::post('/controlpanel/contests/creat', [contests::class, 'creat'])->middleware('auth');
 Route::get('/controlpanel/contests/edit/{id}', [ControlPanel::class, 'contestsEdit'])->name('contests-edit')->middleware('auth');
 Route::post('/controlpanel/contests/edit/{id}', [contests::class, 'edit'])->middleware('auth');
-Route::get('/controlpanel/contests/active/{id}', [ControlPanel::class, 'contestsActive'])->name('contests-active')->middleware('auth');
-Route::get('/controlpanel/contests/delate/{id}', [ControlPanel::class, 'contestsDelate'])->name('contests-delate')->middleware('auth');
+Route::Post('/controlpanel/contests/active', [contests::class, 'contestsActive'])->middleware('auth');
+Route::Post('/controlpanel/contests/delate', [contests::class, 'contestsDelate'])->middleware('auth');
 Route::get('/controlpanel/problems/', [ControlPanel::class, 'ProblemsView'])->name('problems-view')->middleware('auth');
 Route::get('/controlpanel/problems/creat', [ControlPanel::class, 'ProblemsCreat'])->name('problems-creat')->middleware('auth');
 Route::post('/controlpanel/problems/creat', [problems::class, 'creat'])->middleware('auth');
