@@ -14,7 +14,7 @@ class VerifyController extends Controller
         $this->middleware(['guest']);
     }
 
-    
+
     public function index(Request $request)
     {
         if(session()->has('alert-creat') || session()->has('alert-success') || session()->has('alert-danger'))
@@ -26,10 +26,11 @@ class VerifyController extends Controller
         $user = User::where(['verification_code' => $verification_code])->first();
         if($user != null){
             $user->is_verified = 1;
+            $user->status = 1;
             $user->email_verified_at = now();
             $user->save();
             return redirect()->route('verify')->with('alert-success', 'Your account is verified. Please login!');
-           
+
         }
 
         return redirect()->route('verify')->with('alert-danger', 'Invalid verification code!');
@@ -38,6 +39,6 @@ class VerifyController extends Controller
         {
             return redirect()->route('login');
         }
-  
+
     }
 }

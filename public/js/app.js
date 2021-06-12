@@ -5098,6 +5098,64 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.HasError.name, vform__WEBPACK_IMPORTED_MODULE_1__.HasError);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK_IMPORTED_MODULE_1__.AlertError);
@@ -5123,11 +5181,28 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
       /* vueModals */
       vModals: {
         target: 0,
-        roleVM: false
+        roleVM: false,
+        statusVM: false,
+        restpassVM: false
       },
+
+      /* role form data */
       roleForm: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
-        targetUser: '',
-        userRole: JSON.parse(this.users).role
+        targetUser: 0,
+        userRole: ''
+      }),
+
+      /* status form data */
+      statusForm: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        targetUser: 0,
+        userStatus: 0
+      }),
+
+      /* restpass form data */
+      restpassForm: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        targetUser: 0,
+        userPassword: '',
+        userPassword_confirmation: ''
       })
     };
   },
@@ -5162,7 +5237,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
       }
     },
 
-    /* role vueModal vForm */
+    /* role vueModal vForm POST */
     changeRole: function changeRole() {
       var _this = this;
 
@@ -5172,7 +5247,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.roleForm.targetUser = _this.vModals.target;
+                roleForm.targetUser = vModals.target;
                 _context.next = 3;
                 return _this.roleForm.post('/controlpanel/authentication/users/role').then(function (_ref) {
                   var data = _ref.data;
@@ -5193,6 +5268,12 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
                       text: data.description
                     });
                   }
+                })["catch"](function (error) {
+                  toast.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: 'Something went wrong!!'
+                  });
                 });
 
               case 3:
@@ -5205,6 +5286,108 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
           }
         }, _callee);
       }))();
+    },
+
+    /* status vueModal vForm POST */
+    changeStatus: function changeStatus() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.statusForm.targetUser = _this2.vModals.target;
+                _context2.next = 3;
+                return _this2.statusForm.post('/controlpanel/authentication/users/status').then(function (_ref2) {
+                  var data = _ref2.data;
+
+                  if (data.status == 200) {
+                    _this2.vModals.statusVM = false;
+                    toast.fire({
+                      icon: "success",
+                      title: data.description,
+                      showConfirmButton: false,
+                      timer: 4000
+                    });
+                    location.reload();
+                  } else {
+                    toast.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: data.description
+                    });
+                  }
+                })["catch"](function (error) {
+                  toast.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: 'Something went wrong!!'
+                  });
+                });
+
+              case 3:
+                response = _context2.sent;
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+
+    /* restspass vueModal vForm POST */
+    restPass: function restPass() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.restpassForm.targetUser = _this3.vModals.target;
+                _context3.next = 3;
+                return _this3.restpassForm.post('/controlpanel/authentication/users/restpass').then(function (_ref3) {
+                  var data = _ref3.data;
+
+                  if (data.status == 200) {
+                    _this3.vModals.restpasVM = false;
+                    toast.fire({
+                      icon: "success",
+                      title: data.description,
+                      showConfirmButton: false,
+                      timer: 4000
+                    });
+                    location.reload();
+                  } else {
+                    toast.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: data.description
+                    });
+                  }
+                })["catch"](function (error) {
+                  toast.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: 'Something went wrong!!'
+                  });
+                });
+
+              case 3:
+                response = _context3.sent;
+
+              case 4:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
     }
   },
   watch: {
@@ -5215,25 +5398,25 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
   },
   computed: {
     filteredUsers: function filteredUsers() {
-      var _this2 = this;
+      var _this4 = this;
 
       return this.userslist.filter(function (u) {
-        if (_this2.filter == '') return true;
-        return u.email.toLowerCase().indexOf(_this2.filter.toLowerCase()) >= 0;
+        if (_this4.filter == '') return true;
+        return u.email.toLowerCase().indexOf(_this4.filter.toLowerCase()) >= 0;
       });
     },
     sortedUsers: function sortedUsers() {
-      var _this3 = this;
+      var _this5 = this;
 
       return this.filteredUsers.sort(function (a, b) {
         var modifier = 1;
-        if (_this3.currentSortDir === 'desc') modifier = -1;
-        if (a[_this3.currentSort] < b[_this3.currentSort]) return -1 * modifier;
-        if (a[_this3.currentSort] > b[_this3.currentSort]) return 1 * modifier;
+        if (_this5.currentSortDir === 'desc') modifier = -1;
+        if (a[_this5.currentSort] < b[_this5.currentSort]) return -1 * modifier;
+        if (a[_this5.currentSort] > b[_this5.currentSort]) return 1 * modifier;
         return 0;
       }).filter(function (row, index) {
-        var start = (_this3.currentPage - 1) * _this3.pageSize;
-        var end = _this3.currentPage * _this3.pageSize;
+        var start = (_this5.currentPage - 1) * _this5.pageSize;
+        var end = _this5.currentPage * _this5.pageSize;
         if (index >= start && index < end) return true;
       });
     }
@@ -52102,55 +52285,68 @@ var render = function() {
                                 "px-6 py-4 text-sm font-medium leading-5 text-left border-b border-gray-200"
                             },
                             [
-                              _c("div", { staticClass: "flex flex-col" }, [
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "text-indigo-600 hover:text-indigo-900",
-                                    attrs: { href: "#" },
-                                    on: {
-                                      click: function($event) {
-                                        ;(_vm.vModals.target = user.id),
-                                          (_vm.vModals.roleVM = true)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  Change Role\n                "
+                              user.role !== "admin" && user.is_verified == 1
+                                ? _c("div", { staticClass: "flex flex-col" }, [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "text-indigo-600 cursor-pointer hover:text-indigo-900",
+                                        on: {
+                                          click: function($event) {
+                                            ;(_vm.vModals.target = user.id),
+                                              (_vm.vModals.roleVM = true)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                  Change Role\n                "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "text-indigo-600 cursor-pointer hover:text-indigo-900",
+                                        on: {
+                                          click: function($event) {
+                                            ;(_vm.vModals.target = user.id),
+                                              (_vm.statusForm.userStatus =
+                                                user.status),
+                                              (_vm.vModals.statusVM = true)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                  Change Status\n                "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "text-indigo-600 cursor-pointer hover:text-indigo-900",
+                                        on: {
+                                          click: function($event) {
+                                            ;(_vm.vModals.target = user.id),
+                                              (_vm.vModals.restpassVM = true)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                  Reset Password\n                "
+                                        )
+                                      ]
                                     )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "text-indigo-600 hover:text-indigo-900",
-                                    attrs: { href: "#" }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  Change Status\n                "
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "a",
-                                  {
-                                    staticClass:
-                                      "text-indigo-600 hover:text-indigo-900",
-                                    attrs: { href: "#" }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                  Reset Password\n                "
-                                    )
-                                  ]
-                                )
-                              ])
+                                  ])
+                                : _vm._e()
                             ]
                           )
                         ])
@@ -52499,6 +52695,266 @@ var render = function() {
                     "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                   attrs: { type: "button", disabled: _vm.roleForm.busy },
                   on: { click: _vm.changeRole }
+                },
+                [_vm._v("\n        Apply")]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: { title: "User Status" },
+          model: {
+            value: _vm.vModals.statusVM,
+            callback: function($$v) {
+              _vm.$set(_vm.vModals, "statusVM", $$v)
+            },
+            expression: "vModals.statusVM"
+          }
+        },
+        [
+          _c("div", { staticClass: "flex flex-col" }, [
+            _c("div", { staticClass: "flex flex-row" }, [
+              _vm._v("\n        This is user status modal\n      ")
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex flex-row w-full my-6" }, [
+              _c("div", { staticClass: "flex justify-center w-full" }, [
+                _c("span", { staticClass: "mr-4 text-sm" }, [
+                  _vm._v("Suspended")
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "relative w-12 h-6 transition duration-200 ease-linear bg-opacity-50 rounded-full shadow-inner ring-1 ring-red-400 ring-opacity-50",
+                    class:
+                      _vm.statusForm.userStatus == 1
+                        ? "bg-green-400 ring-green-400"
+                        : "bg-red-400"
+                  },
+                  [
+                    _c("label", {
+                      staticClass:
+                        "absolute left-0 w-6 h-6 mb-2 transition duration-100 ease-linear transform bg-white border-2 border-opacity-50 rounded-full cursor-pointer",
+                      class:
+                        _vm.statusForm.userStatus == 1
+                          ? "translate-x-full border-green-400"
+                          : "translate-x-0 border-red-400",
+                      attrs: { for: "toggle" }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass:
+                        "w-full h-full appearance-none active:outline-none focus:outline-none",
+                      attrs: { type: "checkbox", id: "toggle", name: "toggle" },
+                      on: {
+                        click: function($event) {
+                          _vm.statusForm.userStatus == 0
+                            ? (_vm.statusForm.userStatus = 1)
+                            : (_vm.statusForm.userStatus = 0)
+                        }
+                      }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("span", { staticClass: "ml-4 text-sm" }, [_vm._v("Active")])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex flex-row self-end" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.vModals.statusVM = false
+                    }
+                  }
+                },
+                [_vm._v("\n        Close")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                  attrs: { type: "button", disabled: _vm.statusForm.busy },
+                  on: { click: _vm.changeStatus }
+                },
+                [_vm._v("\n        Apply")]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: {
+            title: "Reset User Password",
+            "wrapper-class": "modal-wrapper",
+            "modal-class": "modal"
+          },
+          model: {
+            value: _vm.vModals.restpassVM,
+            callback: function($$v) {
+              _vm.$set(_vm.vModals, "restpassVM", $$v)
+            },
+            expression: "vModals.restpassVM"
+          }
+        },
+        [
+          _c("div", { staticClass: "flex flex-col" }, [
+            _c("div", { staticClass: "flex flex-row" }, [
+              _vm._v("\n        This is user reset password modal\n      ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex flex-row justify-center w-full my-6" },
+              [
+                _c(
+                  "form",
+                  {
+                    attrs: { method: "POST", enctype: "multipart/form-data" },
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                        return _vm.restPass($event)
+                      },
+                      keydown: function($event) {
+                        return _vm.restpassForm.onKeydown($event)
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "flex flex-col items-center w-full space-y-4"
+                      },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.restpassForm.userPassword,
+                              expression: "restpassForm.userPassword"
+                            }
+                          ],
+                          staticClass:
+                            "block w-3/5 px-4 py-2 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 border- focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
+                          attrs: {
+                            id: "userPassword",
+                            name: "userPassword",
+                            type: "password",
+                            autocomplete: "new-password",
+                            placeholder: "new password"
+                          },
+                          domProps: { value: _vm.restpassForm.userPassword },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.restpassForm,
+                                "userPassword",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.restpassForm.userPassword_confirmation,
+                              expression:
+                                "restpassForm.userPassword_confirmation"
+                            }
+                          ],
+                          staticClass:
+                            "block w-3/5 px-4 py-2 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 border- focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
+                          attrs: {
+                            id: "userPassword_confirmation",
+                            name: "userPassword_confirmation",
+                            type: "password",
+                            autocomplete: "new-password",
+                            placeholder: "confirm password"
+                          },
+                          domProps: {
+                            value: _vm.restpassForm.userPassword_confirmation
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.restpassForm,
+                                "userPassword_confirmation",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.restpassForm.errors.has("userPassword")
+                          ? _c("div", {
+                              staticClass: "text-red-500",
+                              domProps: {
+                                innerHTML: _vm._s(
+                                  _vm.restpassForm.errors.get("userPassword")
+                                )
+                              }
+                            })
+                          : _vm._e()
+                      ]
+                    )
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex flex-row self-end" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.vModals.restpassVM = false
+                    }
+                  }
+                },
+                [_vm._v("\n        Close")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                  attrs: { type: "button", disabled: _vm.restpassForm.busy },
+                  on: { click: _vm.restPass }
                 },
                 [_vm._v("\n        Apply")]
               )

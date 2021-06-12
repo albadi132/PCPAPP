@@ -86,14 +86,14 @@
                 </span>
               </td>
               <td class="px-6 py-4 text-sm font-medium leading-5 text-left border-b border-gray-200">
-                <div class="flex flex-col">
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900" @click="vModals.target = user.id, vModals.roleVM = true">
+                <div v-if="user.role !== 'admin' && user.is_verified == 1" class="flex flex-col">
+                  <a class="text-indigo-600 cursor-pointer hover:text-indigo-900" @click="vModals.target = user.id, vModals.roleVM = true">
                     Change Role
                   </a>
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                  <a class="text-indigo-600 cursor-pointer hover:text-indigo-900" @click="vModals.target = user.id, statusForm.userStatus = user.status, vModals.statusVM = true">
                     Change Status
                   </a>
-                  <a href="#" class="text-indigo-600 hover:text-indigo-900">
+                  <a class="text-indigo-600 cursor-pointer hover:text-indigo-900" @click="vModals.target = user.id, vModals.restpassVM = true">
                     Reset Password
                   </a>
                 </div>
@@ -135,7 +135,7 @@
               __roles selection here__
               <form method="POST" enctype="multipart/form-data" @submit.prevent="changeRole" @keydown="roleForm.onKeydown($event)">
                 <p class="mb-2 font-semibold text-gray-700">Role</p>
-                <select id="userRole" name="userRole"  v-model="roleForm.userRole" class="w-full h-12 mb-5 border-2 border-gray-300 rounded-md">
+                <select id="userRole" name="userRole" v-model="roleForm.userRole" class="w-full h-12 mb-5 border-2 border-gray-300 rounded-md">
                   <option value="user">User</option>
                   <option value="manager">Manager</option>
                   <option value="admin">Admin</option>
@@ -156,7 +156,65 @@
       </div>
     </Modal>
     <!-- user status vueModal -->
+    <Modal v-model="vModals.statusVM" title="User Status">
+      <div class="flex flex-col">
+        <div class="flex flex-row">
+          This is user status modal
+        </div>
+        <div class="flex flex-row w-full my-6">
+          <div class="flex justify-center w-full">
+            <span class="mr-4 text-sm">Suspended</span>
+            <div class="relative w-12 h-6 transition duration-200 ease-linear bg-opacity-50 rounded-full shadow-inner ring-1 ring-red-400 ring-opacity-50"
+                :class="statusForm.userStatus == 1 ? 'bg-green-400 ring-green-400' : 'bg-red-400'">
+              <label for="toggle"
+                    class="absolute left-0 w-6 h-6 mb-2 transition duration-100 ease-linear transform bg-white border-2 border-opacity-50 rounded-full cursor-pointer"
+                    :class="statusForm.userStatus == 1 ? 'translate-x-full border-green-400' : 'translate-x-0 border-red-400'"></label>
+              <input type="checkbox" id="toggle" name="toggle"
+                    class="w-full h-full appearance-none active:outline-none focus:outline-none"
+                    @click="statusForm.userStatus == 0 ? statusForm.userStatus = 1 : statusForm.userStatus = 0"/>
+            </div>
+            <span class="ml-4 text-sm">Active</span>
+          </div>
+        </div>
+        <div class="flex flex-row self-end">
+          <button type="button" @click="vModals.statusVM = false"
+                  class="px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300">
+          Close</button>
+          <button type="button" @click="changeStatus" :disabled="statusForm.busy"
+                  class="px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
+          Apply</button>
+        </div>
+      </div>
+    </Modal>
     <!-- user restpass vueModal -->
+    <Modal v-model="vModals.restpassVM" title="Reset User Password" wrapper-class="modal-wrapper" modal-class="modal">
+      <div class="flex flex-col">
+        <div class="flex flex-row">
+          This is user reset password modal
+        </div>
+        <div class="flex flex-row justify-center w-full my-6">
+          <form method="POST" enctype="multipart/form-data" @submit.prevent="restPass" @keydown="restpassForm.onKeydown($event)">
+            <div class="flex flex-col items-center w-full space-y-4">
+              <input id="userPassword" name="userPassword" type="password" autocomplete="new-password" placeholder="new password"
+                v-model="restpassForm.userPassword"
+                class="block w-3/5 px-4 py-2 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 border- focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner"/>
+              <input id="userPassword_confirmation" name="userPassword_confirmation" type="password" autocomplete="new-password" placeholder="confirm password"
+                v-model="restpassForm.userPassword_confirmation"
+                class="block w-3/5 px-4 py-2 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 border- focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner"/>
+              <div v-if="restpassForm.errors.has('userPassword')" v-html="restpassForm.errors.get('userPassword')" class="text-red-500"/>
+            </div>
+          </form>
+        </div>
+        <div class="flex flex-row self-end">
+          <button type="button" @click="vModals.restpassVM = false"
+                  class="px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300">
+          Close</button>
+          <button type="button" @click="restPass" :disabled="restpassForm.busy"
+                  class="px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
+          Apply</button>
+        </div>
+      </div>
+    </Modal>
   </div>
 </template>
 
@@ -186,10 +244,24 @@ export default {
       vModals: {
         target: 0,
         roleVM: false,
+        statusVM: false,
+        restpassVM:false,
       },
+      /* role form data */
       roleForm: new Form ({
-        targetUser: '',
-        userRole: JSON.parse(this.users).role,
+        targetUser: 0,
+        userRole: '',
+      }),
+      /* status form data */
+      statusForm: new Form ({
+        targetUser: 0,
+        userStatus: 0,
+      }),
+      /* restpass form data */
+      restpassForm: new Form ({
+        targetUser: 0,
+        userPassword: '',
+        userPassword_confirmation: '',
       }),
     };
   },
@@ -223,9 +295,9 @@ export default {
         this.currentPage = Math.floor(this.userslist.length / this.pageSize) + 1;
       }
     },
-    /* role vueModal vForm */
+    /* role vueModal vForm POST */
     async changeRole() {
-      this.roleForm.targetUser = this.vModals.target;
+      roleForm.targetUser = vModals.target;
       const response = await this.roleForm
         .post('/controlpanel/authentication/users/role')
         .then(({ data }) => {
@@ -245,6 +317,75 @@ export default {
               text: data.description,
             });
           }
+        })
+        .catch(error => {
+          toast.fire({
+            icon: "error",
+            title: "Oops...",
+            text: 'Something went wrong!!',
+          });
+        });
+    },
+    /* status vueModal vForm POST */
+    async changeStatus() {
+      this.statusForm.targetUser = this.vModals.target;
+       const response = await this.statusForm
+        .post('/controlpanel/authentication/users/status')
+        .then(({ data }) => {
+          if (data.status == 200) {
+            this.vModals.statusVM = false;
+            toast.fire({
+              icon: "success",
+              title: data.description,
+              showConfirmButton: false,
+              timer: 4000,
+            });
+            location.reload();
+          } else {
+            toast.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.description,
+            });
+          }
+        })
+        .catch(error => {
+          toast.fire({
+            icon: "error",
+            title: "Oops...",
+            text: 'Something went wrong!!',
+          });
+        });
+    },
+    /* restspass vueModal vForm POST */
+    async restPass() {
+      this.restpassForm.targetUser = this.vModals.target;
+      const response = await this.restpassForm
+        .post('/controlpanel/authentication/users/restpass')
+        .then(({ data }) => {
+          if (data.status == 200) {
+            this.vModals.restpasVM = false;
+            toast.fire({
+              icon: "success",
+              title: data.description,
+              showConfirmButton: false,
+              timer: 4000,
+            });
+            location.reload();
+          } else {
+            toast.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.description,
+            });
+          }
+        })
+        .catch(error => {
+          toast.fire({
+            icon: "error",
+            title: "Oops...",
+            text: 'Something went wrong!!',
+          });
         });
     },
   },
