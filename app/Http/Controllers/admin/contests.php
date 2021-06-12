@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Validator;
 use App\Models\Contest;
 use Intervention\Image\ImageManagerStatic as Image;
-
-
+use PhpParser\Node\Expr\AssignOp\Concat;
 
 class contests extends Controller
 {
@@ -100,7 +99,7 @@ class contests extends Controller
         }
         else{
             return [
-                'status' => 200,
+                'status' => 404,
                 'description' => "There is an error",
             ];
         }
@@ -271,6 +270,85 @@ class contests extends Controller
 
 
     }
+
+    public function contestsActive(Request $request)
+    {
+        if(Gate::allows('AdminOrManager')){
+
+            $this->validate($request, [
+                'status' => ['required', 'boolean'],
+                'id' => ['required'],
+            ]);
+
+            $contest = Contest::where('id', $request->id)->first();
+
+            if($contest)
+            {
+              $contest->status =  $request->status;
+
+                $contest->save();
+                return [
+                    'status' => 200,
+                    'description' => "Contest status changed successfully",
+                ];
+            }
+            else
+            {
+                return [
+                    'status' => 404,
+                    'description' => "There is an error",
+                ];
+            }
+
+            
+         }
+         else
+         {
+             return [
+             'status' => 403,
+             'description' => "You do not have permission for this action",
+         ];
+        }
+    }
+
+      
+    public function contestsDelate(Request $request)
+    {
+        if(Gate::allows('AdminOrManager')){
+
+            $this->validate($request, [
+                'id' => ['required'],
+            ]);
+
+            $contest = Contest::where('id', $request->id)->first();
+
+            if($contest)
+            {
+                $contest->delete();
+                return [
+                    'status' => 200,
+                    'description' => "Contest has been successfully deleted",
+                ];
+            }
+            else
+            {
+                return [
+                    'status' => 404,
+                    'description' => "There is an error",
+                ];
+            }
+
+            
+         }
+         else
+         {
+             return [
+             'status' => 403,
+             'description' => "You do not have permission for this action",
+         ];
+        }
+    }
+
 
 
 

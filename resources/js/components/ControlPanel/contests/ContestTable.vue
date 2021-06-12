@@ -66,19 +66,26 @@
             </td>
                     <td class="py-3 px-6 ">
                                     <div class="flex ">
-                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                            <svg @click="show(contest.id)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div v-if='contest.status === 0' class="w-4 mr-2 transform hover:text-green-400 hover:scale-110">
+                                                                                                           <svg @click="showContest(contest , 1)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+</svg>
+                                        </div>
+<div v-else class="w-4 mr-2 transform hover:text-red-400 hover:scale-110">
+              
+<svg @click="showContest(contest , 0)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg>
                                         </div>
-                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
+              
+                                        <div class="w-4 mr-2 transform hover:text-green-400 hover:scale-110">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                             </svg>
                                         </div>
-                                        <div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="w-4 mr-2 transform hover:text-red-400 hover:scale-110">
+                                            <svg @click="delateContest(contest)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
                                         </div>
@@ -142,6 +149,7 @@
 </template>
 
 <script>
+import { Form, HasError, AlertError } from "vform";
     export default {
         props: ["contests", 'time'],
   data() {
@@ -154,17 +162,122 @@
       pageSize: 10,
       currentPage: 1,
       countpage: 0,
-      filter:''
+      filter:'',
+      active: new Form({
+        status: '',
+        id: ''
+      }),
+      delete: new Form({
+        id: ''
+      }),
     };
   },
    methods: {
-     show: function(id){
+     async showContest(contest , e){
+       var messgae;
+       var buttontext;
+       var buttoncolor;
+       if(e == 1)
+       {messgae = "Do you want to show " + contest.name + " ?"
+       buttontext = 'Show';
+       buttoncolor = '#90EE90';}
+       else
+       {messgae = "Do you want to hide " + contest.name + " ?";
+       buttontext = 'Hide';
+       buttoncolor = '#EC7063';}
 
-       this.showModal = true
-       console.log(id)
+       toast
+        .fire({
+          title: messgae,
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonText: buttontext,
+          confirmButtonColor: buttoncolor,
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            var i;
+            for(i = 0 ; i < this.allcontests.length ; i++)
+            {
+              if(contest.id == this.allcontests[i].id)
+              this.allcontests[i].status = e
+            }
+
+this.active.status = e;
+this.active.id = contest.id;
+            const response = this.active
+            .post("/controlpanel/contests/active")
+        .then(({ data }) => {
+          if (data.status == 200) {
+            toast.fire({
+              icon: "success",
+              title: data.description,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          } else {
+            toast.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.description,
+            });
+          }
+        });
+            
+
+          }
+        });
 
 
      },
+
+
+     async delateContest(contest){
+     
+       toast
+        .fire({
+          title: 'Do you want to delete ' + contest.name + ' contest?',
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonText: `Delete`,
+          confirmButtonColor: "#EC7063",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            var i;
+            for(i = 0 ; i < this.allcontests.length ; i++)
+            {
+              if(contest.id == this.allcontests[i].id)
+              this.allcontests.splice(i);
+            }
+
+
+this.delete.id = contest.id;
+            const response = this.delete
+            .post("/controlpanel/contests/delate")
+        .then(({ data }) => {
+          if (data.status == 200) {
+            toast.fire({
+              icon: "success",
+              title: data.description,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+          } else {
+            toast.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.description,
+            });
+          }
+        });
+
+          }
+        });
+
+
+     },
+
     sort: function (s) {
       //if s == current sort, reverse
       if (s === this.currentSort) {
