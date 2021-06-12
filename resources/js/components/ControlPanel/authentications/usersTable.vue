@@ -87,13 +87,16 @@
               </td>
               <td class="px-6 py-4 text-sm font-medium leading-5 text-left border-b border-gray-200">
                 <div v-if="user.role !== 'admin' && user.is_verified == 1" class="flex flex-col">
-                  <a class="text-indigo-600 cursor-pointer hover:text-indigo-900" @click="vModals.target = user.id, vModals.roleVM = true">
+                  <a class="text-indigo-600 cursor-pointer hover:text-indigo-900"
+                    @click="vModals.target = user.id, roleForm.targetUser = 0, roleForm.userRole = '', vModals.roleVM = true">
                     Change Role
                   </a>
-                  <a class="text-indigo-600 cursor-pointer hover:text-indigo-900" @click="vModals.target = user.id, statusForm.userStatus = user.status, vModals.statusVM = true">
+                  <a class="text-indigo-600 cursor-pointer hover:text-indigo-900"
+                    @click="vModals.target = user.id, statusForm.targetUser = 0, statusForm.userStatus = user.status, vModals.statusVM = true">
                     Change Status
                   </a>
-                  <a class="text-indigo-600 cursor-pointer hover:text-indigo-900" @click="vModals.target = user.id, vModals.restpassVM = true">
+                  <a class="text-indigo-600 cursor-pointer hover:text-indigo-900"
+                    @click="vModals.target = user.id, restpassForm.targetUser = 0, restpassForm.userPassword = '', restpassForm.userPassword_confirmation = '', vModals.restpassVM = true">
                     Reset Password
                   </a>
                 </div>

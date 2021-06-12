@@ -5156,6 +5156,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.HasError.name, vform__WEBPACK_IMPORTED_MODULE_1__.HasError);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK_IMPORTED_MODULE_1__.AlertError);
@@ -52433,6 +52436,8 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             ;(_vm.vModals.target = user.id),
+                                              (_vm.roleForm.targetUser = 0),
+                                              (_vm.roleForm.userRole = ""),
                                               (_vm.vModals.roleVM = true)
                                           }
                                         }
@@ -52452,6 +52457,7 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             ;(_vm.vModals.target = user.id),
+                                              (_vm.statusForm.targetUser = 0),
                                               (_vm.statusForm.userStatus =
                                                 user.status),
                                               (_vm.vModals.statusVM = true)
@@ -52473,6 +52479,11 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             ;(_vm.vModals.target = user.id),
+                                              (_vm.restpassForm.targetUser = 0),
+                                              (_vm.restpassForm.userPassword =
+                                                ""),
+                                              (_vm.restpassForm.userPassword_confirmation =
+                                                ""),
                                               (_vm.vModals.restpassVM = true)
                                           }
                                         }
