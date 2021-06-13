@@ -5414,12 +5414,211 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["contests", 'time'],
   data: function data() {
     return {
-      showModal: false,
+      editModal: false,
+      customizeEditModal: false,
       allcontests: JSON.parse(this.contests),
       timenow: this.time,
       currentSort: "name",
@@ -5428,6 +5627,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       currentPage: 1,
       countpage: 0,
       filter: '',
+      tempConditions: '',
+      tempPrize: '',
+      tempProfile: '',
+      editContest: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        contest: '',
+        name: "",
+        description: "",
+        startingtime: "",
+        endingtime: "",
+        "private": '0',
+        team: '0',
+        conditions: '',
+        prize: '',
+        profile: '',
+        logo: ''
+      }),
       active: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
         status: '',
         id: ''
@@ -5556,6 +5771,156 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }))();
     },
+    editcontest: function editcontest() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.editContest.post("/controlpanel/contests/edit").then(function (_ref3) {
+                  var data = _ref3.data;
+
+                  if (data.status == 200) {
+                    _this3.editModal = false;
+                    toast.fire({
+                      icon: "success",
+                      title: data.description,
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
+
+                    for (var i = 0; i < _this3.allcontests.length; i++) {
+                      if (_this3.editContest.contest == _this3.allcontests[i].id) {
+                        _this3.allcontests[i].conditions = _this3.editContest.conditions;
+                        _this3.allcontests[i].description = _this3.editContest.description;
+                        _this3.allcontests[i].ending_date = _this3.editContest.endingtime;
+                        _this3.allcontests[i].logo = _this3.editContest.logo;
+                        _this3.allcontests[i].name = _this3.editContest.name;
+                        _this3.allcontests[i].prizes = _this3.editContest.prize;
+                        _this3.allcontests[i].profile = _this3.editContest.profile;
+                        _this3.allcontests[i].starting_date = _this3.editContest.startingtime;
+                        if (_this3.editContest["private"] == 1) _this3.allcontests[i].type = 'private';else _this3.allcontests[i].type = 'public';
+                        if (_this3.editContest.team == 1) _this3.allcontests[i].participation = 'team';else _this3.allcontests[i].participation = 'solo';
+                        /*
+                        conditions: (...)
+                        created_at: (...)
+                        description: (...)
+                        ending_date: (...)
+                        id: (...)
+                        logo: (...)
+                        name: (...)
+                        participation: (...)
+                        prizes: (...)
+                        profile: (...)
+                        starting_date: (...)
+                        status: (...)
+                        type: (...)
+                        name: "",
+                        description: "",
+                        startingtime: "",
+                        endingtime: "",
+                        private: '0',
+                        team: '0',
+                        conditions: '',
+                        prize: '',
+                        profile: '',
+                        logo: '',
+                          */
+                      }
+                    }
+                  } else {
+                    toast.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: data.description
+                    });
+                  }
+                })["catch"](function (error) {
+                  console.log(error);
+                });
+
+              case 2:
+                response = _context3.sent;
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    updateLogo: function updateLogo(e) {
+      var _this4 = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        toast.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      }
+
+      reader.onloadend = function (file) {
+        _this4.editContest.logo = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    updateProfile: function updateProfile(e) {
+      var _this5 = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        toast.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      }
+
+      reader.onloadend = function (file) {
+        _this5.editContest.profile = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    clearCustomiz: function clearCustomiz() {
+      this.editContest.conditions = this.tempConditions;
+      this.editContest.prize = this.tempPrize;
+      this.editContest.profile = this.tempProfile;
+      this.customizeEditModal = false;
+    },
+    chosenContest: function chosenContest(contest) {
+      this.editContest.contest = contest.id;
+      this.editContest.name = contest.name;
+      this.editContest.description = contest.description;
+      this.editContest.startingtime = contest.starting_date.replace(/ /g, "T");
+      this.editContest.endingtime = contest.ending_date.replace(/ /g, "T");
+      if (contest.type == 'public') this.editContest["private"] = '0';else this.editContest["private"] = '1';
+      if (contest.participation == 'solo') this.editContest.team = '0';else this.editContest.team = '1';
+      this.editContest.conditions = contest.conditions;
+      this.editContest.prize = contest.prizes;
+      this.editContest.profile = '/contests/profile/' + contest.profile;
+      this.editContest.logo = '/contests/images/' + contest.logo;
+      this.tempConditions = contest.conditions;
+      this.tempPrize = contest.prizes;
+      this.tempProfile = '/contests/profile/' + contest.profile;
+      this.editModal = true;
+    },
     sort: function sort(s) {
       //if s == current sort, reverse
       if (s === this.currentSort) {
@@ -5591,25 +5956,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   computed: {
     filteredContests: function filteredContests() {
-      var _this3 = this;
+      var _this6 = this;
 
       return this.allcontests.filter(function (c) {
-        if (_this3.filter == '') return true;
-        return c.name.toLowerCase().indexOf(_this3.filter.toLowerCase()) >= 0;
+        if (_this6.filter == '') return true;
+        return c.name.toLowerCase().indexOf(_this6.filter.toLowerCase()) >= 0;
       });
     },
     sortedContests: function sortedContests() {
-      var _this4 = this;
+      var _this7 = this;
 
       return this.filteredContests.sort(function (a, b) {
         var modifier = 1;
-        if (_this4.currentSortDir === 'desc') modifier = -1;
-        if (a[_this4.currentSort] < b[_this4.currentSort]) return -1 * modifier;
-        if (a[_this4.currentSort] > b[_this4.currentSort]) return 1 * modifier;
+        if (_this7.currentSortDir === 'desc') modifier = -1;
+        if (a[_this7.currentSort] < b[_this7.currentSort]) return -1 * modifier;
+        if (a[_this7.currentSort] > b[_this7.currentSort]) return 1 * modifier;
         return 0;
       }).filter(function (row, index) {
-        var start = (_this4.currentPage - 1) * _this4.pageSize;
-        var end = _this4.currentPage * _this4.pageSize;
+        var start = (_this7.currentPage - 1) * _this7.pageSize;
+        var end = _this7.currentPage * _this7.pageSize;
         if (index >= start && index < end) return true;
       });
     }
@@ -52846,13 +53211,18 @@ var render = function() {
                             "div",
                             { staticClass: "flex-shrink-0 h-10 w-10" },
                             [
-                              _c("img", {
-                                staticClass: "h-10 w-10 rounded-full",
-                                attrs: {
-                                  src: "/contests/images/" + contest.logo,
-                                  alt: ""
-                                }
-                              })
+                              contest.logo.length < "50"
+                                ? _c("img", {
+                                    staticClass: "h-10 w-10 rounded-full",
+                                    attrs: {
+                                      src: "/contests/images/" + contest.logo,
+                                      alt: ""
+                                    }
+                                  })
+                                : _c("img", {
+                                    staticClass: "h-10 w-10 rounded-full",
+                                    attrs: { src: contest.logo, alt: "" }
+                                  })
                             ]
                           ),
                           _vm._v(" "),
@@ -52883,7 +53253,7 @@ var render = function() {
                         _c("br"),
                         _vm._v(
                           "\n            end: " +
-                            _vm._s(contest.starting_date) +
+                            _vm._s(contest.ending_date) +
                             "\n            "
                         )
                       ]),
@@ -53045,6 +53415,11 @@ var render = function() {
                                     fill: "none",
                                     viewBox: "0 0 24 24",
                                     stroke: "currentColor"
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.chosenContest(contest)
+                                    }
                                   }
                                 },
                                 [
@@ -53318,15 +53693,563 @@ var render = function() {
             "modal-class": "modal"
           },
           model: {
-            value: _vm.showModal,
+            value: _vm.editModal,
             callback: function($$v) {
-              _vm.showModal = $$v
+              _vm.editModal = $$v
             },
-            expression: "showModal"
+            expression: "editModal"
           }
         },
         [
           _c("div", { staticClass: "flex flex-col" }, [
+            _c(
+              "form",
+              {
+                attrs: { method: "POST", enctype: "multipart/form-data" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.creatteam($event)
+                  },
+                  keydown: function($event) {
+                    return _vm.editContest.onKeydown($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "mb-3 space-y-2 w-full text-xs" }, [
+                  _c(
+                    "label",
+                    { staticClass: " font-semibold text-gray-600 py-2" },
+                    [_vm._v("Contest Name")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex flex-wrap items-stretch w-full mb-4 relative"
+                    },
+                    [
+                      _c("div", { staticClass: "flex" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "flex items-center leading-normal bg-grey-lighter border-1 rounded-r-none border border-r-0 border-blue-300 px-3 whitespace-no-wrap text-grey-dark w-12 h-10 bg-blue-300 justify-center  text-xl rounded-lg text-white"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "h-6 w-6",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  fill: "none",
+                                  viewBox: "0 0 24 24",
+                                  stroke: "currentColor"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editContest.name,
+                            expression: "editContest.name"
+                          }
+                        ],
+                        staticClass:
+                          "flex-shrink flex-grow flex-auto leading-normal w-px  border border-l-0 h-10 border-grey-light rounded-lg rounded-l-none px-3 relative focus:border-blue focus:shadow",
+                        attrs: {
+                          type: "text",
+                          id: "name",
+                          name: "name",
+                          placeholder: "Contest Name"
+                        },
+                        domProps: { value: _vm.editContest.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.editContest,
+                              "name",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.editContest.errors.has("name")
+                        ? _c("div", {
+                            staticClass: "text-xs text-red-500 text-left my-3",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.editContest.errors.get("name")
+                              )
+                            }
+                          })
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "flex-auto w-full mb-1 text-xs space-y-2" },
+                    [
+                      _c(
+                        "label",
+                        { staticClass: "font-semibold text-gray-600 py-2" },
+                        [_vm._v("Description")]
+                      ),
+                      _vm._v(" "),
+                      _c("textarea", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editContest.description,
+                            expression: "editContest.description"
+                          }
+                        ],
+                        staticClass:
+                          " min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4",
+                        attrs: {
+                          required: "",
+                          name: "description",
+                          id: "description",
+                          placeholder: "Contest Desc.."
+                        },
+                        domProps: { value: _vm.editContest.description },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.editContest,
+                              "description",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.editContest.errors.has("description")
+                        ? _c("div", {
+                            staticClass: "text-xs text-red-500 text-left my-3",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.editContest.errors.get("description")
+                              )
+                            }
+                          })
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "md:space-y-2 mb-3" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "text-xs font-semibold text-gray-600 py-2"
+                      },
+                      [
+                        _vm._v("Contest Logo"),
+                        _c(
+                          "abbr",
+                          {
+                            staticClass: "hidden",
+                            attrs: { title: "required" }
+                          },
+                          [_vm._v("*")]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex items-center py-6" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "w-12 h-12 mr-4 flex-none rounded-xl border overflow-hidden"
+                        },
+                        [
+                          _c("img", {
+                            staticClass: "w-12 h-12 mr-4 object-cover",
+                            attrs: {
+                              src: _vm.editContest.logo,
+                              alt: "Avatar Upload"
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "cursor-pointer " }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
+                          },
+                          [_vm._v("Browse")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "hidden",
+                          attrs: { type: "file", name: "logo", id: "logo" },
+                          on: { change: _vm.updateLogo }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.editContest.errors.has("logo")
+                      ? _c("div", {
+                          staticClass: "text-xs text-red-500 text-left my-3",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.editContest.errors.get("logo")
+                            )
+                          }
+                        })
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "md:flex flex-row md:space-x-4 w-full text-xs"
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "mb-3 space-y-2 w-full text-xs" },
+                        [
+                          _c(
+                            "label",
+                            { staticClass: "font-semibold text-gray-600 py-2" },
+                            [_vm._v("Starting Date")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.editContest.startingtime,
+                                expression: "editContest.startingtime"
+                              }
+                            ],
+                            staticClass:
+                              "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4",
+                            attrs: {
+                              type: "datetime-local",
+                              id: "startingtime",
+                              name: "startingtime"
+                            },
+                            domProps: { value: _vm.editContest.startingtime },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.editContest,
+                                  "startingtime",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.editContest.errors.has("startingtime")
+                            ? _c("div", {
+                                staticClass:
+                                  "text-xs text-red-500 text-left my-3",
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.editContest.errors.get("startingtime")
+                                  )
+                                }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "mb-3 space-y-2 w-full text-xs" },
+                        [
+                          _c(
+                            "label",
+                            { staticClass: "font-semibold text-gray-600 py-2" },
+                            [_vm._v("Finish Date")]
+                          ),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.editContest.endingtime,
+                                expression: "editContest.endingtime"
+                              }
+                            ],
+                            staticClass:
+                              "appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4",
+                            attrs: {
+                              type: "datetime-local",
+                              id: "endingtime",
+                              name: "endingtime"
+                            },
+                            domProps: { value: _vm.editContest.endingtime },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.editContest,
+                                  "endingtime",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.editContest.errors.has("endingtime")
+                            ? _c("div", {
+                                staticClass:
+                                  "text-xs text-red-500 text-left my-3",
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.editContest.errors.get("endingtime")
+                                  )
+                                }
+                              })
+                            : _vm._e()
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "md:flex flex-row md:space-x-4 w-full text-xs"
+                    },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "mb-3 space-y-2 w-full text-xs" },
+                        [
+                          _c(
+                            "label",
+                            { staticClass: "font-semibold text-gray-600 py-2" },
+                            [_vm._v("Make the contest private?")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "relative w-12 h-6 transition duration-200 ease-linear bg-opacity-50 rounded-full shadow-inner ring-1 ring-gray-400 ring-opacity-50",
+                              class: [
+                                _vm.editContest.private === "1"
+                                  ? "bg-green-400 ring-green-400"
+                                  : "bg-gray-400"
+                              ]
+                            },
+                            [
+                              _c("label", {
+                                staticClass:
+                                  "absolute left-0 w-6 h-6 mb-2 transition duration-100 ease-linear transform bg-white border-2 border-opacity-50 rounded-full cursor-pointer",
+                                class:
+                                  _vm.editContest.private === "1"
+                                    ? "translate-x-full border-green-400"
+                                    : "translate-x-0 border-gray-400",
+                                attrs: { for: "private" }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                staticClass:
+                                  "w-full h-full appearance-none active:outline-none focus:outline-none",
+                                attrs: {
+                                  type: "checkbox",
+                                  id: "private",
+                                  name: "private"
+                                },
+                                domProps: {
+                                  checked: _vm.editContest.private === "1"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.editContest.private === "0"
+                                      ? (_vm.editContest.private = "1")
+                                      : (_vm.editContest.private = "0")
+                                  }
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.editContest.errors.has("private")
+                            ? _c("div", {
+                                staticClass:
+                                  "text-xs text-red-500 text-left my-3",
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.editContest.errors.get("private")
+                                  )
+                                }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "mb-3 space-y-2 w-full text-xs" },
+                        [
+                          _c(
+                            "label",
+                            { staticClass: "font-semibold text-gray-600 py-2" },
+                            [_vm._v("Make the contest team?")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "relative w-12 h-6 transition duration-200 ease-linear bg-opacity-50 rounded-full shadow-inner ring-1 ring-gray-400 ring-opacity-50",
+                              class: [
+                                _vm.editContest.team === "1"
+                                  ? "bg-green-400 ring-green-400"
+                                  : "bg-gray-400"
+                              ]
+                            },
+                            [
+                              _c("label", {
+                                staticClass:
+                                  "absolute left-0 w-6 h-6 mb-2 transition duration-100 ease-linear transform bg-white border-2 border-opacity-50 rounded-full cursor-pointer",
+                                class:
+                                  _vm.editContest.team === "1"
+                                    ? "translate-x-full border-green-400"
+                                    : "translate-x-0 border-gray-400",
+                                attrs: { for: "team" }
+                              }),
+                              _vm._v(" "),
+                              _c("input", {
+                                staticClass:
+                                  "w-full h-full appearance-none active:outline-none focus:outline-none",
+                                attrs: {
+                                  type: "checkbox",
+                                  id: "team",
+                                  name: "team"
+                                },
+                                domProps: {
+                                  checked: _vm.editContest.team === "1"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.editContest.team === "0"
+                                      ? (_vm.editContest.team = "1")
+                                      : (_vm.editContest.team = "0")
+                                  }
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _vm.editContest.errors.has("team")
+                            ? _c("div", {
+                                staticClass:
+                                  "text-xs text-red-500 text-left my-3",
+                                domProps: {
+                                  innerHTML: _vm._s(
+                                    _vm.editContest.errors.get("team")
+                                  )
+                                }
+                              })
+                            : _vm._e()
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "flex-auto w-full mb-1 text-xs space-y-2" },
+                    [
+                      _c(
+                        "label",
+                        {
+                          staticClass:
+                            "w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border",
+                          on: {
+                            click: function($event) {
+                              _vm.customizeEditModal = true
+                            }
+                          }
+                        },
+                        [_vm._v("More Customize")]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm.editContest.errors.has("condition")
+                    ? _c("div", {
+                        staticClass: "text-xs text-red-500 text-left my-3",
+                        domProps: {
+                          innerHTML: _vm._s(
+                            _vm.editContest.errors.get("condition")
+                          )
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.editContest.errors.has("prize")
+                    ? _c("div", {
+                        staticClass: "text-xs text-red-500 text-left my-3",
+                        domProps: {
+                          innerHTML: _vm._s(_vm.editContest.errors.get("prize"))
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.editContest.errors.has("profile")
+                    ? _c("div", {
+                        staticClass: "text-xs text-red-500 text-left my-3",
+                        domProps: {
+                          innerHTML: _vm._s(
+                            _vm.editContest.errors.get("profile")
+                          )
+                        }
+                      })
+                    : _vm._e()
+                ])
+              ]
+            ),
+            _vm._v(" "),
             _c("div", { staticClass: "flex flex-row self-end" }, [
               _c(
                 "button",
@@ -53336,7 +54259,7 @@ var render = function() {
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.showModal = false
+                      _vm.editModal = false
                     }
                   }
                 },
@@ -53348,14 +54271,180 @@ var render = function() {
                 {
                   staticClass:
                     "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                  attrs: { type: "button", disabled: _vm.editContest.busy },
+                  on: { click: _vm.editcontest }
+                },
+                [_vm._v("\n          Edit")]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: {
+            title: "More Customize",
+            "wrapper-class": "modal-wrapper",
+            "modal-class": "modal"
+          },
+          model: {
+            value: _vm.customizeEditModal,
+            callback: function($$v) {
+              _vm.customizeEditModal = $$v
+            },
+            expression: "customizeEditModal"
+          }
+        },
+        [
+          _c("div", { staticClass: "flex flex-col" }, [
+            _c(
+              "div",
+              { staticClass: "flex-auto w-full mb-1 text-xs space-y-2" },
+              [
+                _c(
+                  "label",
+                  { staticClass: "font-semibold text-gray-600 py-2" },
+                  [_vm._v("Condition")]
+                ),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.editContest.conditions,
+                      expression: "editContest.conditions"
+                    }
+                  ],
+                  staticClass:
+                    " min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4",
+                  attrs: {
+                    name: "condition",
+                    id: "condition",
+                    placeholder: "Condition"
+                  },
+                  domProps: { value: _vm.editContest.conditions },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.editContest,
+                        "conditions",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex-auto w-full mb-1 text-xs space-y-2" },
+              [
+                _c(
+                  "label",
+                  { staticClass: "font-semibold text-gray-600 py-2" },
+                  [_vm._v("Prize")]
+                ),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.editContest.prize,
+                      expression: "editContest.prize"
+                    }
+                  ],
+                  staticClass:
+                    " min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4",
+                  attrs: { name: "prize", id: "prize", placeholder: "prize" },
+                  domProps: { value: _vm.editContest.prize },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.editContest, "prize", $event.target.value)
+                    }
+                  }
+                })
+              ]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "flex-auto w-full mb-1 text-xs space-y-2" },
+              [
+                _c(
+                  "label",
+                  { staticClass: "font-semibold text-gray-600 py-2" },
+                  [_vm._v("Profile Background")]
+                ),
+                _vm._v(" "),
+                _c("label", { staticClass: "cursor-pointer " }, [
+                  _c(
+                    "span",
+                    {
+                      staticClass:
+                        "w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
+                    },
+                    [_vm._v("Browse")]
+                  ),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "hidden",
+                    attrs: { type: "file", name: "profile", id: "profile" },
+                    on: { change: _vm.updateProfile }
+                  })
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "w-full h-48 mr-4 flex-none rounded-xl border overflow-hidden"
+                  },
+                  [
+                    _c("img", {
+                      staticClass: "w-full h-48 mr-4 object-cover",
+                      attrs: { src: _vm.editContest.profile, alt: "profile" }
+                    })
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex flex-row self-end" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300",
+                  attrs: { type: "button" },
+                  on: { click: _vm.clearCustomiz }
+                },
+                [_vm._v("\n          Cancel")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                   attrs: { type: "button" },
                   on: {
                     click: function($event) {
-                      _vm.showModal = false
+                      _vm.customizeEditModal = false
                     }
                   }
                 },
-                [_vm._v("\n          Creat")]
+                [_vm._v("\n          Save")]
               )
             ])
           ])

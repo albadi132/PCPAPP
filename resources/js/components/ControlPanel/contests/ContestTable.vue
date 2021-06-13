@@ -31,8 +31,11 @@
             <td class="px-4 py-4">
                  <div class="flex items-center">
                                       <div class="flex-shrink-0 h-10 w-10">
-                                          <img class="h-10 w-10 rounded-full"
+                                          <img v-if="contest.logo.length < '50'" class="h-10 w-10 rounded-full"
                                           v-bind:src="'/contests/images/' + contest.logo"    
+                                              alt="" />
+                                               <img v-else class="h-10 w-10 rounded-full"
+                                          v-bind:src="contest.logo"    
                                               alt="" />
                                       </div>
 
@@ -45,7 +48,7 @@
             <td class="px-4 py-4">
                 start: {{contest.starting_date}}
                 <br>
-            end: {{contest.starting_date}}
+            end: {{contest.ending_date}}
             </td>
 
               <td class="px-4 py-4">
@@ -80,7 +83,7 @@
                                         </div>
               
                                         <div class="w-4 mr-2 transform hover:text-green-400 hover:scale-110">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg @click="chosenContest(contest)" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                             </svg>
                                         </div>
@@ -127,19 +130,214 @@
       </div>
 
 
-  <Modal v-model="showModal" title="Creat New Contest" wrapper-class="modal-wrapper" modal-class="modal">
+<Modal v-model="editModal" title="Creat New Contest" wrapper-class="modal-wrapper" modal-class="modal">
       <div class="flex flex-col">
       <!-- form -->
+       <form
+            method="POST"
+            enctype="multipart/form-data"
+            @submit.prevent="creatteam"
+            @keydown="editContest.onKeydown($event)"
+          >
+		<div class="mb-3 space-y-2 w-full text-xs">
+							<label class=" font-semibold text-gray-600 py-2">Contest Name</label>
+							<div class="flex flex-wrap items-stretch w-full mb-4 relative">
+								<div class="flex">
+									<span class="flex items-center leading-normal bg-grey-lighter border-1 rounded-r-none border border-r-0 border-blue-300 px-3 whitespace-no-wrap text-grey-dark w-12 h-10 bg-blue-300 justify-center  text-xl rounded-lg text-white">
+                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+</svg>
+                                   </span>
+								</div>
+								<input type="text" id="name" v-model="editContest.name"
+                  name="name" class="flex-shrink flex-grow flex-auto leading-normal w-px  border border-l-0 h-10 border-grey-light rounded-lg rounded-l-none px-3 relative focus:border-blue focus:shadow" placeholder="Contest Name">
+                <div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="editContest.errors.has('name')"
+                v-html="editContest.errors.get('name')"
+              />
+                  </div>
 
+                  	<div class="flex-auto w-full mb-1 text-xs space-y-2">
+									<label class="font-semibold text-gray-600 py-2">Description</label>
+									<textarea v-model="editContest.description" required="" name="description" id="description" class=" min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4" placeholder="Contest Desc.." ></textarea>
+								 <div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="editContest.errors.has('description')"
+                v-html="editContest.errors.get('description')"
+              />
+								</div>
+
+<div class="md:space-y-2 mb-3">
+						<label class="text-xs font-semibold text-gray-600 py-2">Contest Logo<abbr class="hidden" title="required">*</abbr></label>
+						<div class="flex items-center py-6">
+							<div class="w-12 h-12 mr-4 flex-none rounded-xl border overflow-hidden">
+								<img class="w-12 h-12 mr-4 object-cover" :src="editContest.logo" alt="Avatar Upload">
+                </div>
+								<label class="cursor-pointer ">
+                  <span
+							class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
+						>Browse</span>
+                  <input type="file" @change="updateLogo" name="logo" id="logo" class="hidden">
+                </label>
+							</div>
+               <div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="editContest.errors.has('logo')"
+                v-html="editContest.errors.get('logo')"
+              />
+						</div>
+            
+            	<div class="md:flex flex-row md:space-x-4 w-full text-xs">
+							<div class="mb-3 space-y-2 w-full text-xs">
+								<label class="font-semibold text-gray-600 py-2">Starting Date</label>
+                  <input
+                  v-model="editContest.startingtime" 
+                  type="datetime-local"
+                  id="startingtime"
+                  name="startingtime"
+                  class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
+                />
+							<div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="editContest.errors.has('startingtime')"
+                v-html="editContest.errors.get('startingtime')"
+              />
+							</div>
+							<div class="mb-3 space-y-2 w-full text-xs">
+								<label class="font-semibold text-gray-600 py-2">Finish Date</label>
+							  <input
+                  type="datetime-local"
+                  v-model="editContest.endingtime" 
+                  id="endingtime"
+                  name="endingtime"
+                  class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
+                />
+									<div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="editContest.errors.has('endingtime')"
+                v-html="editContest.errors.get('endingtime')"
+              />
+							</div>
+						</div>
+
+            <div class="md:flex flex-row md:space-x-4 w-full text-xs">
+							<div class="mb-3 space-y-2 w-full text-xs">
+								<label class="font-semibold text-gray-600 py-2">Make the contest private?</label>
+                
+                      <div class="relative w-12 h-6 transition duration-200 ease-linear bg-opacity-50 rounded-full shadow-inner ring-1 ring-gray-400 ring-opacity-50"
+                  :class="[editContest.private === '1' ? 'bg-green-400 ring-green-400' : 'bg-gray-400']">
+                <label for="private"
+                      class="absolute left-0 w-6 h-6 mb-2 transition duration-100 ease-linear transform bg-white border-2 border-opacity-50 rounded-full cursor-pointer"
+                      :class="editContest.private === '1' ? 'translate-x-full border-green-400' : 'translate-x-0 border-gray-400'"></label>
+                <input type="checkbox" id="private" name="private" :checked="editContest.private === '1'"
+                      class="w-full h-full appearance-none active:outline-none focus:outline-none"
+                      @click="editContest.private === '0' ? editContest.private = '1' : editContest.private = '0'"/>
+              </div>
+
+		<div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="editContest.errors.has('private')"
+                v-html="editContest.errors.get('private')"
+              />
+							</div>
+							<div class="mb-3 space-y-2 w-full text-xs">
+								<label class="font-semibold text-gray-600 py-2">Make the contest team?</label>
+							
+                <div class="relative w-12 h-6 transition duration-200 ease-linear bg-opacity-50 rounded-full shadow-inner ring-1 ring-gray-400 ring-opacity-50"
+                  :class="[editContest.team === '1' ? 'bg-green-400 ring-green-400' : 'bg-gray-400']">
+                <label for="team"
+                      class="absolute left-0 w-6 h-6 mb-2 transition duration-100 ease-linear transform bg-white border-2 border-opacity-50 rounded-full cursor-pointer"
+                      :class="editContest.team === '1' ? 'translate-x-full border-green-400' : 'translate-x-0 border-gray-400'"></label>
+                <input type="checkbox" id="team" name="team" :checked="editContest.team === '1'"
+                      class="w-full h-full appearance-none active:outline-none focus:outline-none"
+                      @click="editContest.team === '0' ? editContest.team = '1' : editContest.team= '0'"/>
+              </div>
+
+	<div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="editContest.errors.has('team')"
+                v-html="editContest.errors.get('team')"
+              />
+							</div>
+						</div>
+
+
+            	<div class="flex-auto w-full mb-1 text-xs space-y-2">
+									<label @click="customizeEditModal = true" class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border">More Customize</label>
+                   
+								</div>
+<div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="editContest.errors.has('condition')"
+                v-html="editContest.errors.get('condition')"
+              />
+              <div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="editContest.errors.has('prize')"
+                v-html="editContest.errors.get('prize')"
+              />
+              <div
+                class="text-xs text-red-500 text-left my-3"
+                v-if="editContest.errors.has('profile')"
+                v-html="editContest.errors.get('profile')"
+              />
+
+              </div>
+</form>
       <!-- end form -->
 
         <div class="flex flex-row self-end">
-          <button type="button" @click="showModal = false"
+          <button type="button" @click="editModal = false"
                   class="px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300">
           Close</button>
-          <button type="button" @click="showModal = false"
+          <button type="button" @click="editcontest"
+            :disabled="editContest.busy"
                   class="px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
-          Creat</button>
+          Edit</button>
+        </div>
+      </div>
+    </Modal>
+
+    <Modal v-model="customizeEditModal" title="More Customize" wrapper-class="modal-wrapper" modal-class="modal">
+      <div class="flex flex-col">
+      <!-- form -->
+
+
+<div class="flex-auto w-full mb-1 text-xs space-y-2">
+									<label class="font-semibold text-gray-600 py-2">Condition</label>
+									<textarea v-model="editContest.conditions" name="condition" id="condition" class=" min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4" placeholder="Condition" />
+								
+								</div>
+
+                <div class="flex-auto w-full mb-1 text-xs space-y-2">
+									<label class="font-semibold text-gray-600 py-2">Prize</label>
+									<textarea v-model="editContest.prize" name="prize" id="prize" class=" min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4" placeholder="prize" />
+							
+								</div>
+
+
+<div class="flex-auto w-full mb-1 text-xs space-y-2">
+									<label class="font-semibold text-gray-600 py-2">Profile Background</label>
+										<label class="cursor-pointer ">
+                  <span
+							class="w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border" 
+						>Browse</span>
+                  <input type="file" @change="updateProfile" name="profile" id="profile" class="hidden">
+                </label>
+                  <div class="w-full h-48 mr-4 flex-none rounded-xl border overflow-hidden">
+								<img class="w-full h-48 mr-4 object-cover" :src="editContest.profile" alt="profile">
+                </div>
+								</div>
+      <!-- end form -->
+
+        <div class="flex flex-row self-end">
+          <button type="button" @click="clearCustomiz"
+                  class="px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300">
+          Cancel</button>
+          <button type="button" @click="customizeEditModal = false"
+                  class="px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
+          Save</button>
         </div>
       </div>
     </Modal>
@@ -154,7 +352,8 @@ import { Form, HasError, AlertError } from "vform";
         props: ["contests", 'time'],
   data() {
     return {
-      showModal: false,
+      editModal: false,
+      customizeEditModal: false,
       allcontests: JSON.parse(this.contests),
       timenow: this.time,
       currentSort: "name",
@@ -163,6 +362,22 @@ import { Form, HasError, AlertError } from "vform";
       currentPage: 1,
       countpage: 0,
       filter:'',
+      tempConditions: '',
+      tempPrize: '',
+      tempProfile: '',
+       editContest: new Form({
+        contest: '',
+        name: "",
+        description: "",
+        startingtime: "",
+        endingtime: "",
+        private: '0',
+        team: '0',
+        conditions: '',
+        prize: '',
+        profile: '',
+        logo: '',
+      }),
       active: new Form({
         status: '',
         id: ''
@@ -277,6 +492,169 @@ this.delete.id = contest.id;
 
 
      },
+
+     async editcontest() {
+      const response = await this.editContest
+        .post("/controlpanel/contests/edit" )
+        .then(({ data }) => {
+
+            if (data.status == 200) {
+            this.editModal = false;
+            toast.fire({
+              icon: "success",
+              title: data.description,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+for( let i = 0 ; i < this.allcontests.length ; i++)
+            {
+              if(this.editContest.contest == this.allcontests[i].id)
+              {
+                this.allcontests[i].conditions = this.editContest.conditions
+                this.allcontests[i].description = this.editContest.description
+                this.allcontests[i].ending_date = this.editContest.endingtime
+                this.allcontests[i].logo = this.editContest.logo
+                this.allcontests[i].name = this.editContest.name
+                this.allcontests[i].prizes = this.editContest.prize
+                this.allcontests[i].profile = this.editContest.profile
+                this.allcontests[i].starting_date = this.editContest.startingtime
+                if(this.editContest.private == 1)
+                this.allcontests[i].type = 'private'
+                else
+                this.allcontests[i].type = 'public'
+                if(this.editContest.team == 1)
+                this.allcontests[i].participation = 'team'
+                else
+                this.allcontests[i].participation = 'solo'
+
+                /*
+
+conditions: (...)
+created_at: (...)
+description: (...)
+ending_date: (...)
+id: (...)
+logo: (...)
+name: (...)
+participation: (...)
+prizes: (...)
+profile: (...)
+starting_date: (...)
+status: (...)
+type: (...)
+
+ name: "",
+        description: "",
+        startingtime: "",
+        endingtime: "",
+        private: '0',
+        team: '0',
+        conditions: '',
+        prize: '',
+        profile: '',
+        logo: '',
+
+
+                */
+              }
+
+            }
+            
+
+
+            
+          } else {
+            toast.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.description,
+            });
+          }
+          
+        })
+.catch(error => {
+console.log(error)
+});
+
+      // ...
+    },
+
+
+      updateLogo(e){
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                let limit = 1024 * 1024 * 2;
+                if(file['size'] > limit){
+                   toast.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'You are uploading a large file',
+                    })
+                    return false;
+                }
+                reader.onloadend = (file) => {
+                    this.editContest.logo = reader.result;
+                }
+                reader.readAsDataURL(file);
+            },
+            updateProfile(e){
+                let file = e.target.files[0];
+                let reader = new FileReader();
+                let limit = 1024 * 1024 * 2;
+                if(file['size'] > limit){
+                   toast.fire({
+                        type: 'error',
+                        title: 'Oops...',
+                        text: 'You are uploading a large file',
+                    })
+                    return false;
+                }
+                reader.onloadend = (file) => {
+                    this.editContest.profile = reader.result;
+                }
+                reader.readAsDataURL(file);
+            },
+
+            clearCustomiz(){
+this.editContest.conditions= this.tempConditions;
+        this.editContest.prize =  this.tempPrize;
+        this.editContest.profile = this.tempProfile ;
+        this.customizeEditModal =false;
+            },
+
+               chosenContest(contest){
+                 this.editContest.contest = contest.id
+
+         this.editContest.name = contest.name
+         this.editContest.description = contest.description
+
+         
+         this.editContest.startingtime = contest.starting_date.replace(/ /g,"T")
+         this.editContest.endingtime = contest.ending_date.replace(/ /g,"T")
+
+         if(contest.type == 'public')
+         this.editContest.private = '0'
+         else
+         this.editContest.private = '1'
+
+  if(contest.participation == 'solo')
+         this.editContest.team = '0'
+         else
+         this.editContest.team = '1'
+
+         this.editContest.conditions = contest.conditions
+         this.editContest.prize = contest.prizes
+         this.editContest.profile = '/contests/profile/' + contest.profile
+         this.editContest.logo = '/contests/images/' +  contest.logo
+
+            
+         this.tempConditions = contest.conditions
+      this.tempPrize = contest.prizes
+      this.tempProfile = '/contests/profile/' + contest.profile
+
+        this.editModal =true;
+
+            },
 
     sort: function (s) {
       //if s == current sort, reverse

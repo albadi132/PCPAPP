@@ -51,8 +51,7 @@ Route::get('/controlpanel/authentication/users', [ControlPanel::class, 'Authenti
 Route::post('/controlpanel/authentication/users/role', [Users::class, 'editRole'])->middleware('auth');
 Route::get('/controlpanel/contests/', [ControlPanel::class, 'contestsView'])->name('contests-view')->middleware('auth');
 Route::post('/controlpanel/contests/creat', [contests::class, 'creat'])->middleware('auth');
-Route::get('/controlpanel/contests/edit/{id}', [ControlPanel::class, 'contestsEdit'])->name('contests-edit')->middleware('auth');
-Route::post('/controlpanel/contests/edit/{id}', [contests::class, 'edit'])->middleware('auth');
+Route::post('/controlpanel/contests/edit', [contests::class, 'edit'])->middleware('auth');
 Route::Post('/controlpanel/contests/active', [contests::class, 'contestsActive'])->middleware('auth');
 Route::Post('/controlpanel/contests/delate', [contests::class, 'contestsDelate'])->middleware('auth');
 Route::get('/controlpanel/problems/', [ControlPanel::class, 'ProblemsView'])->name('problems-view')->middleware('auth');
