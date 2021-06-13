@@ -47,8 +47,12 @@ Route::get('/verify', [VerifyController::class, 'index'])->name('verify');
 
 //controlpanel
 Route::get('/controlpanel', [ControlPanel::class, 'index'])->name('controlpanel')->middleware('auth');
+//controlpanel -> authentication
 Route::get('/controlpanel/authentication/users', [ControlPanel::class, 'AuthenticationUsers'])->name('authentication-users')->middleware('auth');
-Route::post('/controlpanel/authentication/users/role', [Users::class, 'editRole'])->middleware('auth');
+Route::post('/controlpanel/authentication/users/role', [Users::class, 'changeRole'])->middleware('auth');
+Route::post('/controlpanel/authentication/users/status', [Users::class, 'changeStatus'])->middleware('auth');
+Route::post('/controlpanel/authentication/users/restpass', [Users::class, 'restPass'])->middleware('auth');
+//controlpanel -> contests
 Route::get('/controlpanel/contests/', [ControlPanel::class, 'contestsView'])->name('contests-view')->middleware('auth');
 Route::post('/controlpanel/contests/creat', [contests::class, 'creat'])->middleware('auth');
 Route::post('/controlpanel/contests/edit', [contests::class, 'edit'])->middleware('auth');

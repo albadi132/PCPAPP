@@ -11,7 +11,7 @@ class LoginController extends Controller
     {
         $this->middleware(['guest']);
     }
-    
+
     public function index()
     {
         return view('auth.login');
@@ -24,14 +24,14 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (!auth()->attempt(array_merge($request->only('email', 'password'), ['is_verified' => 1]) ,$request->remember)) {
+        if (!auth()->attempt(array_merge($request->only('email', 'password'), ['is_verified' => 1, 'status' => 1]) ,$request->remember)) {
             return back()->with(session()->flash('alert-danger', 'Invalid login details'));
-           
+
 
         }
 
         return redirect()->route('home');
     }
-    
+
 
 }
