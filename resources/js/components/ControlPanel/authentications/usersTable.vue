@@ -341,7 +341,7 @@ export default {
               icon: "success",
               title: data.description,
               showConfirmButton: false,
-              timer: 4000,
+              timer: 3000,
             });
             this.sortedUsers[this.sortedUsers.indexOf(this.vModals.target)].status = this.statusForm.userStatus;
           } else {
@@ -372,7 +372,7 @@ export default {
               icon: "success",
               title: data.description,
               showConfirmButton: false,
-              timer: 4000,
+              timer: 3000,
             });
           } else {
             toast.fire({

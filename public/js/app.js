@@ -5312,7 +5312,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
                       icon: "success",
                       title: data.description,
                       showConfirmButton: false,
-                      timer: 4000
+                      timer: 3000
                     });
                     _this2.sortedUsers[_this2.sortedUsers.indexOf(_this2.vModals.target)].status = _this2.statusForm.userStatus;
                   } else {
@@ -5363,7 +5363,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
                       icon: "success",
                       title: data.description,
                       showConfirmButton: false,
-                      timer: 4000
+                      timer: 3000
                     });
                   } else {
                     toast.fire({
