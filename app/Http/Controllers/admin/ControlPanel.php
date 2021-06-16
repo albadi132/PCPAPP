@@ -51,7 +51,7 @@ class ControlPanel extends Controller
     public function contestsView()
     {
 
-        if(Gate::allows('show')){
+        if(Gate::allows('AdminOrManager')){
             $contests = Contest::all();
 
 
@@ -72,10 +72,10 @@ class ControlPanel extends Controller
 
     public function ProblemsView()
     {
-        if(Gate::allows('show')){
+        if(Gate::allows('AdminOrManager')){
 
-        $problems = Problem::all();
-        $count = $problems->count();
+        $problems = Problem::with('Testcases')->get();
+        //dd(json_encode($problems));
         $last = Problem::latest()->first();
         //dd($last->name);
         $mostauthor = Problem::select('author_id')
@@ -83,11 +83,12 @@ class ControlPanel extends Controller
     ->groupBy('author_id')
     ->orderByDesc('count')
     ->limit(1)
-    ->get();
+    ->first();
+
+
 
         return view('admin.problems.view')
         ->with('problems', $problems)
-            ->with('count', $count)
             ->with('last', $last)
             ->with('mostauthor', $mostauthor);
         }
@@ -95,79 +96,38 @@ class ControlPanel extends Controller
         {abort(401);}
     }
 
-    public function ProblemsCreat()
+    
+
+
+    public function testcaseview($id)
     {
 
-        if(Gate::allows('show')){
-        return view('admin.problems.creat');
-        }
-        else
-        {abort(401);}
-    }
+        if(Gate::allows('AdminOrManager')){
 
-
-
-    public function problemsEdit($id)
-    {
-
-        if(Gate::allows('show')){
-
-           if(Problem::findOrFail($id))
-           {
-            $Problem= Problem::where('id', $id)->get();
-
-            return view('admin.problems.edit',['problem'=>$Problem]);
-
-           }
-           else{
-abort(404);
-           }
-
-
-
-        }
-        else
-        {abort(401);}
-    }
-
-
-    public function problemsDelate($id)
-    {
-        if(Gate::allows('show')){
-
-            if(Problem::findOrFail($id))
+            $problems = Problem::with('Testcases')->where('id' , $id)->first();
+            
+            if($problems)
             {
-                $Problem= Problem::find($id);
-                $Problem->delete();
-                return redirect()->route('problems-view')->with('success','The problem has been deleted');
 
+                $executtime = 0;
+
+                for ($i = 0 ; $i < $problems->Testcases->count() ; $i++)
+                {
+                    $executtime = $problems->Testcases[$i]->timelimit + $executtime;
+                }
+                $executtime = $executtime / 60;
+
+    
+                return view('admin.problems.testcase')
+                ->with('problems', $problems)
+                ->with('executtime' , $executtime);
+            }
+            else
+            {abort(404);}
 
             }
-            else{
- abort(404);
-            }
-
-
-
-         }
-         else
-         {abort(401);}
-    }
-
-    public function testcase(Request $request)
-    {
-
-        $TestCase = new TestCase();
-        $TestCase->input =  $request->input;
-        $TestCase->output =   $request->output;
-        $TestCase->save();
-        $ProblemTestReference = new ProblemTestReference();
-        $ProblemTestReference->problem_id = $request->id;
-        $ProblemTestReference->testcase_id = $TestCase->id;
-        $ProblemTestReference->timestamps  = false;
-        $ProblemTestReference->save();
-
-        return view('admin.home');
+            else
+            {abort(401);}
 
     }
 

@@ -382,43 +382,7 @@ $change = false;
         }
     }
 
-      
-    public function contestsDelate(Request $request)
-    {
-        if(Gate::allows('AdminOrManager')){
-
-            $this->validate($request, [
-                'id' => ['required'],
-            ]);
-
-            $contest = Contest::where('id', $request->id)->first();
-
-            if($contest)
-            {
-                $contest->delete();
-                return [
-                    'status' => 200,
-                    'description' => "Contest has been successfully deleted",
-                ];
-            }
-            else
-            {
-                return [
-                    'status' => 404,
-                    'description' => "There is an error",
-                ];
-            }
-
-            
-         }
-         else
-         {
-             return [
-             'status' => 403,
-             'description' => "You do not have permission for this action",
-         ];
-        }
-    }
+     
 
 
 

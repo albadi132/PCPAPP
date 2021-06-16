@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTestcasesTable extends Migration
+class AddTimelimitToTestcasesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateTestcasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('testcases', function (Blueprint $table) {
-            $table->id();
-            $table->longText('input');
-            $table->longText('output');
-            $table->timestamps();
+        Schema::table('testcases', function (Blueprint $table) {
+            $table->integer('timelimit')->default(3600);
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
@@ -28,6 +25,8 @@ class CreateTestcasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('testcases');
+        Schema::table('testcases', function (Blueprint $table) {
+            $table->dropColumn('timelimit');
+        });
     }
 }

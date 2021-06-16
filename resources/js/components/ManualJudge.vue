@@ -1,7 +1,6 @@
 <template>
   <div>
     <button
-      v-if="!onteam"
       @click="showmodal"
       class="md:flex hidden items-center text-gray-500 space-x-2 border border-gray-400 px-4 py-1.5 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400"
     >

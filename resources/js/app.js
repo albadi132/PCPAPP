@@ -63,6 +63,11 @@
  Vue.component('pcp-cp-user-status', require('./components/ControlPanel/authentications/status.vue').default);
  Vue.component('pcp-cp-contests', require('./components/ControlPanel/contests/ContestTable.vue').default);
  Vue.component('pcp-cp-new-contest', require('./components/ControlPanel/contests/NewContest.vue').default);
+ Vue.component('pcp-cp-problem', require('./components/ControlPanel/problems/ProblemTable.vue').default);
+ Vue.component('pcp-cp-new-problem', require('./components/ControlPanel/problems/NewProblem.vue').default);
+ Vue.component('pcp-cp-new-testcase', require('./components/ControlPanel/problems/NewTestCases.vue').default);
+ Vue.component('pcp-cp-testcase', require('./components/ControlPanel/problems/ManegTestCases.vue').default);
+ 
  
 
  /**
