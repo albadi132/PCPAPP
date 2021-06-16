@@ -59,7 +59,7 @@ class Users extends Controller
         if (Gate::allows('AdminOnly')) {
 
             $this->validate($request, [
-                'userStatus' => ['required', 'integer', 'min:0', 'max:1'],
+                'userStatus' => ['required', 'boolean'],
             ]);
 
             $change = FALSE;
