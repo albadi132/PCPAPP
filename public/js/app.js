@@ -5166,7 +5166,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
   props: ['users'],
   data: function data() {
     return {
-      /* users list */
+      /* users list s */
       userslist: JSON.parse(this.users),
 
       /* sorting */
@@ -5250,7 +5250,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                roleForm.targetUser = vModals.target;
+                _this.roleForm.targetUser = _this.vModals.target.id;
                 _context.next = 3;
                 return _this.roleForm.post('/controlpanel/authentication/users/role').then(function (_ref) {
                   var data = _ref.data;
@@ -5261,9 +5261,9 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
                       icon: "success",
                       title: data.description,
                       showConfirmButton: false,
-                      timer: 4000
+                      timer: 3000
                     });
-                    location.reload();
+                    _this.sortedUsers[_this.sortedUsers.indexOf(_this.vModals.target)].role = _this.roleForm.userRole;
                   } else {
                     toast.fire({
                       icon: "error",
@@ -5301,7 +5301,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.statusForm.targetUser = _this2.vModals.target;
+                _this2.statusForm.targetUser = _this2.vModals.target.id;
                 _context2.next = 3;
                 return _this2.statusForm.post('/controlpanel/authentication/users/status').then(function (_ref2) {
                   var data = _ref2.data;
@@ -5312,9 +5312,9 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
                       icon: "success",
                       title: data.description,
                       showConfirmButton: false,
-                      timer: 4000
+                      timer: 3000
                     });
-                    location.reload();
+                    _this2.sortedUsers[_this2.sortedUsers.indexOf(_this2.vModals.target)].status = _this2.statusForm.userStatus;
                   } else {
                     toast.fire({
                       icon: "error",
@@ -5352,7 +5352,7 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _this3.restpassForm.targetUser = _this3.vModals.target;
+                _this3.restpassForm.targetUser = _this3.vModals.target.id;
                 _context3.next = 3;
                 return _this3.restpassForm.post('/controlpanel/authentication/users/restpass').then(function (_ref3) {
                   var data = _ref3.data;
@@ -5363,9 +5363,8 @@ Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK
                       icon: "success",
                       title: data.description,
                       showConfirmButton: false,
-                      timer: 4000
+                      timer: 3000
                     });
-                    location.reload();
                   } else {
                     toast.fire({
                       icon: "error",
@@ -54119,7 +54118,7 @@ var render = function() {
                                           "text-indigo-600 cursor-pointer hover:text-indigo-900",
                                         on: {
                                           click: function($event) {
-                                            ;(_vm.vModals.target = user.id),
+                                            ;(_vm.vModals.target = user),
                                               (_vm.roleForm.targetUser = 0),
                                               (_vm.roleForm.userRole = ""),
                                               (_vm.vModals.roleVM = true)
@@ -54140,7 +54139,7 @@ var render = function() {
                                           "text-indigo-600 cursor-pointer hover:text-indigo-900",
                                         on: {
                                           click: function($event) {
-                                            ;(_vm.vModals.target = user.id),
+                                            ;(_vm.vModals.target = user),
                                               (_vm.statusForm.targetUser = 0),
                                               (_vm.statusForm.userStatus =
                                                 user.status),
@@ -54162,7 +54161,7 @@ var render = function() {
                                           "text-indigo-600 cursor-pointer hover:text-indigo-900",
                                         on: {
                                           click: function($event) {
-                                            ;(_vm.vModals.target = user.id),
+                                            ;(_vm.vModals.target = user),
                                               (_vm.restpassForm.targetUser = 0),
                                               (_vm.restpassForm.userPassword =
                                                 ""),
@@ -54410,7 +54409,7 @@ var render = function() {
             _c("div", { staticClass: "flex flex-row" }, [
               _vm._v(
                 "\n        This is user role modal. Changing user " +
-                  _vm._s(_vm.vModals.target) +
+                  _vm._s(_vm.vModals.target.username) +
                   " role\n      "
               )
             ]),

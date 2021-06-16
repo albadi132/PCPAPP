@@ -88,15 +88,15 @@
               <td class="px-6 py-4 text-sm font-medium leading-5 text-left border-b border-gray-200">
                 <div v-if="user.role !== 'admin' && user.is_verified == 1" class="flex flex-col">
                   <a class="text-indigo-600 cursor-pointer hover:text-indigo-900"
-                    @click="vModals.target = user.id, roleForm.targetUser = 0, roleForm.userRole = '', vModals.roleVM = true">
+                    @click="vModals.target = user, roleForm.targetUser = 0, roleForm.userRole = '', vModals.roleVM = true">
                     Change Role
                   </a>
                   <a class="text-indigo-600 cursor-pointer hover:text-indigo-900"
-                    @click="vModals.target = user.id, statusForm.targetUser = 0, statusForm.userStatus = user.status, vModals.statusVM = true">
+                    @click="vModals.target = user, statusForm.targetUser = 0, statusForm.userStatus = user.status, vModals.statusVM = true">
                     Change Status
                   </a>
                   <a class="text-indigo-600 cursor-pointer hover:text-indigo-900"
-                    @click="vModals.target = user.id, restpassForm.targetUser = 0, restpassForm.userPassword = '', restpassForm.userPassword_confirmation = '', vModals.restpassVM = true">
+                    @click="vModals.target = user, restpassForm.targetUser = 0, restpassForm.userPassword = '', restpassForm.userPassword_confirmation = '', vModals.restpassVM = true">
                     Reset Password
                   </a>
                 </div>
@@ -130,7 +130,7 @@
     <Modal v-model="vModals.roleVM" title="User Role">
       <div class="flex flex-col">
         <div class="flex flex-row">
-          This is user role modal. Changing user {{ vModals.target }} role
+          This is user role modal. Changing user {{ vModals.target.username }} role
         </div>
         <div class="flex flex-row self-center">
           <div class="flex flex-col my-6">
@@ -232,7 +232,7 @@ export default {
   ],
   data: function () {
     return {
-      /* users list */
+      /* users list s */
       userslist: JSON.parse(this.users),
       /* sorting */
       currentSort: "name",
@@ -300,7 +300,7 @@ export default {
     },
     /* role vueModal vForm POST */
     async changeRole() {
-      roleForm.targetUser = vModals.target;
+      this.roleForm.targetUser = this.vModals.target.id;
       const response = await this.roleForm
         .post('/controlpanel/authentication/users/role')
         .then(({ data }) => {
@@ -310,9 +310,9 @@ export default {
               icon: "success",
               title: data.description,
               showConfirmButton: false,
-              timer: 4000,
+              timer: 3000,
             });
-            location.reload();
+            this.sortedUsers[this.sortedUsers.indexOf(this.vModals.target)].role = this.roleForm.userRole;
           } else {
             toast.fire({
               icon: "error",
@@ -331,7 +331,7 @@ export default {
     },
     /* status vueModal vForm POST */
     async changeStatus() {
-      this.statusForm.targetUser = this.vModals.target;
+      this.statusForm.targetUser = this.vModals.target.id;
        const response = await this.statusForm
         .post('/controlpanel/authentication/users/status')
         .then(({ data }) => {
@@ -341,9 +341,9 @@ export default {
               icon: "success",
               title: data.description,
               showConfirmButton: false,
-              timer: 4000,
+              timer: 3000,
             });
-            location.reload();
+            this.sortedUsers[this.sortedUsers.indexOf(this.vModals.target)].status = this.statusForm.userStatus;
           } else {
             toast.fire({
               icon: "error",
@@ -362,7 +362,7 @@ export default {
     },
     /* restspass vueModal vForm POST */
     async restPass() {
-      this.restpassForm.targetUser = this.vModals.target;
+      this.restpassForm.targetUser = this.vModals.target.id;
       const response = await this.restpassForm
         .post('/controlpanel/authentication/users/restpass')
         .then(({ data }) => {
@@ -372,9 +372,8 @@ export default {
               icon: "success",
               title: data.description,
               showConfirmButton: false,
-              timer: 4000,
+              timer: 3000,
             });
-            location.reload();
           } else {
             toast.fire({
               icon: "error",
