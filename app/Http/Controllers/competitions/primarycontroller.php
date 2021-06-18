@@ -207,7 +207,9 @@ class primarycontroller extends Controller
   {
     $name = str_replace("_", " ", $name);
     $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
+    $problems =  Problem::has('Testcases')->where('status' , 1)->get();
     if ($contest) {
+      if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
 
       //dd($contest->submissionlog);
 
@@ -234,8 +236,12 @@ class primarycontroller extends Controller
         ->with('contest', $contest)
         ->with('tablename', $tablename)
         ->with('tabledesc', $tabledesc)
-        ->with('time', $totalDuration);
-    } else {
+        ->with('time', $totalDuration)
+        ->with('library', $problems);
+    
+      } else {
+        abort(403);
+      }  } else {
       abort(404);
     }
   }
@@ -244,9 +250,10 @@ class primarycontroller extends Controller
   {
     $name = str_replace("_", " ", $name);
     $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
+    $problems =  Problem::has('Testcases')->where('status' , 1)->get();
     if ($contest) {
 
-
+      if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
       $startTime = Carbon::parse($contest->starting_date);
       $endTime = Carbon::parse(date('Y-m-d H:i:s'));
 
@@ -269,8 +276,11 @@ class primarycontroller extends Controller
         ->with('contest', $contest)
         ->with('tablename', $tablename)
         ->with('tabledesc', $tabledesc)
-        ->with('time', $totalDuration);
-    } else {
+        ->with('time', $totalDuration)
+        ->with('library', $problems);
+      } else {
+        abort(403);
+      }} else {
       abort(404);
     }
   }
@@ -279,9 +289,10 @@ class primarycontroller extends Controller
   {
     $name = str_replace("_", " ", $name);
     $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'organizer', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
+    $problems =  Problem::has('Testcases')->where('status' , 1)->get();
     if ($contest) {
 
-
+      if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
       $startTime = Carbon::parse($contest->starting_date);
       $endTime = Carbon::parse(date('Y-m-d H:i:s'));
 
@@ -303,8 +314,51 @@ class primarycontroller extends Controller
         ->with('contest', $contest)
         ->with('tablename', $tablename)
         ->with('tabledesc', $tabledesc)
-        ->with('time', $totalDuration);
-    } else {
+        ->with('time', $totalDuration)
+        ->with('library', $problems);
+      } else {
+        abort(403);
+      }} else {
+      abort(404);
+    }
+  }
+
+  public function competitionoquestionlibrary($name)
+  {
+    $name = str_replace("_", " ", $name);
+    $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
+    $problems =  Problem::has('Testcases')->where('status' , 1)->get();
+
+    if ($contest) {
+
+      if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
+      $startTime = Carbon::parse($contest->starting_date);
+      $endTime = Carbon::parse(date('Y-m-d H:i:s'));
+
+      $totalDuration = $endTime->diffForHumans($startTime);
+
+      if (strpos($totalDuration, 'before') !== false) {
+        $totalDuration  = str_replace("before", "", $totalDuration);
+      } else {
+        if (($contest->starting_date <= date('Y-m-d H:i:s')) & ($contest->ending_date >= date('Y-m-d H:i:s'))) {
+          $totalDuration  = 'started';
+        } else
+          $totalDuration  = 'closed';
+      }
+
+
+
+      $tablename = 'QUESTION LIBRARY';
+      $tabledesc = 'Manage questions related to the competition';
+      return view('competitions.manage.questionlibrary')
+        ->with('contest', $contest)
+        ->with('tablename', $tablename)
+        ->with('tabledesc', $tabledesc)
+        ->with('time', $totalDuration)
+        ->with('library', $problems);
+      } else {
+        abort(403);
+      }} else {
       abort(404);
     }
   }

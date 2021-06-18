@@ -20,6 +20,7 @@
         @can('AdminOrManager')
         <pcp-organizer :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'"></pcp-organizer>
         @endcan
+        <pcp-libraryadd :library="'{{ json_encode($library) }}'" :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'"></pcp-libraryadd>
         <pcp-manualjudge :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'" :problems="'{{ json_encode($contest->problems) }}'" :languages="'{{ json_encode($contest->languages) }}'" :competitor="'{{ json_encode($contest->competitor) }}'"></pcp-manualjudge>
 
 
@@ -131,9 +132,11 @@
 
             <div class="self-center sm:mb-0">
               <a href="{{route('competition-manage', ['name' => NameToUrl($contest->name) ])}}" class=" {{ 'competition/'.NameToUrl($contest->name).'/mange' == request()->is('competition/'.NameToUrl($contest->name).'/mange') ? ' text-green-500 ' : ' text-black ' }} text-md no-underline  hover:text-blue-dark ml-2 px-1">Submission Log</a>
+              <a href="{{route('competition-manage-questionlibrary', ['name' => NameToUrl($contest->name) ])}}" class=" {{ 'competition/'.NameToUrl($contest->name).'/mange/question' == request()->is('competition/'.NameToUrl($contest->name).'/mange/question') ? ' text-green-500' : ' text-black ' }} text-md no-underline  hover:text-blue-dark ml-2 px-1">Question Library</a>
               <a href="{{route('competition-manage-participants', ['name' => NameToUrl($contest->name) ])}}" class=" {{ 'competition/'.NameToUrl($contest->name).'/mange/participants' == request()->is('competition/'.NameToUrl($contest->name).'/mange/participants') ? ' text-green-500' : ' text-black ' }} text-md no-underline  hover:text-blue-dark ml-2 px-1">Participants</a>
               <a href="{{route('competition-manage-organizers', ['name' => NameToUrl($contest->name) ])}}" class=" {{ 'competition/'.NameToUrl($contest->name).'/mange/organizers' == request()->is('competition/'.NameToUrl($contest->name).'/mange/organizers') ? ' text-green-500 ' : ' text-black ' }} text-md no-underline  hover:text-blue-dark ml-2 px-1">Organizers</a>
 
+              
             </div>
           </nav>
 

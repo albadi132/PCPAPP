@@ -7,6 +7,12 @@
     >
       Edit Profile
     </button>
+    <button
+      @click="showResetmodal"
+      class="block w-full text-blue-800 text-sm font-semibold rounded-lg hover:bg-gray-100 focus:outline-none focus:shadow-outline focus:bg-gray-100 hover:shadow-xs p-3 my-4"
+    >
+      Reset Password
+    </button>
 
     <!-- Start Modal -->
 
@@ -150,9 +156,87 @@
     </div>
     <!-- End Modal -->
 
+     <!-- Start Modal -->
+
+    <div
+      v-if="resetmodal"
+      class="fixed overflow-xhidden overflow-y-auto inset-0 flex justify-center items-center z-50"
+    >
+      <div
+        class="flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl"
+      >
+        <div
+          class="flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
+        >
+          <p class="text-2xl justify-center font-semibold text-gray-800">
+            Reset Password
+          </p>
+        </div>
+        <div class="flex flex-col px-6 py-5 bg-gray-50">
+          <!-- Form Start -->
+          <form
+            method="POST"
+            enctype="multipart/form-data"
+            @submit.prevent="creatteam"
+            @keydown="form.onKeydown($event)"
+          >
+        
+        
+                    <div class="flex flex-wrap">
+                        <label for="password" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            Old Password
+                        </label>
+
+                        <input v-model="reset.oldPassword" id="oldPassword" type="password"
+                            class="bg-gray-100 border-2 w-full p-4 rounded-lg " name="oldPassword"
+                            required >
+
+                         <div
+                class="text-red-500"
+                v-if="reset.errors.has('oldPassword')"
+                v-html="reset.errors.get('oldPassword')"
+              />
+                    </div>
+
+                    <div class="flex flex-wrap">
+                        <label for="password-confirm" class="block text-gray-700 text-sm font-bold mb-2 sm:mb-4">
+                            New Password
+                        </label>
+
+                        <input v-model="reset.newPassword" id="newPassword" type="password" class="bg-gray-100 border-2 w-full p-4 rounded-lg "
+                            name="newPassword" required >
+
+                                    <div
+                class="text-red-500"
+                v-if="reset.errors.has('newPassword')"
+                v-html="reset.errors.get('newPassword')"
+              />
+                    </div>
+  
+            <!-- Form End -->
+          </form>
+        </div>
+        <div
+          class="flex flex-row items-center justify-between p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg"
+        >
+          <button @click="resetmodal = false">
+            <p class="font-semibold text-gray-600">Cancel</p>
+          </button>
+          <button
+            @click="resetpass"
+            :disabled="reset.busy"
+            class="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal -->
+
     <!-- change screen to black -->
     <div
-      v-if="toggleModal"
+      v-if="toggleModal || resetmodal"
       class="pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center opacity-25 bg-black"
     ></div>
 
@@ -172,6 +256,7 @@ export default {
     return {
       profileinfo: JSON.parse(this.user),
       toggleModal: false,
+      resetmodal: false,
       resp: false,
       form: new Form({
         about: '',
@@ -180,11 +265,18 @@ export default {
         gender: JSON.parse(this.user).gender,
         avatar: null,
       }),
+       reset: new Form({
+      newPassword: '',
+      oldPassword: '',
+      }),
     };
   },
   methods: {
     showmodal() {
       this.toggleModal = true;
+    },
+    showResetmodal(){
+this.resetmodal = true;
     },
    handleFile (e) {
      let file = e.target.files[0];
@@ -207,7 +299,6 @@ export default {
     
 
     async profile() {
-      console.log(this.form);
       const response = await this.form
         .post("/profile/" + this.profileinfo.username )
         .then(({ data }) => {
@@ -228,6 +319,33 @@ export default {
             });
           }
         });
+
+      // ...
+    },
+       async resetpass() {
+      const response = await this.reset
+        .post("/profile/" + this.profileinfo.username +"/resetpassword" )
+        .then(({ data }) => {
+          if (data.status == 200) {
+            this.toggleModal = false;
+            toast.fire({
+              icon: "success",
+              title: data.description,
+              showConfirmButton: false,
+              timer: 3000,
+            });
+            location.reload();
+          } else {
+            toast.fire({
+              icon: "error",
+              title: "Oops...",
+              text: data.description,
+            });
+          }
+        })
+.catch(error => {
+console.log(error)
+});
 
       // ...
     },

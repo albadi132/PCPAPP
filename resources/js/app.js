@@ -54,6 +54,8 @@
  Vue.component('pcp-organizerdelate', require('./components/OrganizerDelate.vue').default);
  Vue.component('pcp-manualjudge', require('./components/ManualJudge.vue').default);
  Vue.component('pcp-profile', require('./components/Profile.vue').default);
+ Vue.component('pcp-libraryadd', require('./components/QuestionLibraryAdd.vue').default);
+ Vue.component('pcp-librarydelate', require('./components/QuestionLibraryDelate.vue').default);
 
 
  //control panel vue components
