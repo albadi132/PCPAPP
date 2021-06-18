@@ -269,10 +269,12 @@ $change = false;
                 'problemid' => ['required'],
                 'input' => ['required'],
                 'output' => ['required'],
-                'executtime' => ['required', 'min:0', 'max:60'],
+                'executtime' => ['required',  'max:60'],
                 
             ]);
 
+            if($request->executtime > 0)
+            {
             $problem = Problem::where('id', $request->problemid)->first();
 
             if($problem)
@@ -307,7 +309,13 @@ $change = false;
             }
 
 
-
+        }else
+            {
+                return [
+                    'status' => 422,
+                    'description' => "Execution time must be greater than zero",
+                ];
+            }
 
         }else
             {
@@ -329,12 +337,14 @@ $change = false;
                 'testcaseid'  => ['required'],
                 'input' => ['required'],
                 'output' => ['required'],
-                'executtime' => ['required', 'min:0', 'max:60'],
+                'executtime' => ['required', 'max:60'],
                 
                 
             ]);
 
-            
+            if($request->executtime > 0)
+        {
+
             $problem = Problem::where('id', $request->problemid)->first();
             $TestCase =  TestCase::where('id', $request->testcaseid)->first();
 
@@ -393,7 +403,14 @@ $change = false;
                 ];
             }
 
-
+        }
+        else
+        {
+            return [
+                'status' => 422,
+                'description' => "Execution time must be greater than zero",
+            ];
+        }
 
 
         }else

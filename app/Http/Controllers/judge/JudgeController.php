@@ -63,303 +63,311 @@ class JudgeController extends Controller
                 //conttestt is online
                 if ($this->SubmittingIsOpen($contest->id)) {
                     //
-                    if (!$this->HasQuestionSolvBefore($contest, $problem->id, $user->id)){
+                    if (!$this->HasQuestionSolvBefore($contest, $problem->id, $user->id)) {
 
-                    //problem on compettation 
-                    if ($this->QuestionInCompetition($contest->id, $problem->id)) {
+                        //problem on compettation 
+                        if ($this->QuestionInCompetition($contest->id, $problem->id)) {
 
-                        //langeg on compettation 
-                        if ($this->LanguageInCompetition($contest->id, $request->language)) {
-                            $Language = Language::find($request->language);
-
-
-                            //problme has test case
-                            if (!empty($problem->Testcases->count())) {
-
-                                //switch case
-
-                                switch ($Language->id) {
-                                    case 1:
-                                        //python
-                                        $submit = time();
-                                        $NewSubmitName = $proname . '_' . $submit . '.py';
-                                        $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit . '/';
-
-                                        $request->code->move(public_path($NewPath), $NewSubmitName);
-
-                                        $path = $SystemPath . $NewPath . $NewSubmitName;
-                                        $command = '/usr/bin/python3 -m py_compile ' . $path;
+                            //langeg on compettation 
+                            if ($this->LanguageInCompetition($contest->id, $request->language)) {
+                                $Language = Language::find($request->language);
 
 
-                                        $output = null;
-                                        $failed = 0;
-                                        $passtest = 0;
-                                        $reson = null;
+                                //problme has test case
+                                if (!empty($problem->Testcases->count())) {
 
-                                        exec($command . " 2>&1", $output);
+                                    //switch case
 
-                                        if (empty($output)) {
+                                    switch ($Language->id) {
+                                        case 1:
+                                            //python
+                                            $submit = time();
+                                            $NewSubmitName = $proname . '_' . $submit . '.py';
+                                            $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit . '/';
 
-                                            //start subbmisson log
-                                            $SubmissionsLog = new SubmissionsLog;
-                                            $SubmissionsLog->file = $NewSubmitName;
-                                            $SubmissionsLog->result = 'unknown';
-                                            $SubmissionsLog->save();
-                                            $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
-                                            $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
-                                            $this->SubmissionForUser($SubmissionsLog->id, $user->id);
-                                            $this->SubmissionForLanguage($SubmissionsLog->id, $Language->id);
+                                            $request->code->move(public_path($NewPath), $NewSubmitName);
+
+                                            $path = $SystemPath . $NewPath . $NewSubmitName;
+                                            $command = '/usr/bin/python3 -m py_compile ' . $path;
 
 
+                                            $output = null;
+                                            $failed = 0;
+                                            $passtest = 0;
+                                            $reson = null;
 
-                                            foreach ($problem->Testcases as $testcase) {
-                                                //dd($testcase->input);
+                                            exec($command . " 2>&1", $output);
 
-                                                $process = new Process(['python3', $path]);
-                                                $process->setInput($testcase->input);
-                                                $process->run();
+                                            if (empty($output)) {
 
-                                                // executes after the command finishes
-                                                if (!$process->isSuccessful()) {
-                                                    //Time out
-                                                    $error = json_encode(new ProcessFailedException($process));
+                                                //start subbmisson log
+                                                $SubmissionsLog = new SubmissionsLog;
+                                                $SubmissionsLog->file = $NewSubmitName;
+                                                $SubmissionsLog->result = 'unknown';
+                                                $SubmissionsLog->save();
+                                                $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
+                                                $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
+                                                $this->SubmissionForUser($SubmissionsLog->id, $user->id);
+                                                $this->SubmissionForLanguage($SubmissionsLog->id, $Language->id);
 
-                                                    $ExecutionsLog = new ExecutionsLog;
-                                                    $ExecutionsLog->output = $error;
-                                                    $ExecutionsLog->result = "Time out";
-                                                    $ExecutionsLog->testcase_id = $testcase->id;
-                                                    $ExecutionsLog->save();
-                                                    $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
 
-                                                    $failed = 1;
-                                                    $passtest = 0;
-                                                    $reson = "Time out";
-                                                } else {
 
-                                                    $Result = str_replace(array("\n", "\r"), '', $process->getOutput());
-                                                    $Expected = str_replace(array("\n", "\r"), '', $testcase->output);
-                                                    if ($Result == $Expected) {
-                                                        //pass
-                                                        $ExecutionsLog = new ExecutionsLog;
-                                                        $ExecutionsLog->output = $process->getOutput();
-                                                        $ExecutionsLog->result = "pass";
-                                                        $ExecutionsLog->status = 1;
-                                                        $ExecutionsLog->testcase_id = $testcase->id;
-                                                        $ExecutionsLog->save();
-                                                        $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
-                                                        if ($failed != 1) {
-                                                            $passtest = 1;
-                                                        }
-                                                    } else {
-                                                        //fail
+                                                foreach ($problem->Testcases as $testcase) {
+                                                    //dd($testcase->input);
+                                                    try {
+                                                        $process = new Process(['python3', $path, 'memory_limit=10M']);
+                                                        $process->setTimeout($testcase->timelimit / 60);
+                                                        $process->setInput($testcase->input);
+                                                        $process->run();
+                                                    } catch (\Exception $e) {
+                                                        //Time out
+                                                        $error = json_encode(new ProcessFailedException($process));
 
                                                         $ExecutionsLog = new ExecutionsLog;
-                                                        $ExecutionsLog->output = $process->getOutput();
-                                                        $ExecutionsLog->result = "fail";
+                                                        $ExecutionsLog->output = $error;
+                                                        $ExecutionsLog->result = "Time out";
                                                         $ExecutionsLog->testcase_id = $testcase->id;
                                                         $ExecutionsLog->save();
                                                         $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
 
                                                         $failed = 1;
                                                         $passtest = 0;
-                                                        $reson = "Not expected result";
+                                                        $reson = "Time out";
+                                                    }
+
+
+
+                                                    // executes after the command finishes
+                                                    if ($process->isSuccessful()) {
+
+                                                        $Result = str_replace(array("\n", "\r"), '', $process->getOutput());
+                                                        $Expected = str_replace(array("\n", "\r"), '', $testcase->output);
+                                                        if ($Result == $Expected) {
+                                                            //pass
+                                                            $ExecutionsLog = new ExecutionsLog;
+                                                            $ExecutionsLog->output = $process->getOutput();
+                                                            $ExecutionsLog->result = "pass";
+                                                            $ExecutionsLog->status = 1;
+                                                            $ExecutionsLog->testcase_id = $testcase->id;
+                                                            $ExecutionsLog->save();
+                                                            $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
+                                                            if ($failed != 1) {
+                                                                $passtest = 1;
+                                                            }
+                                                        } else {
+                                                            //fail
+
+                                                            $ExecutionsLog = new ExecutionsLog;
+                                                            $ExecutionsLog->output = $process->getOutput();
+                                                            $ExecutionsLog->result = "fail";
+                                                            $ExecutionsLog->testcase_id = $testcase->id;
+                                                            $ExecutionsLog->save();
+                                                            $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
+
+                                                            $failed = 1;
+                                                            $passtest = 0;
+                                                            $reson = "Not expected result";
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            //user return
+                                                //user return
 
-                                            if ($passtest == 1) {
+                                                if ($passtest == 1) {
 
-                                                $SubmissionsLog->result = "pass";
-                                                $SubmissionsLog->status = 1;
-                                                $SubmissionsLog->save();
+                                                    $SubmissionsLog->result = "pass";
+                                                    $SubmissionsLog->status = 1;
+                                                    $SubmissionsLog->save();
 
-                                                //score
-                                                $Score = new Score;
-                                                $Score->points = $problem->points;
-                                                $Score->user_id =  $user->id;
-                                                $Score->contest_id =  $contest->id;
-                                                $Score->problem_id =  $problem->id;
-                                                $Score->language_id = $Language->id;
-                                                $Score->submissionlog_id = $SubmissionsLog->id;
-                                                $Score->save();
+                                                    //score
+                                                    $Score = new Score;
+                                                    $Score->points = $problem->points;
+                                                    $Score->user_id =  $user->id;
+                                                    $Score->contest_id =  $contest->id;
+                                                    $Score->problem_id =  $problem->id;
+                                                    $Score->language_id = $Language->id;
+                                                    $Score->submissionlog_id = $SubmissionsLog->id;
+                                                    $Score->save();
 
-                                                return back()->with(session()->flash('judge-success', 'The solution has been accepted'));
-                                            } else {
-                                                $SubmissionsLog->result = $reson;
-                                                $SubmissionsLog->status = 0;
-                                                $SubmissionsLog->save();
-                                                return back()->with(session()->flash('judge-danger', 'The solution was not accepted due to: ' . $reson));
-                                            }
-                                        } else {
-                                            //SyntaxError
-
-                                            $SubmissionsLog = new SubmissionsLog;
-                                            $SubmissionsLog->file = $NewSubmitName;
-                                            $SubmissionsLog->result = 'Syntax Error';
-                                            $SubmissionsLog->save();
-                                            $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
-                                            $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
-                                            $this->SubmissionForUser($SubmissionsLog->id, $user->id);
-                                            $this->SubmissionForLanguage($SubmissionsLog->id, $Language->id);
-
-                                            return back()->with(session()->flash('judge-danger', 'The solution was not accepted due to: Syntax Error'));
-                                        }
-
-                                        break;
-                                    case 2:
-                                        //c++
-
-                                        $submit = time();
-                                        $NewSubmitName = $proname . '_' . $submit . '.cpp';
-                                        $NewCompilerName = $proname . '_' . $submit;
-                                        $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit . '/';
-
-                                        $request->code->move(public_path($NewPath), $NewSubmitName);
-
-                                        $path1 = $SystemPath . $NewPath . $NewCompilerName;
-                                        $path2 = $SystemPath . $NewPath . $NewSubmitName;
-
-                                        $command = '/usr/bin/g++ -o ' . $path1 . ' ' . $path2;
-
-                                        $output = null;
-                                        $failed = 0;
-                                        $passtest = 0;
-                                        $reson = null;
-
-                                        exec($command . " 2>&1", $output);
-
-
-                                        if (empty($output)) {
-
-                                            //start subbmisson log
-                                            $SubmissionsLog = new SubmissionsLog;
-                                            $SubmissionsLog->file = $NewSubmitName;
-                                            $SubmissionsLog->result = 'unknown';
-                                            $SubmissionsLog->save();
-                                            $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
-                                            $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
-                                            $this->SubmissionForUser($SubmissionsLog->id, $user->id);
-                                            $this->SubmissionForLanguage($SubmissionsLog->id, $Language->id);
-
-
-
-                                            foreach ($problem->Testcases as $testcase) {
-                                                //dd($testcase->input);
-
-                                                $process = new Process([$path1]);
-                                                $process->setInput($testcase->input);
-                                                $process->run();
-
-                                                // executes after the command finishes
-                                                if (!$process->isSuccessful()) {
-                                                    //Time out
-                                                    $error = json_encode(new ProcessFailedException($process));
-
-                                                    $ExecutionsLog = new ExecutionsLog;
-                                                    $ExecutionsLog->output = $error;
-                                                    $ExecutionsLog->result = "Time out";
-                                                    $ExecutionsLog->testcase_id = $testcase->id;
-                                                    $ExecutionsLog->save();
-                                                    $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
-
-                                                    $failed = 1;
-                                                    $passtest = 0;
-                                                    $reson = "Time out";
+                                                    return back()->with(session()->flash('judge-success', 'The solution has been accepted'));
                                                 } else {
+                                                    $SubmissionsLog->result = $reson;
+                                                    $SubmissionsLog->status = 0;
+                                                    $SubmissionsLog->save();
+                                                    return back()->with(session()->flash('judge-danger', 'The solution was not accepted due to: ' . $reson));
+                                                }
+                                            } else {
+                                                //SyntaxError
 
-                                                    $Result = str_replace(array("\n", "\r"), '', $process->getOutput());
-                                                    $Expected = str_replace(array("\n", "\r"), '', $testcase->output);
-                                                    if ($Result == $Expected) {
-                                                        //pass
-                                                        $ExecutionsLog = new ExecutionsLog;
-                                                        $ExecutionsLog->output = $process->getOutput();
-                                                        $ExecutionsLog->result = "pass";
-                                                        $ExecutionsLog->status = 1;
-                                                        $ExecutionsLog->testcase_id = $testcase->id;
-                                                        $ExecutionsLog->save();
-                                                        $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
-                                                        if ($failed != 1) {
-                                                            $passtest = 1;
-                                                        }
-                                                    } else {
-                                                        //fail
+                                                $SubmissionsLog = new SubmissionsLog;
+                                                $SubmissionsLog->file = $NewSubmitName;
+                                                $SubmissionsLog->result = 'Syntax Error';
+                                                $SubmissionsLog->save();
+                                                $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
+                                                $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
+                                                $this->SubmissionForUser($SubmissionsLog->id, $user->id);
+                                                $this->SubmissionForLanguage($SubmissionsLog->id, $Language->id);
+
+                                                return back()->with(session()->flash('judge-danger', 'The solution was not accepted due to: Syntax Error'));
+                                            }
+
+                                            break;
+                                        case 2:
+                                            //c++
+
+                                            $submit = time();
+                                            $NewSubmitName = $proname . '_' . $submit . '.cpp';
+                                            $NewCompilerName = $proname . '_' . $submit;
+                                            $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit . '/';
+
+                                            $request->code->move(public_path($NewPath), $NewSubmitName);
+
+                                            $path1 = $SystemPath . $NewPath . $NewCompilerName;
+                                            $path2 = $SystemPath . $NewPath . $NewSubmitName;
+
+                                            $command = '/usr/bin/g++ -o ' . $path1 . ' ' . $path2;
+
+                                            $output = null;
+                                            $failed = 0;
+                                            $passtest = 0;
+                                            $reson = null;
+
+                                            exec($command . " 2>&1", $output);
+
+
+                                            if (empty($output)) {
+
+                                                //start subbmisson log
+                                                $SubmissionsLog = new SubmissionsLog;
+                                                $SubmissionsLog->file = $NewSubmitName;
+                                                $SubmissionsLog->result = 'unknown';
+                                                $SubmissionsLog->save();
+                                                $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
+                                                $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
+                                                $this->SubmissionForUser($SubmissionsLog->id, $user->id);
+                                                $this->SubmissionForLanguage($SubmissionsLog->id, $Language->id);
+
+
+
+                                                foreach ($problem->Testcases as $testcase) {
+                                                    //dd($testcase->input);
+
+                                                    try {
+                                                        $process = new Process([$path1, 'memory_limit=10M']);
+                                                        $process->setTimeout($testcase->timelimit / 60);
+                                                        $process->setInput($testcase->input);
+                                                        $process->run();
+                                                        
+                                                    } catch (\Exception $e) {
+                                                        //Time out
+                                                        $error = json_encode(new ProcessFailedException($process));
 
                                                         $ExecutionsLog = new ExecutionsLog;
-                                                        $ExecutionsLog->output = $process->getOutput();
-                                                        $ExecutionsLog->result = "fail";
+                                                        $ExecutionsLog->output = $error;
+                                                        $ExecutionsLog->result = "Time out";
                                                         $ExecutionsLog->testcase_id = $testcase->id;
                                                         $ExecutionsLog->save();
                                                         $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
 
                                                         $failed = 1;
                                                         $passtest = 0;
-                                                        $reson = "Not expected result";
+                                                        $reson = "Time out";
+                                                    }
+
+
+
+                                                    // executes after the command finishes
+                                                    if ($process->isSuccessful()) {
+
+                                                        $Result = str_replace(array("\n", "\r"), '', $process->getOutput());
+                                                        $Expected = str_replace(array("\n", "\r"), '', $testcase->output);
+                                                        if ($Result == $Expected) {
+                                                            //pass
+                                                            $ExecutionsLog = new ExecutionsLog;
+                                                            $ExecutionsLog->output = $process->getOutput();
+                                                            $ExecutionsLog->result = "pass";
+                                                            $ExecutionsLog->status = 1;
+                                                            $ExecutionsLog->testcase_id = $testcase->id;
+                                                            $ExecutionsLog->save();
+                                                            $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
+                                                            if ($failed != 1) {
+                                                                $passtest = 1;
+                                                            }
+                                                        } else {
+                                                            //fail
+
+                                                            $ExecutionsLog = new ExecutionsLog;
+                                                            $ExecutionsLog->output = $process->getOutput();
+                                                            $ExecutionsLog->result = "fail";
+                                                            $ExecutionsLog->testcase_id = $testcase->id;
+                                                            $ExecutionsLog->save();
+                                                            $this->SubmissionForExecutions($SubmissionsLog->id, $ExecutionsLog->id);
+
+                                                            $failed = 1;
+                                                            $passtest = 0;
+                                                            $reson = "Not expected result";
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            //user return
+                                                //user return
 
-                                            if ($passtest == 1) {
+                                                if ($passtest == 1) {
 
-                                                $SubmissionsLog->result = "pass";
-                                                $SubmissionsLog->status = 1;
-                                                $SubmissionsLog->save();
+                                                    $SubmissionsLog->result = "pass";
+                                                    $SubmissionsLog->status = 1;
+                                                    $SubmissionsLog->save();
 
-                                                //score
-                                                $Score = new Score;
-                                                $Score->points = $problem->points;
-                                                $Score->user_id =  $user->id;
-                                                $Score->contest_id =  $contest->id;
-                                                $Score->problem_id =  $problem->id;
-                                                $Score->language_id = $Language->id;
-                                                $Score->submissionlog_id = $SubmissionsLog->id;
-                                                $Score->save();
+                                                    //score
+                                                    $Score = new Score;
+                                                    $Score->points = $problem->points;
+                                                    $Score->user_id =  $user->id;
+                                                    $Score->contest_id =  $contest->id;
+                                                    $Score->problem_id =  $problem->id;
+                                                    $Score->language_id = $Language->id;
+                                                    $Score->submissionlog_id = $SubmissionsLog->id;
+                                                    $Score->save();
 
-                                                return back()->with(session()->flash('judge-success', 'The solution has been accepted'));
+                                                    return back()->with(session()->flash('judge-success', 'The solution has been accepted'));
+                                                } else {
+                                                    $SubmissionsLog->result = $reson;
+                                                    $SubmissionsLog->status = 0;
+                                                    $SubmissionsLog->save();
+                                                    return back()->with(session()->flash('judge-danger', 'The solution was not accepted due to: ' . $reson));
+                                                }
                                             } else {
-                                                $SubmissionsLog->result = $reson;
-                                                $SubmissionsLog->status = 0;
+                                                //SyntaxError
+
+                                                $SubmissionsLog = new SubmissionsLog;
+                                                $SubmissionsLog->file = $NewSubmitName;
+                                                $SubmissionsLog->result = 'Syntax Error';
                                                 $SubmissionsLog->save();
-                                                return back()->with(session()->flash('judge-danger', 'The solution was not accepted due to: ' . $reson));
+                                                $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
+                                                $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
+                                                $this->SubmissionForUser($SubmissionsLog->id, $user->id);
+                                                $this->SubmissionForLanguage($SubmissionsLog->id, $Language->id);
+
+                                                return back()->with(session()->flash('judge-danger', 'The solution was not accepted due to: Syntax Error'));
                                             }
-                                        } else {
-                                            //SyntaxError
 
-                                            $SubmissionsLog = new SubmissionsLog;
-                                            $SubmissionsLog->file = $NewSubmitName;
-                                            $SubmissionsLog->result = 'Syntax Error';
-                                            $SubmissionsLog->save();
-                                            $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
-                                            $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
-                                            $this->SubmissionForUser($SubmissionsLog->id, $user->id);
-                                            $this->SubmissionForLanguage($SubmissionsLog->id, $Language->id);
+                                            break;
 
-                                            return back()->with(session()->flash('judge-danger', 'The solution was not accepted due to: Syntax Error'));
-                                        }
+                                        default:
+                                            return back()->with(session()->flash('alert-danger', 'There are no instructions for this language yet'));
+                                            break;
+                                    }
+                                } else {
 
-                                        break;
-
-                                    default:
-                                        return back()->with(session()->flash('alert-danger', 'There are no instructions for this language yet'));
-                                        break;
+                                    return back()->with(session()->flash('alert-danger', 'Cannot test the solution, contact the organizer'));
                                 }
                             } else {
 
-                                return back()->with(session()->flash('alert-danger', 'Cannot test the solution, contact the organizer'));
+                                return back()->with(session()->flash('alert-danger', 'This language is not supported in contest'));
                             }
                         } else {
 
-                            return back()->with(session()->flash('alert-danger', 'This language is not supported in contest'));
+                            return back()->with(session()->flash('alert-danger', 'This problem does not exist in contest'));
                         }
+                        //
                     } else {
-
-                        return back()->with(session()->flash('alert-danger', 'This problem does not exist in contest'));
-                    }
-                    //
-                    }
-                    else
-                    {
                         return back()->with(session()->flash('alert-danger', 'This question was solved before'));
                     }
                 } else {
@@ -368,10 +376,8 @@ class JudgeController extends Controller
                 }
             } else {
                 if ($contest->participation == 'solo') {
-                return back()->with(session()->flash('alert-danger', 'You are not subscribe in this competition'));
-                }
-                else
-                {
+                    return back()->with(session()->flash('alert-danger', 'You are not subscribe in this competition'));
+                } else {
                     return back()->with(session()->flash('alert-danger', 'You are not subscribe or you have not joined a team in this competition'));
                 }
             }
@@ -403,48 +409,48 @@ class JudgeController extends Controller
                     if ($this->QuestionInCompetition($contest->id, $request->problem)) {
                         $problem = Problem::find($request->problem);
 
-                        if (!$this->HasQuestionSolvBefore($contest, $problem->id, $request->competitor)){
-                        //langeg on compettation 
-                        
-                        if ($this->LanguageInCompetition($contest->id, $request->languages)) {
+                        if (!$this->HasQuestionSolvBefore($contest, $problem->id, $request->competitor)) {
+                            //langeg on compettation 
 
-                            $SubmissionsLog = new SubmissionsLog;
-                            $SubmissionsLog->file = 'MANUAL JUDGE';
-                            $SubmissionsLog->result = 'pass';
-                            $SubmissionsLog->save();
-                            $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
-                            $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
-                            $this->SubmissionForUser($SubmissionsLog->id, $request->competitor);
-                            $this->SubmissionForLanguage($SubmissionsLog->id, $request->languages);
+                            if ($this->LanguageInCompetition($contest->id, $request->languages)) {
 
-                            //score
-                            $Score = new Score;
-                            $Score->points = $problem->points;
-                            $Score->user_id =  $request->competitor;
-                            $Score->contest_id =  $contest->id;
-                            $Score->problem_id =  $problem->id;
-                            $Score->language_id = $request->languages;
-                            $Score->submissionlog_id = $SubmissionsLog->id;
-                            $Score->save();
+                                $SubmissionsLog = new SubmissionsLog;
+                                $SubmissionsLog->file = 'MANUAL JUDGE';
+                                $SubmissionsLog->result = 'pass';
+                                $SubmissionsLog->save();
+                                $this->SubmissionForContest($SubmissionsLog->id, $contest->id);
+                                $this->SubmissionForProblem($SubmissionsLog->id, $problem->id);
+                                $this->SubmissionForUser($SubmissionsLog->id, $request->competitor);
+                                $this->SubmissionForLanguage($SubmissionsLog->id, $request->languages);
 
-                            return [
-                                'status' => 200,
-                                'description' => "Team have been successfully Created",
-                            ];
+                                //score
+                                $Score = new Score;
+                                $Score->points = $problem->points;
+                                $Score->user_id =  $request->competitor;
+                                $Score->contest_id =  $contest->id;
+                                $Score->problem_id =  $problem->id;
+                                $Score->language_id = $request->languages;
+                                $Score->submissionlog_id = $SubmissionsLog->id;
+                                $Score->save();
+
+                                return [
+                                    'status' => 200,
+                                    'description' => "Team have been successfully Created",
+                                ];
+                            } else {
+                                return [
+
+                                    'status' => 401,
+                                    'description' => "This language is not supported in contest",
+                                ];
+                            }
                         } else {
                             return [
 
                                 'status' => 401,
-                                'description' => "This language is not supported in contest",
+                                'description' => "This question was solved before",
                             ];
                         }
-                    }else {
-                        return [
-
-                            'status' => 401,
-                            'description' => "This question was solved before",
-                        ];
-                    }
                     } else {
                         return [
 
@@ -459,15 +465,13 @@ class JudgeController extends Controller
                             'status' => 401,
                             'description' => "This competitor in not subscribe in this competition",
                         ];
-                        }
-                        else
-                        {  return [
+                    } else {
+                        return [
 
                             'status' => 401,
                             'description' => "This competitor is not subscribe or not joined a team in this competition",
                         ];
-                        }
-
+                    }
                 }
             } else {
 
@@ -508,18 +512,14 @@ class JudgeController extends Controller
 
         if ($contest->participation == 'solo') {
 
-        $contestuser = ContestUser::where('user_id', $userid)->where('contest_id', $contest->id)->first();
+            $contestuser = ContestUser::where('user_id', $userid)->where('contest_id', $contest->id)->first();
 
-        if (!is_null($contestuser))
-            return TRUE;
-        else
-            return FALSE;
-
-        }
-        else
-        {
-            return Gate::allows('IAmCompetitorOnTeam', [$contest->id , $userid]);
-     
+            if (!is_null($contestuser))
+                return TRUE;
+            else
+                return FALSE;
+        } else {
+            return Gate::allows('IAmCompetitorOnTeam', [$contest->id, $userid]);
         }
     }
 
