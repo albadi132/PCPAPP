@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
+
+/* hove tooltip */
+.has-tooltip {
+  @apply relative;
+}
+.tooltip {
+  @apply absolute right-0 invisible p-1 pl-2 text-xs bg-orange-100 border-2 border-orange-200 rounded-md rounded-br-none shadow-md -top-5 whitespace-nowrap;
+}
+.has-tooltip:hover .tooltip {
+  @apply z-10 visible;
+
+  -webkit-animation: seconds 2.0s forwards;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 1s;
+  animation: seconds 2.0s forwards;
+  animation-iteration-count: 1;
+  animation-delay: 1s;
+}
+@-webkit-keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+  }
+}
+@keyframes seconds {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+  }
+}
+
 @tailwind utilities;
