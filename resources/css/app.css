@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 
-/* hove tooltip */
+/* have tooltip */
 .has-tooltip {
   @apply relative;
 }
