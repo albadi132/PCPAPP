@@ -9,8 +9,10 @@ use App\Models\Contest;
 use App\Models\ContestUser;
 use App\Models\Score;
 use App\Models\Team;
+use App\Models\Problem;
 use App\Models\ContestTeam;
 use App\Models\TeamUser;
+use App\Models\ContestProblem;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
 
@@ -189,6 +191,128 @@ $contest = Contest::find($request->contestid);
             ];
 
         }
+
+}
+
+public function competitionoquestionlibrary(Request $request)
+{  
+    
+    $this->validate($request, [
+    'problem' => ['required'],
+    'contestid' => ['required'],
+]);
+
+
+
+    $problem = Problem::where('id', $request->problem)->first();
+
+$contest = Contest::with('problems')->where( 'id' , $request->contestid )->where('status', '=', 1)->first();
+
+    if (($contest) && ($problem)) {
+
+        if (Gate::allows('OrganizerOrAdmin', $contest->id))
+            {
+
+
+                if ( $contest->ending_date > date('Y-m-d H:i:s') ){
+
+                    for($i = 0 ; $i < $contest->problems->count() ; $i++)
+                    {
+                        if($problem->id == $contest->problems[$i]->id)
+                        {
+                            return [
+
+                                'status' => 401,
+                                'description' => "This question is already in the competition",
+                            ];
+                        }
+                    }
+
+                    //all done
+
+                    $ContestProblem = new ContestProblem;
+
+                    $ContestProblem->contest_id = $contest->id;
+                    $ContestProblem->problem_id = $problem->id;
+                    $ContestProblem->timestamps  = false;
+                    $ContestProblem->save();
+                    return [
+
+                        'status' => 200,
+                        'description' => "Question has been added successfully",
+                    ];
+
+
+
+                    
+                } else {
+
+                    return [
+
+                        'status' => 401,
+                        'description' => "It is not possible to add questions to archived contest",
+                    ];
+                }
+
+                
+
+
+
+
+            }
+            else
+        {
+            return [
+
+                'status' => 401,
+                'description' => "You do not have permission",
+            ];
+
+        }
+
+
+    }
+    else{
+        return [
+            'status' => 404,
+            'description' => "Something went wrong!!",
+        ];
+    }
+
+    
+}
+
+public function removequestionlibrary($name, $id)
+{
+
+    $cname = str_replace("_", " ", $name);
+    $contest = Contest::where('name', $cname)->where('status', '=', 1)->firstOrFail();
+    if ($contest) {
+
+        if (Gate::allows('AdminOrManager', $contest->id))
+        {
+            $problem = Problem::find($id);
+
+            if($problem)
+            {
+
+                Score::where('contest_id' , $contest->id)->where('problem_id' , $problem->id )->delete();
+                ContestProblem::where('contest_id' , $contest->id)->where('problem_id' , $problem->id )->delete();
+                
+                return redirect()->route('competition-manage-questionlibrary', ['name' => $name ])->with(session()->flash('alert-success', 'The Question has been removed'));
+
+            }else
+    {abort(404);}
+
+
+
+        }
+        else
+    {abort(403);}
+    }
+    else
+    {abort(404);}
+
 
 }
 

@@ -101,12 +101,14 @@
                                     <div class="px-4 py-2 font-semibold">Gender</div>
                                     <div class="px-4 py-2">{{$user->gender}}</div>
                                 </div>
+                                @if ( (Gate::allows('AdminOrManager')) || (auth()->user()->id == $user->id))
                                 <div class="grid grid-cols-2">
                                     <div class="px-4 py-2 font-semibold">Email.</div>
                                     <div class="px-4 py-2">
                                         <a class="text-blue-800" href="mailto:{{$user->email}}">{{$user->email}}</a>
                                     </div>
                                 </div>
+                                @endif
                             </div>
                         </div>
                         

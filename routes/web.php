@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Auth\VerifyController;
+use App\Http\Controllers\Auth\ResetController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\ControlPanel;
 use App\Http\Controllers\admin\contests;
@@ -43,7 +44,10 @@ Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 Route::get('/logout', [LogoutController::class, 'logoutuser'])->name('logout');
 Route::get('/verify', [VerifyController::class, 'index'])->name('verify');
-
+Route::get('/resetpassword', [ResetController::class, 'index'])->name('reset');
+Route::post('/resetpassword', [ResetController::class, 'resetPass'])->name('resetPass');
+Route::get('/reset', [ResetController::class, 'checkcode'])->name('checkcode');
+Route::post('/reset', [ResetController::class, 'resetcode'])->name('resetcode');
 
 //controlpanel
 Route::get('/controlpanel', [ControlPanel::class, 'index'])->name('controlpanel')->middleware('auth');
@@ -69,6 +73,8 @@ Route::Post('/controlpanel/problems/testcase/delate', [problems::class, 'delatet
 //user
 Route::get('/profile/{username}', [ProfileController::class, 'profile'])->name('Profile-show')->middleware('auth');
 Route::post('/profile/{username}', [ProfileController::class, 'editprofile'])->name('Profilet')->middleware('auth');
+Route::post('/profile/{username}/resetpassword', [ProfileController::class, 'resetpassword'])->name('resetpassword')->middleware('auth');
+
 
 //competitions
 Route::get('/competitions/{sort?}', [primarycontroller::class, 'competitions'])->name('competitions-show');
@@ -86,6 +92,9 @@ Route::get('/competition/{name}/mange/participants/remove/{id}', [mange::class, 
 Route::get('/competition/{name}/mange/organizers', [primarycontroller::class, 'competitionorganizers'])->name('competition-manage-organizers')->middleware('auth');
 Route::get('/competition/{name}/mange/organizers/remove/{id}', [mange::class, 'removeorganizers'])->middleware('auth');
 Route::post('/competition/{name}/mange/organizers', [mange::class, 'registrationorganizers'])->middleware('auth');
+Route::get('/competition/{name}/mange/question', [primarycontroller::class, 'competitionoquestionlibrary'])->name('competition-manage-questionlibrary')->middleware('auth');
+Route::post('/competition/{name}/mange/question/add', [mange::class, 'competitionoquestionlibrary'])->middleware('auth');
+Route::get('/competition/{name}/mange/question/remove/{id}', [mange::class, 'removequestionlibrary'])->middleware('auth');
 
 
 //competitions Subscription

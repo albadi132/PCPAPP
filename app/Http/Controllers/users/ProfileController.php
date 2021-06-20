@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\ImageManagerStatic as Image;
 
 class ProfileController extends Controller
@@ -99,5 +100,70 @@ class ProfileController extends Controller
                 'description' => "You do not have permission to change profile",
             ];
         }
+    }
+
+    public function resetpassword(Request $request, $username)
+    {
+
+        
+        if (Gate::allows('Myprofile', $username)) {
+
+
+            $this->validate($request, [
+                'newPassword' => ['required', 'string' , 'min:8' ],
+                'oldPassword' => ['required', 'string' , 'min:8' ],
+            ]);
+
+            $user = User::where('username' , $username)->first();
+
+            if($user)
+            {
+                if( Hash::check($request->oldPassword, $user->password))
+                {
+
+                    $newhash =  Hash::make($request->newPassword);
+                    $user->password = $newhash;
+                    $user->save();
+                    return [
+                    'status' => 200,
+                    'description' => "Password has been updated",
+                ];
+                }
+                else
+                {
+                    return [
+                        'status' => 403,
+                        'description' => "The previous password is incorrect",
+                    ];
+
+                }
+
+
+
+            }
+            else
+            {
+                return [
+                'status' => 404,
+                'description' => "Something went wrong",
+            ];
+            }
+
+
+        
+
+
+
+        }
+        else
+        {
+            return [
+                'status' => 403,
+                'description' => "You do not have permission to change profile",
+            ];
+
+        }
+
+
     }
 }
