@@ -3,17 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Contest;
 use App\Models\Problem;
-use App\Models\TestCase;
-use App\Models\ProblemTestReference;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\Process;
-use Symfony\Component\Process\InputStream;
 
 class ControlPanel extends Controller
 {
@@ -67,8 +60,8 @@ class ControlPanel extends Controller
         {abort(401);}
     }
 
-    
-  
+
+
 
     public function ProblemsView()
     {
@@ -96,7 +89,7 @@ class ControlPanel extends Controller
         {abort(401);}
     }
 
-    
+
 
 
     public function testcaseview($id)
@@ -105,7 +98,7 @@ class ControlPanel extends Controller
         if(Gate::allows('AdminOrManager')){
 
             $problems = Problem::with('Testcases')->where('id' , $id)->first();
-            
+
             if($problems)
             {
 
@@ -117,7 +110,7 @@ class ControlPanel extends Controller
                 }
                 $executtime = $executtime / 60;
 
-    
+
                 return view('admin.problems.testcase')
                 ->with('problems', $problems)
                 ->with('executtime' , $executtime);

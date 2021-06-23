@@ -253,9 +253,9 @@
       <!-- user role vueModal -->
       <Modal v-model="vModals.roleVM" title="Change User Role">
         <div class="flex flex-col">
-          <div class="flex flex-row self-center">
-            <div class="flex flex-col items-center">
-              <div class="flex flex-col items-center px-4 py-2 bg-white border-2 border-gray-200 rounded-md shadow-md hover:shadow-lg">
+          <div class="flex flex-row self-center w-full">
+            <div class="flex flex-col items-center w-full">
+              <div class="flex flex-col items-center w-5/6 px-4 py-2 border-2 border-gray-200 rounded-md shadow-md bg-bluegray-50 hover:shadow-lg">
                 <div class="flex-shrink-0 w-10 h-10 mb-2">
                   <img class="w-10 h-10 rounded-full"
                     v-bind:src="'/images/avatar/'+vModals.target.avatar"
@@ -277,9 +277,9 @@
                 </span>
               </div>
               <form method="POST" enctype="multipart/form-data" @submit.prevent="changeRole" @keydown="roleForm.onKeydown($event)"
-                class="flex flex-row my-6">
+                class="flex flex-row justify-center w-full my-6">
                 <p class="self-center mr-4 font-semibold text-center text-gray-700">Role</p>
-                <select id="userRole" name="userRole" v-model="roleForm.userRole" class="w-full h-8 border-2 border-gray-300 rounded-md">
+                <select id="userRole" name="userRole" v-model="roleForm.userRole" class="w-3/5 h-8 border-2 border-gray-300 rounded-md">
                   <option value="user">User</option>
                   <option value="manager">Manager</option>
                   <option value="admin">Admin</option>
@@ -302,10 +302,10 @@
       </Modal>
       <!-- user status vueModal -->
       <Modal v-model="vModals.statusVM" title="Change User Status">
-        <div class="flex flex-col w-full">
+        <div class="flex flex-col">
           <div class="flex flex-row self-center w-full">
             <div class="flex flex-col items-center w-full">
-              <div class="flex flex-col items-center px-4 py-2 border-2 border-gray-200 rounded-md shadow-md bg-bluegray-50 hover:shadow-lg">
+              <div class="flex flex-col items-center w-5/6 px-4 py-2 border-2 border-gray-200 rounded-md shadow-md bg-bluegray-50 hover:shadow-lg">
                 <div class="flex-shrink-0 w-10 h-10 mb-2">
                   <img class="w-10 h-10 rounded-full"
                     v-bind:src="'/images/avatar/'+vModals.target.avatar"
@@ -355,9 +355,9 @@
       <!-- user restpass vueModal -->
       <Modal v-model="vModals.restpassVM" title="Reset User Password">
         <div class="flex flex-col">
-          <div class="flex flex-row self-center">
-            <div class="flex flex-col items-center">
-              <div class="flex flex-col items-center px-4 py-2 border-2 border-gray-200 rounded-md shadow-md bg-bluegray-50 hover:shadow-lg">
+          <div class="flex flex-row self-center w-full">
+            <div class="flex flex-col items-center w-full">
+              <div class="flex flex-col items-center w-5/6 px-4 py-2 border-2 border-gray-200 rounded-md shadow-md bg-bluegray-50 hover:shadow-lg">
                 <div class="flex-shrink-0 w-10 h-10 mb-2">
                   <img class="w-10 h-10 rounded-full"
                     v-bind:src="'/images/avatar/'+vModals.target.avatar"
@@ -370,17 +370,17 @@
                 </div>
               </div>
               <form method="POST" enctype="multipart/form-data" @submit.prevent="restPass" @keydown="restpassForm.onKeydown($event)"
-                class="flex flex-row my-6">
+                class="flex flex-row justify-center w-4/6 my-6">
                 <div class="flex flex-col items-center w-full space-y-2">
                   <input id="userPassword" name="userPassword" :type="!vModals.showPass ? 'password' : 'text'" autocomplete="new-password" placeholder="new password"
                     v-model="restpassForm.userPassword"
-                    class="block w-4/5 px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner"/>
+                    class="block w-full px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner"/>
                   <input id="userPassword_confirmation" name="userPassword_confirmation" :type="!vModals.showPass ? 'password' : 'text'" autocomplete="new-password" placeholder="confirm password"
                     v-model="restpassForm.userPassword_confirmation"
-                    class="block w-4/5 px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner"/>
+                    class="block w-full px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner"/>
                   <div v-if="restpassForm.errors.has('userPassword')" v-html="restpassForm.errors.get('userPassword')" class="text-red-500"/>
                 </div>
-                <div class="flex flex-col place-content-center">
+                <div class="flex flex-col p-2 pl-4 place-content-center">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                     @click="vModals.showPass = true"
                     class="w-6 h-6 text-bluegray-400 hover:text-green-400" :class="{'hidden': vModals.showPass}">

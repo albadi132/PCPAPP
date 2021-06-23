@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Verification;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -15,15 +16,15 @@ class RegisterController extends Controller
     {
         $this->middleware(['guest']);
     }
-    
+
     public function index()
     {
         return view('auth.register');
     }
 
-   
 
-    
+
+
 
 
     public function register(Request $request)
@@ -43,12 +44,17 @@ class RegisterController extends Controller
         $user->email = $request->email;
         $user->username = $request->username;
         $user->password = Hash::make($request->password);
-        $user->verification_code = sha1(time());
         $user->save();
+        $verification = new Verification();
+        $verification->email = $request->email;
+        $verification->token = sha1(time());
+        $verification->timestamps = false;
+        $verification->created_at = now();
+        $verification->save();
 
 
         if($user != null){
-            MailController::sendSignupEmail($user->first_name ,$user->last_name, $user->email, $user->verification_code);
+            MailController::sendSignupEmail($user->first_name ,$user->last_name, $user->email, $verification->token);
             //return redirect()->back()->with(session()->flash('alert-success', 'Your account has been created. Please check email for verification link.'));
             return redirect()->route('verify')->with(session()->flash('alert-creat', 'Your account has been created. Please check email for verification link.'));
 

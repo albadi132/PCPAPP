@@ -55713,166 +55713,179 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "flex flex-col" }, [
-              _c("div", { staticClass: "flex flex-row self-center" }, [
-                _c("div", { staticClass: "flex flex-col items-center" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "flex flex-col items-center px-4 py-2 bg-white border-2 border-gray-200 rounded-md shadow-md hover:shadow-lg"
-                    },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "flex-shrink-0 w-10 h-10 mb-2" },
-                        [
-                          _c("img", {
-                            staticClass: "w-10 h-10 rounded-full",
-                            attrs: {
-                              src:
-                                "/images/avatar/" + _vm.vModals.target.avatar,
-                              alt: "/images/avatar/avatar.png"
-                            }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "text-sm text-center text-gray-900" },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(_vm.vModals.target.username) +
-                              "\n                "
-                          ),
-                          _c("br"),
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(_vm.vModals.target.email) +
-                              "\n              "
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm.vModals.target.role === "admin"
-                        ? _c(
-                            "span",
-                            {
-                              staticClass:
-                                "inline-flex px-2 mt-2 text-xs font-semibold leading-5 text-yellow-800 bg-yellow-100 border border-yellow-300 rounded-full shadow-md"
-                            },
-                            [_vm._v("\n                Admin\n              ")]
-                          )
-                        : _vm.vModals.target.role === "manager"
-                        ? _c(
-                            "span",
-                            {
-                              staticClass:
-                                "inline-flex px-2 mt-2 text-xs font-semibold leading-5 text-indigo-800 bg-indigo-100 border border-indigo-300 rounded-full shadow-md"
-                            },
-                            [
-                              _vm._v(
-                                "\n                Manager\n              "
-                              )
-                            ]
-                          )
-                        : _c(
-                            "span",
-                            {
-                              staticClass:
-                                "inline-flex px-2 mt-2 text-xs font-semibold leading-5 border rounded-full shadow-md border-bluegray-300 text-bluegray-800 bg-bluegray-100"
-                            },
-                            [_vm._v("\n                User\n              ")]
-                          )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "form",
-                    {
-                      staticClass: "flex flex-row my-6",
-                      attrs: { method: "POST", enctype: "multipart/form-data" },
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          return _vm.changeRole($event)
+              _c("div", { staticClass: "flex flex-row self-center w-full" }, [
+                _c(
+                  "div",
+                  { staticClass: "flex flex-col items-center w-full" },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "flex flex-col items-center w-5/6 px-4 py-2 border-2 border-gray-200 rounded-md shadow-md bg-bluegray-50 hover:shadow-lg"
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "flex-shrink-0 w-10 h-10 mb-2" },
+                          [
+                            _c("img", {
+                              staticClass: "w-10 h-10 rounded-full",
+                              attrs: {
+                                src:
+                                  "/images/avatar/" + _vm.vModals.target.avatar,
+                                alt: "/images/avatar/avatar.png"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "text-sm text-center text-gray-900" },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.vModals.target.username) +
+                                "\n                "
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.vModals.target.email) +
+                                "\n              "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.vModals.target.role === "admin"
+                          ? _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "inline-flex px-2 mt-2 text-xs font-semibold leading-5 text-yellow-800 bg-yellow-100 border border-yellow-300 rounded-full shadow-md"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                Admin\n              "
+                                )
+                              ]
+                            )
+                          : _vm.vModals.target.role === "manager"
+                          ? _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "inline-flex px-2 mt-2 text-xs font-semibold leading-5 text-indigo-800 bg-indigo-100 border border-indigo-300 rounded-full shadow-md"
+                              },
+                              [
+                                _vm._v(
+                                  "\n                Manager\n              "
+                                )
+                              ]
+                            )
+                          : _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "inline-flex px-2 mt-2 text-xs font-semibold leading-5 border rounded-full shadow-md border-bluegray-300 text-bluegray-800 bg-bluegray-100"
+                              },
+                              [_vm._v("\n                User\n              ")]
+                            )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "form",
+                      {
+                        staticClass: "flex flex-row justify-center w-full my-6",
+                        attrs: {
+                          method: "POST",
+                          enctype: "multipart/form-data"
                         },
-                        keydown: function($event) {
-                          return _vm.roleForm.onKeydown($event)
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "p",
-                        {
-                          staticClass:
-                            "self-center mr-4 font-semibold text-center text-gray-700"
-                        },
-                        [_vm._v("Role")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.roleForm.userRole,
-                              expression: "roleForm.userRole"
-                            }
-                          ],
-                          staticClass:
-                            "w-full h-8 border-2 border-gray-300 rounded-md",
-                          attrs: { id: "userRole", name: "userRole" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.roleForm,
-                                "userRole",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.changeRole($event)
+                          },
+                          keydown: function($event) {
+                            return _vm.roleForm.onKeydown($event)
                           }
-                        },
-                        [
-                          _c("option", { attrs: { value: "user" } }, [
-                            _vm._v("User")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "manager" } }, [
-                            _vm._v("Manager")
-                          ]),
-                          _vm._v(" "),
-                          _c("option", { attrs: { value: "admin" } }, [
-                            _vm._v("Admin")
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _vm.roleForm.errors.has("userRole")
-                        ? _c("div", {
-                            staticClass: "text-red-500",
-                            domProps: {
-                              innerHTML: _vm._s(_vm.form.errors.get("userRole"))
+                        }
+                      },
+                      [
+                        _c(
+                          "p",
+                          {
+                            staticClass:
+                              "self-center mr-4 font-semibold text-center text-gray-700"
+                          },
+                          [_vm._v("Role")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.roleForm.userRole,
+                                expression: "roleForm.userRole"
+                              }
+                            ],
+                            staticClass:
+                              "w-3/5 h-8 border-2 border-gray-300 rounded-md",
+                            attrs: { id: "userRole", name: "userRole" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.roleForm,
+                                  "userRole",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
                             }
-                          })
-                        : _vm._e()
-                    ]
-                  )
-                ])
+                          },
+                          [
+                            _c("option", { attrs: { value: "user" } }, [
+                              _vm._v("User")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "manager" } }, [
+                              _vm._v("Manager")
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "admin" } }, [
+                              _vm._v("Admin")
+                            ])
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _vm.roleForm.errors.has("userRole")
+                          ? _c("div", {
+                              staticClass: "text-red-500",
+                              domProps: {
+                                innerHTML: _vm._s(
+                                  _vm.form.errors.get("userRole")
+                                )
+                              }
+                            })
+                          : _vm._e()
+                      ]
+                    )
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c(
@@ -55926,7 +55939,7 @@ var render = function() {
             }
           },
           [
-            _c("div", { staticClass: "flex flex-col w-full" }, [
+            _c("div", { staticClass: "flex flex-col" }, [
               _c("div", { staticClass: "flex flex-row self-center w-full" }, [
                 _c(
                   "div",
@@ -55936,7 +55949,7 @@ var render = function() {
                       "div",
                       {
                         staticClass:
-                          "flex flex-col items-center px-4 py-2 border-2 border-gray-200 rounded-md shadow-md bg-bluegray-50 hover:shadow-lg"
+                          "flex flex-col items-center w-5/6 px-4 py-2 border-2 border-gray-200 rounded-md shadow-md bg-bluegray-50 hover:shadow-lg"
                       },
                       [
                         _c(
@@ -56121,454 +56134,470 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "flex flex-col" }, [
-              _c("div", { staticClass: "flex flex-row self-center" }, [
-                _c("div", { staticClass: "flex flex-col items-center" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "flex flex-col items-center px-4 py-2 border-2 border-gray-200 rounded-md shadow-md bg-bluegray-50 hover:shadow-lg"
-                    },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "flex-shrink-0 w-10 h-10 mb-2" },
-                        [
-                          _c("img", {
-                            staticClass: "w-10 h-10 rounded-full",
-                            attrs: {
-                              src:
-                                "/images/avatar/" + _vm.vModals.target.avatar,
-                              alt: "/images/avatar/avatar.png"
-                            }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "text-sm text-center text-gray-900" },
-                        [
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(_vm.vModals.target.username) +
-                              "\n                "
-                          ),
-                          _c("br"),
-                          _vm._v(
-                            "\n                " +
-                              _vm._s(_vm.vModals.target.email) +
-                              "\n              "
-                          )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "form",
-                    {
-                      staticClass: "flex flex-row my-6",
-                      attrs: { method: "POST", enctype: "multipart/form-data" },
-                      on: {
-                        submit: function($event) {
-                          $event.preventDefault()
-                          return _vm.restPass($event)
+              _c("div", { staticClass: "flex flex-row self-center w-full" }, [
+                _c(
+                  "div",
+                  { staticClass: "flex flex-col items-center w-full" },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "flex flex-col items-center w-5/6 px-4 py-2 border-2 border-gray-200 rounded-md shadow-md bg-bluegray-50 hover:shadow-lg"
+                      },
+                      [
+                        _c(
+                          "div",
+                          { staticClass: "flex-shrink-0 w-10 h-10 mb-2" },
+                          [
+                            _c("img", {
+                              staticClass: "w-10 h-10 rounded-full",
+                              attrs: {
+                                src:
+                                  "/images/avatar/" + _vm.vModals.target.avatar,
+                                alt: "/images/avatar/avatar.png"
+                              }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          { staticClass: "text-sm text-center text-gray-900" },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.vModals.target.username) +
+                                "\n                "
+                            ),
+                            _c("br"),
+                            _vm._v(
+                              "\n                " +
+                                _vm._s(_vm.vModals.target.email) +
+                                "\n              "
+                            )
+                          ]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "form",
+                      {
+                        staticClass: "flex flex-row justify-center w-4/6 my-6",
+                        attrs: {
+                          method: "POST",
+                          enctype: "multipart/form-data"
                         },
-                        keydown: function($event) {
-                          return _vm.restpassForm.onKeydown($event)
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.restPass($event)
+                          },
+                          keydown: function($event) {
+                            return _vm.restpassForm.onKeydown($event)
+                          }
                         }
-                      }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "flex flex-col items-center w-full space-y-2"
-                        },
-                        [
-                          (!_vm.vModals.showPass ? "password" : "text") ===
-                          "checkbox"
-                            ? _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.restpassForm.userPassword,
-                                    expression: "restpassForm.userPassword"
-                                  }
-                                ],
-                                staticClass:
-                                  "block w-4/5 px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
-                                attrs: {
-                                  id: "userPassword",
-                                  name: "userPassword",
-                                  autocomplete: "new-password",
-                                  placeholder: "new password",
-                                  type: "checkbox"
-                                },
-                                domProps: {
-                                  checked: Array.isArray(
-                                    _vm.restpassForm.userPassword
-                                  )
-                                    ? _vm._i(
-                                        _vm.restpassForm.userPassword,
-                                        null
-                                      ) > -1
-                                    : _vm.restpassForm.userPassword
-                                },
-                                on: {
-                                  change: function($event) {
-                                    var $$a = _vm.restpassForm.userPassword,
-                                      $$el = $event.target,
-                                      $$c = $$el.checked ? true : false
-                                    if (Array.isArray($$a)) {
-                                      var $$v = null,
-                                        $$i = _vm._i($$a, $$v)
-                                      if ($$el.checked) {
-                                        $$i < 0 &&
-                                          _vm.$set(
-                                            _vm.restpassForm,
-                                            "userPassword",
-                                            $$a.concat([$$v])
-                                          )
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "flex flex-col items-center w-full space-y-2"
+                          },
+                          [
+                            (!_vm.vModals.showPass ? "password" : "text") ===
+                            "checkbox"
+                              ? _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.restpassForm.userPassword,
+                                      expression: "restpassForm.userPassword"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "block w-full px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
+                                  attrs: {
+                                    id: "userPassword",
+                                    name: "userPassword",
+                                    autocomplete: "new-password",
+                                    placeholder: "new password",
+                                    type: "checkbox"
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(
+                                      _vm.restpassForm.userPassword
+                                    )
+                                      ? _vm._i(
+                                          _vm.restpassForm.userPassword,
+                                          null
+                                        ) > -1
+                                      : _vm.restpassForm.userPassword
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = _vm.restpassForm.userPassword,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.restpassForm,
+                                              "userPassword",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.restpassForm,
+                                              "userPassword",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
                                       } else {
-                                        $$i > -1 &&
-                                          _vm.$set(
-                                            _vm.restpassForm,
-                                            "userPassword",
-                                            $$a
-                                              .slice(0, $$i)
-                                              .concat($$a.slice($$i + 1))
-                                          )
+                                        _vm.$set(
+                                          _vm.restpassForm,
+                                          "userPassword",
+                                          $$c
+                                        )
                                       }
-                                    } else {
+                                    }
+                                  }
+                                })
+                              : (!_vm.vModals.showPass
+                                  ? "password"
+                                  : "text") === "radio"
+                              ? _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.restpassForm.userPassword,
+                                      expression: "restpassForm.userPassword"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "block w-full px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
+                                  attrs: {
+                                    id: "userPassword",
+                                    name: "userPassword",
+                                    autocomplete: "new-password",
+                                    placeholder: "new password",
+                                    type: "radio"
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(
+                                      _vm.restpassForm.userPassword,
+                                      null
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.$set(
+                                        _vm.restpassForm,
+                                        "userPassword",
+                                        null
+                                      )
+                                    }
+                                  }
+                                })
+                              : _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.restpassForm.userPassword,
+                                      expression: "restpassForm.userPassword"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "block w-full px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
+                                  attrs: {
+                                    id: "userPassword",
+                                    name: "userPassword",
+                                    autocomplete: "new-password",
+                                    placeholder: "new password",
+                                    type: !_vm.vModals.showPass
+                                      ? "password"
+                                      : "text"
+                                  },
+                                  domProps: {
+                                    value: _vm.restpassForm.userPassword
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
                                       _vm.$set(
                                         _vm.restpassForm,
                                         "userPassword",
-                                        $$c
+                                        $event.target.value
                                       )
                                     }
                                   }
-                                }
-                              })
-                            : (!_vm.vModals.showPass ? "password" : "text") ===
-                              "radio"
-                            ? _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.restpassForm.userPassword,
-                                    expression: "restpassForm.userPassword"
-                                  }
-                                ],
-                                staticClass:
-                                  "block w-4/5 px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
-                                attrs: {
-                                  id: "userPassword",
-                                  name: "userPassword",
-                                  autocomplete: "new-password",
-                                  placeholder: "new password",
-                                  type: "radio"
-                                },
-                                domProps: {
-                                  checked: _vm._q(
-                                    _vm.restpassForm.userPassword,
-                                    null
-                                  )
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.$set(
-                                      _vm.restpassForm,
-                                      "userPassword",
-                                      null
-                                    )
-                                  }
-                                }
-                              })
-                            : _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value: _vm.restpassForm.userPassword,
-                                    expression: "restpassForm.userPassword"
-                                  }
-                                ],
-                                staticClass:
-                                  "block w-4/5 px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
-                                attrs: {
-                                  id: "userPassword",
-                                  name: "userPassword",
-                                  autocomplete: "new-password",
-                                  placeholder: "new password",
-                                  type: !_vm.vModals.showPass
-                                    ? "password"
-                                    : "text"
-                                },
-                                domProps: {
-                                  value: _vm.restpassForm.userPassword
-                                },
-                                on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
+                                }),
+                            _vm._v(" "),
+                            (!_vm.vModals.showPass ? "password" : "text") ===
+                            "checkbox"
+                              ? _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value:
+                                        _vm.restpassForm
+                                          .userPassword_confirmation,
+                                      expression:
+                                        "restpassForm.userPassword_confirmation"
                                     }
-                                    _vm.$set(
-                                      _vm.restpassForm,
-                                      "userPassword",
-                                      $event.target.value
+                                  ],
+                                  staticClass:
+                                    "block w-full px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
+                                  attrs: {
+                                    id: "userPassword_confirmation",
+                                    name: "userPassword_confirmation",
+                                    autocomplete: "new-password",
+                                    placeholder: "confirm password",
+                                    type: "checkbox"
+                                  },
+                                  domProps: {
+                                    checked: Array.isArray(
+                                      _vm.restpassForm.userPassword_confirmation
                                     )
+                                      ? _vm._i(
+                                          _vm.restpassForm
+                                            .userPassword_confirmation,
+                                          null
+                                        ) > -1
+                                      : _vm.restpassForm
+                                          .userPassword_confirmation
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a =
+                                          _vm.restpassForm
+                                            .userPassword_confirmation,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.restpassForm,
+                                              "userPassword_confirmation",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.restpassForm,
+                                              "userPassword_confirmation",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(
+                                          _vm.restpassForm,
+                                          "userPassword_confirmation",
+                                          $$c
+                                        )
+                                      }
+                                    }
                                   }
-                                }
-                              }),
-                          _vm._v(" "),
-                          (!_vm.vModals.showPass ? "password" : "text") ===
-                          "checkbox"
-                            ? _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value:
+                                })
+                              : (!_vm.vModals.showPass
+                                  ? "password"
+                                  : "text") === "radio"
+                              ? _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value:
+                                        _vm.restpassForm
+                                          .userPassword_confirmation,
+                                      expression:
+                                        "restpassForm.userPassword_confirmation"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "block w-full px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
+                                  attrs: {
+                                    id: "userPassword_confirmation",
+                                    name: "userPassword_confirmation",
+                                    autocomplete: "new-password",
+                                    placeholder: "confirm password",
+                                    type: "radio"
+                                  },
+                                  domProps: {
+                                    checked: _vm._q(
                                       _vm.restpassForm
                                         .userPassword_confirmation,
-                                    expression:
-                                      "restpassForm.userPassword_confirmation"
-                                  }
-                                ],
-                                staticClass:
-                                  "block w-4/5 px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
-                                attrs: {
-                                  id: "userPassword_confirmation",
-                                  name: "userPassword_confirmation",
-                                  autocomplete: "new-password",
-                                  placeholder: "confirm password",
-                                  type: "checkbox"
-                                },
-                                domProps: {
-                                  checked: Array.isArray(
-                                    _vm.restpassForm.userPassword_confirmation
-                                  )
-                                    ? _vm._i(
-                                        _vm.restpassForm
-                                          .userPassword_confirmation,
+                                      null
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.$set(
+                                        _vm.restpassForm,
+                                        "userPassword_confirmation",
                                         null
-                                      ) > -1
-                                    : _vm.restpassForm.userPassword_confirmation
-                                },
-                                on: {
-                                  change: function($event) {
-                                    var $$a =
+                                      )
+                                    }
+                                  }
+                                })
+                              : _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value:
                                         _vm.restpassForm
                                           .userPassword_confirmation,
-                                      $$el = $event.target,
-                                      $$c = $$el.checked ? true : false
-                                    if (Array.isArray($$a)) {
-                                      var $$v = null,
-                                        $$i = _vm._i($$a, $$v)
-                                      if ($$el.checked) {
-                                        $$i < 0 &&
-                                          _vm.$set(
-                                            _vm.restpassForm,
-                                            "userPassword_confirmation",
-                                            $$a.concat([$$v])
-                                          )
-                                      } else {
-                                        $$i > -1 &&
-                                          _vm.$set(
-                                            _vm.restpassForm,
-                                            "userPassword_confirmation",
-                                            $$a
-                                              .slice(0, $$i)
-                                              .concat($$a.slice($$i + 1))
-                                          )
+                                      expression:
+                                        "restpassForm.userPassword_confirmation"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "block w-full px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
+                                  attrs: {
+                                    id: "userPassword_confirmation",
+                                    name: "userPassword_confirmation",
+                                    autocomplete: "new-password",
+                                    placeholder: "confirm password",
+                                    type: !_vm.vModals.showPass
+                                      ? "password"
+                                      : "text"
+                                  },
+                                  domProps: {
+                                    value:
+                                      _vm.restpassForm.userPassword_confirmation
+                                  },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
                                       }
-                                    } else {
                                       _vm.$set(
                                         _vm.restpassForm,
                                         "userPassword_confirmation",
-                                        $$c
+                                        $event.target.value
                                       )
                                     }
                                   }
-                                }
-                              })
-                            : (!_vm.vModals.showPass ? "password" : "text") ===
-                              "radio"
-                            ? _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value:
-                                      _vm.restpassForm
-                                        .userPassword_confirmation,
-                                    expression:
-                                      "restpassForm.userPassword_confirmation"
-                                  }
-                                ],
-                                staticClass:
-                                  "block w-4/5 px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
-                                attrs: {
-                                  id: "userPassword_confirmation",
-                                  name: "userPassword_confirmation",
-                                  autocomplete: "new-password",
-                                  placeholder: "confirm password",
-                                  type: "radio"
-                                },
-                                domProps: {
-                                  checked: _vm._q(
-                                    _vm.restpassForm.userPassword_confirmation,
-                                    null
-                                  )
-                                },
-                                on: {
-                                  change: function($event) {
-                                    return _vm.$set(
-                                      _vm.restpassForm,
-                                      "userPassword_confirmation",
-                                      null
+                                }),
+                            _vm._v(" "),
+                            _vm.restpassForm.errors.has("userPassword")
+                              ? _c("div", {
+                                  staticClass: "text-red-500",
+                                  domProps: {
+                                    innerHTML: _vm._s(
+                                      _vm.restpassForm.errors.get(
+                                        "userPassword"
+                                      )
                                     )
                                   }
-                                }
-                              })
-                            : _c("input", {
-                                directives: [
-                                  {
-                                    name: "model",
-                                    rawName: "v-model",
-                                    value:
-                                      _vm.restpassForm
-                                        .userPassword_confirmation,
-                                    expression:
-                                      "restpassForm.userPassword_confirmation"
-                                  }
-                                ],
+                                })
+                              : _vm._e()
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "flex flex-col p-2 pl-4 place-content-center"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
                                 staticClass:
-                                  "block w-4/5 px-3 py-1 leading-5 text-gray-700 placeholder-gray-500 border-2 rounded-md appearance-none bg-bluegray-100 border-bluegray-400 focus:outline-none focus:ring-2 focus:ring-bluegray-300 focus:placeholder-opacity-30 focus:shadow-inner",
+                                  "w-6 h-6 text-bluegray-400 hover:text-green-400",
+                                class: { hidden: _vm.vModals.showPass },
                                 attrs: {
-                                  id: "userPassword_confirmation",
-                                  name: "userPassword_confirmation",
-                                  autocomplete: "new-password",
-                                  placeholder: "confirm password",
-                                  type: !_vm.vModals.showPass
-                                    ? "password"
-                                    : "text"
-                                },
-                                domProps: {
-                                  value:
-                                    _vm.restpassForm.userPassword_confirmation
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  fill: "none",
+                                  viewBox: "0 0 24 24",
+                                  stroke: "currentColor"
                                 },
                                 on: {
-                                  input: function($event) {
-                                    if ($event.target.composing) {
-                                      return
-                                    }
-                                    _vm.$set(
-                                      _vm.restpassForm,
-                                      "userPassword_confirmation",
-                                      $event.target.value
-                                    )
+                                  click: function($event) {
+                                    _vm.vModals.showPass = true
                                   }
                                 }
-                              }),
-                          _vm._v(" "),
-                          _vm.restpassForm.errors.has("userPassword")
-                            ? _c("div", {
-                                staticClass: "text-red-500",
-                                domProps: {
-                                  innerHTML: _vm._s(
-                                    _vm.restpassForm.errors.get("userPassword")
-                                  )
-                                }
-                              })
-                            : _vm._e()
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "flex flex-col place-content-center" },
-                        [
-                          _c(
-                            "svg",
-                            {
-                              staticClass:
-                                "w-6 h-6 text-bluegray-400 hover:text-green-400",
-                              class: { hidden: _vm.vModals.showPass },
-                              attrs: {
-                                xmlns: "http://www.w3.org/2000/svg",
-                                fill: "none",
-                                viewBox: "0 0 24 24",
-                                stroke: "currentColor"
                               },
-                              on: {
-                                click: function($event) {
-                                  _vm.vModals.showPass = true
-                                }
-                              }
-                            },
-                            [
-                              _c("path", {
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d:
+                                      "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "svg",
+                              {
+                                staticClass:
+                                  "w-6 h-6 text-bluegray-400 hover:text-red-400",
+                                class: { hidden: !_vm.vModals.showPass },
                                 attrs: {
-                                  "stroke-linecap": "round",
-                                  "stroke-linejoin": "round",
-                                  "stroke-width": "2",
-                                  d: "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  fill: "none",
+                                  viewBox: "0 0 24 24",
+                                  stroke: "currentColor"
+                                },
+                                on: {
+                                  click: function($event) {
+                                    _vm.vModals.showPass = false
+                                  }
                                 }
-                              }),
-                              _vm._v(" "),
-                              _c("path", {
-                                attrs: {
-                                  "stroke-linecap": "round",
-                                  "stroke-linejoin": "round",
-                                  "stroke-width": "2",
-                                  d:
-                                    "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "svg",
-                            {
-                              staticClass:
-                                "w-6 h-6 text-bluegray-400 hover:text-red-400",
-                              class: { hidden: !_vm.vModals.showPass },
-                              attrs: {
-                                xmlns: "http://www.w3.org/2000/svg",
-                                fill: "none",
-                                viewBox: "0 0 24 24",
-                                stroke: "currentColor"
                               },
-                              on: {
-                                click: function($event) {
-                                  _vm.vModals.showPass = false
-                                }
-                              }
-                            },
-                            [
-                              _c("path", {
-                                attrs: {
-                                  "stroke-linecap": "round",
-                                  "stroke-linejoin": "round",
-                                  "stroke-width": "2",
-                                  d:
-                                    "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
-                                }
-                              })
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ])
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d:
+                                      "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
               ]),
               _vm._v(" "),
               _c(
