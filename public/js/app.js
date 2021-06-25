@@ -55756,7 +55756,10 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "h3",
-                      { staticClass: "text-gray-800 whitespace-nowrap" },
+                      {
+                        staticClass:
+                          "text-gray-800 capitalize whitespace-nowrap"
+                      },
                       [_vm._v("Users")]
                     )
                   ])
@@ -55833,7 +55836,10 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "h3",
-                      { staticClass: "text-gray-800 whitespace-nowrap" },
+                      {
+                        staticClass:
+                          "text-gray-800 capitalize whitespace-nowrap"
+                      },
                       [_vm._v("Managers")]
                     )
                   ])
@@ -55926,7 +55932,10 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "h3",
-                      { staticClass: "text-gray-800 whitespace-nowrap" },
+                      {
+                        staticClass:
+                          "text-gray-800 capitalize whitespace-nowrap"
+                      },
                       [_vm._v("Non-Verified")]
                     )
                   ])
@@ -55995,7 +56004,10 @@ var render = function() {
                     _vm._v(" "),
                     _c(
                       "h3",
-                      { staticClass: "text-gray-800 whitespace-nowrap" },
+                      {
+                        staticClass:
+                          "text-gray-800 capitalize whitespace-nowrap"
+                      },
                       [_vm._v("Suspended")]
                     )
                   ])
