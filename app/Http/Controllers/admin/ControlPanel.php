@@ -79,8 +79,6 @@ class ControlPanel extends Controller
     ->limit(1)
     ->first();
 
-
-dd($mostauthor);
         return view('admin.problems.view')
         ->with('problems', $problems)
             ->with('last', $last)
