@@ -61,10 +61,12 @@ Route::get('/controlpanel/contests/', [ControlPanel::class, 'contestsView'])->na
 Route::post('/controlpanel/contests/creat', [contests::class, 'creat'])->middleware('auth');
 Route::post('/controlpanel/contests/edit', [contests::class, 'edit'])->middleware('auth');
 Route::Post('/controlpanel/contests/active', [contests::class, 'contestsActive'])->middleware('auth');
+//controlpanel -> problems
 Route::get('/controlpanel/problems/', [ControlPanel::class, 'ProblemsView'])->name('problems-view')->middleware('auth');
 Route::post('/controlpanel/problems/creat', [problems::class, 'creat'])->middleware('auth');
 Route::post('/controlpanel/problems/edit', [problems::class, 'edit'])->middleware('auth');
 Route::Post('/controlpanel/problems/active', [problems::class, 'problemsActive'])->middleware('auth');
+//controlpanel -> problems -> testcases
 Route::get('/controlpanel/problems/testcase/{id}', [ControlPanel::class, 'testcaseview'])->middleware('auth');
 Route::Post('/controlpanel/problems/testcase/creat', [problems::class, 'newtestcase'])->middleware('auth');
 Route::Post('/controlpanel/problems/testcase/edit', [problems::class, 'edittestcase'])->middleware('auth');

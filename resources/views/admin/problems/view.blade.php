@@ -48,12 +48,13 @@
                 <div class="flex flex-row items-center justify-between">
                     <div class="flex flex-col">
                         <div class="text-xs font-light text-gray-500 uppercase">
+                            @if (!is_null($mostauthor))
                             most writer with {{$mostauthor->count}} problems
                         </div>
                         <div class="text-xl font-bold">
-                           @if (!is_null($mostauthor))
+
                            {{getUsername($mostauthor->author_id)}}
-                           
+
                            @else
                            No questions yet
                            @endif
@@ -65,7 +66,7 @@
                 </div>
             </div>
         </div>
-     
+
     </div>
 </div>
 

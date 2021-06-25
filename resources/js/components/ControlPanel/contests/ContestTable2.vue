@@ -4,7 +4,7 @@
       <div class="flex flex-col w-full xl:w-1/2">
         <div class="flex flex-row flex-wrap xl:flex-nowrap">
           <div class="flex flex-1 p-2 lg:p-4">
-            <!-- total users card -->
+            <!-- total contests card -->
             <div class="flex w-full px-3 py-2 border-b-4 rounded-lg shadow-xl cursor-pointer md:px-5 md:py-4 group border-bluegray-600 hover:border-bluegray-800 bg-gradient-to-b from-bluegray-400 to-bluegray-100"
               @click="filterType = 'all', currentPage = 1">
               <div class="flex flex-row items-center">
@@ -16,17 +16,17 @@
                   </div>
                 </div>
                 <div class="mx-3 md:mx-5">
-                  <h4 class="text-lg font-semibold text-gray-900 md:text-2xl">{{ countedUsers.all }}</h4>
-                  <h3 class="text-gray-800 capitalize whitespace-nowrap">Users</h3>
+                  <h4 class="text-lg font-semibold text-gray-900 md:text-2xl">{{ countedContests.all }}</h4>
+                  <h3 class="text-gray-800 capitalize whitespace-nowrap">Contests</h3>
                 </div>
               </div>
             </div>
-            <!-- /total users card -->
+            <!-- total contests card -->
           </div>
           <div class="flex flex-1 p-2 lg:p-4">
-            <!-- managers card -->
+            <!-- live contests card -->
             <div class="flex w-full px-3 py-2 border-b-4 border-indigo-600 rounded-lg shadow-xl cursor-pointer md:px-5 md:py-4 group hover:border-indigo-800 bg-gradient-to-b from-indigo-400 to-indigo-100"
-              @click="filterType = 'managers', currentPage = 1">
+              @click="filterType = 'live', currentPage = 1">
               <div class="flex flex-row items-center">
                 <div class="flex-shrink">
                   <div class="p-1.5 md:p-2 bg-indigo-500 border border-white rounded-full group-hover:bg-indigo-700 ring ring-indigo-600">
@@ -37,21 +37,21 @@
                   </div>
                 </div>
                 <div class="mx-3 md:mx-5">
-                  <h4 class="text-lg font-semibold text-gray-900 md:text-2xl">{{ countedUsers.managers }}</h4>
-                  <h3 class="text-gray-800 capitalize whitespace-nowrap">Managers</h3>
+                  <h4 class="text-lg font-semibold text-gray-900 md:text-2xl">{{ countedContests.live }}</h4>
+                  <h3 class="text-gray-800 capitalize whitespace-nowrap">Live</h3>
                 </div>
               </div>
             </div>
-            <!-- /managers card -->
+            <!-- live contests card -->
           </div>
         </div>
       </div>
       <div class="flex flex-col w-full xl:w-1/2">
         <div class="flex flex-row flex-wrap xl:flex-nowrap">
           <div class="flex flex-1 p-2 lg:p-4">
-            <!-- non-verified users card -->
+            <!-- upcoming contests card -->
             <div class="flex w-full px-3 py-2 border-b-4 border-orange-600 rounded-lg shadow-xl cursor-pointer md:px-5 md:py-4 group hover:border-orange-800 bg-gradient-to-b from-orange-400 to-orange-100"
-              @click="filterType = 'nonVerified', currentPage = 1">
+              @click="filterType = 'upcoming', currentPage = 1">
               <div class="flex flex-row items-center">
                 <div class="flex-shrink">
                   <div class="p-1.5 md:p-2 bg-orange-500 border border-white rounded-full group-hover:bg-orange-700 ring ring-orange-600">
@@ -63,17 +63,17 @@
                   </div>
                 </div>
                 <div class="mx-3 md:mx-5">
-                  <h4 class="text-lg font-semibold text-gray-900 md:text-2xl">{{ countedUsers.nonVerified }}</h4>
-                  <h3 class="text-gray-800 capitalize whitespace-nowrap">Non-Verified</h3>
+                  <h4 class="text-lg font-semibold text-gray-900 md:text-2xl">{{ countedContests.upcoming }}</h4>
+                  <h3 class="text-gray-800 capitalize whitespace-nowrap">Upcoming</h3>
                 </div>
               </div>
             </div>
-            <!-- /non-verified users card -->
+            <!-- upcoming contests card -->
           </div>
           <div class="flex flex-1 p-2 lg:p-4">
-            <!-- suspended users card -->
+            <!-- archived contests card -->
             <div class="flex w-full px-3 py-2 border-b-4 border-red-600 rounded-lg shadow-xl cursor-pointer md:px-5 md:py-4 group hover:border-red-800 bg-gradient-to-b from-red-400 to-red-100"
-              @click="filterType = 'suspended', currentPage = 1">
+              @click="filterType = 'archived', currentPage = 1">
               <div class="flex flex-row items-center">
                 <div class="flex-shrink">
                   <div class="p-1.5 md:p-2 bg-red-500 border border-white rounded-full group-hover:bg-red-700 ring ring-red-600">
@@ -83,12 +83,12 @@
                   </div>
                 </div>
                 <div class="mx-3 md:mx-5">
-                  <h4 class="text-lg font-semibold text-gray-900 md:text-2xl">{{ countedUsers.suspended }}</h4>
-                  <h3 class="text-gray-800 capitalize whitespace-nowrap">Suspended</h3>
+                  <h4 class="text-lg font-semibold text-gray-900 md:text-2xl">{{ countedContests.archived }}</h4>
+                  <h3 class="text-gray-800 capitalize whitespace-nowrap">Archived</h3>
                 </div>
               </div>
             </div>
-            <!-- /suspended users card -->
+            <!-- archived contests card -->
           </div>
         </div>
       </div>
@@ -113,37 +113,41 @@
             <thead>
               <tr>
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200 cursor-pointer hover:text-indigo-400 hover:bg-gray-200 md:text-sm lg:text-base"
-                  @click="sort('username')">
-                  Name
+                  @click="sort('name')">
+                  Contest
                 </th>
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200 cursor-pointer hover:text-indigo-400 hover:bg-gray-200 md:text-sm lg:text-base"
-                  @click="sort('email')">
-                  Email
+                  @click="sort('starting_date')">
+                  Date
                 </th>
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200 cursor-pointer hover:text-indigo-400 hover:bg-gray-200 md:text-sm lg:text-base"
-                  @click="sort('is_verified')">
-                  Verification / Status
+                  @click="sort('status')">
+                  Status
                 </th>
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200 cursor-pointer hover:text-indigo-400 hover:bg-gray-200 md:text-sm lg:text-base"
-                  @click="sort('role')">
-                  Role
+                  @click="sort('type')">
+                  Type
+                </th>
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200 lg:text-base"
+                  @click="sort('participation')">
+                  Participation
                 </th>
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200 lg:text-base">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody class="bg-white" v-for="user in sortedUsers" v-bind:key="user.id">
+            <tbody class="bg-white" v-for="contest in sortedContests" v-bind:key="contest.id">
               <tr>
                 <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                   <div class="flex items-center">
                     <div class="flex-shrink-0 w-10 h-10">
                       <img class="w-10 h-10 rounded-full"
-                        v-bind:src="'/images/avatar/'+user.avatar"
-                        v-bind:alt="'/images/avatar/avatar.png'">
+                        v-bind:src="'/contests/images/'+contest.logo"
+                        v-bind:alt="contest.logo">
                     </div>
                     <div class="ml-4">
-                      <div class="text-sm font-medium leading-5 text-gray-900">{{ user.username }}</div>
+                      <div class="text-sm font-medium leading-5 text-gray-900">{{  }}</div>
                       <div class="text-sm leading-5 text-gray-500">{{ user.first_name }} {{ user.last_name }}</div>
                     </div>
                   </div>
@@ -240,12 +244,12 @@
           <p v-if="(this.currentPage-2) > 0" class="mx-2 text-sm leading-relaxed cursor-pointer hover:text-blue-600" @click="OpenPage(currentPage-2)"> {{this.currentPage-2}}</p>
           <p v-if="(this.currentPage-1) > 0" class="mx-2 text-sm leading-relaxed cursor-pointer hover:text-blue-600" @click="OpenPage(currentPage-1)"> {{this.currentPage-1}}</p>
           <p class="mx-2 text-sm leading-relaxed text-blue-600 cursor-pointer"> {{this.currentPage}} </p>
-          <p v-if="(this.currentPage+1) <= (Math.ceil(this.countedUsers.currentList/ this.pageSize))" class="mx-2 text-sm leading-relaxed cursor-pointer hover:text-blue-600" @click="OpenPage(currentPage+1)"> {{this.currentPage+1}}</p>
-          <p v-if="(this.currentPage+2) <= (Math.ceil(this.countedUsers.currentList/ this.pageSize))" class="mx-2 text-sm leading-relaxed cursor-pointer hover:text-blue-600" @click="OpenPage(currentPage+2)"> {{this.currentPage+2}}</p>
-          <svg :class="this.currentPage < (Math.ceil(this.countedUsers.currentList/ this.pageSize)) ? 'leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600' : ''" @click="nextPage"  xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <p v-if="(this.currentPage+1) <= (Math.ceil(this.countedContests.currentList/ this.pageSize))" class="mx-2 text-sm leading-relaxed cursor-pointer hover:text-blue-600" @click="OpenPage(currentPage+1)"> {{this.currentPage+1}}</p>
+          <p v-if="(this.currentPage+2) <= (Math.ceil(this.countedContests.currentList/ this.pageSize))" class="mx-2 text-sm leading-relaxed cursor-pointer hover:text-blue-600" @click="OpenPage(currentPage+2)"> {{this.currentPage+2}}</p>
+          <svg :class="this.currentPage < (Math.ceil(this.countedContests.currentList/ this.pageSize)) ? 'leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600' : ''" @click="nextPage"  xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
           </svg>
-          <svg :class="this.currentPage < (Math.ceil(this.countedUsers.currentList/ this.pageSize)) ? 'leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600' : ''" @click="lastPage" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg :class="this.currentPage < (Math.ceil(this.countedContests.currentList/ this.pageSize)) ? 'leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600' : ''" @click="lastPage" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 " fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
           </svg>
         </div>
@@ -426,7 +430,7 @@ export default {
       /* users list */
       userslist: JSON.parse(this.users),
       /* users list counter */
-      countedUsers: {
+      countedContests: {
         all: 0,
         managers: 0,
         nonVerified: 0,
@@ -490,18 +494,18 @@ export default {
       this.currentPage = 1;
     },
     nextPage: function () {
-      if (this.currentPage * this.pageSize < this.countedUsers.currentList)
+      if (this.currentPage * this.pageSize < this.countedContests.currentList)
         this.currentPage++;
     },
     prevPage: function () {
       if (this.currentPage > 1) this.currentPage--;
     },
     lastPage: function () {
-      if (Number.isInteger(this.countedUsers.currentList / this.pageSize)) {
-        this.currentPage = this.countedUsers.currentList / this.pageSize;
+      if (Number.isInteger(this.countedContests.currentList / this.pageSize)) {
+        this.currentPage = this.countedContests.currentList / this.pageSize;
 
       } else {
-        this.currentPage = Math.floor(this.countedUsers.currentList / this.pageSize) + 1;
+        this.currentPage = Math.floor(this.countedContests.currentList / this.pageSize) + 1;
       }
     },
     /* role vueModal vForm POST */
@@ -518,7 +522,7 @@ export default {
               showConfirmButton: false,
               timer: 3000,
             });
-            this.sortedUsers[this.sortedUsers.indexOf(this.vModals.target)].role = this.roleForm.userRole;
+            this.sortedContests[this.sortedContests.indexOf(this.vModals.target)].role = this.roleForm.userRole;
           } else {
             toast.fire({
               icon: "error",
@@ -549,7 +553,7 @@ export default {
               showConfirmButton: false,
               timer: 3000,
             });
-            this.sortedUsers[this.sortedUsers.indexOf(this.vModals.target)].status = this.statusForm.userStatus;
+            this.sortedContests[this.sortedContests.indexOf(this.vModals.target)].status = this.statusForm.userStatus;
           } else {
             toast.fire({
               icon: "error",
@@ -606,21 +610,21 @@ export default {
     /* users list counter */
     countUsers: function () {
       /* all users */
-      this.countedUsers.all = this.userslist.length;
+      this.countedContests.all = this.userslist.length;
       /* only managers */
-      this.countedUsers.managers = this.userslist.filter(user => {
+      this.countedContests.managers = this.userslist.filter(user => {
         return (user.role === 'manager');
       }).length;
       /* only non-verified users */
-      this.countedUsers.nonVerified = this.userslist.filter(user => {
+      this.countedContests.nonVerified = this.userslist.filter(user => {
         return (user.is_verified == 0);
       }).length;
       /* only suspended users */
-      this.countedUsers.suspended = this.userslist.filter(user => {
+      this.countedContests.suspended = this.userslist.filter(user => {
         return (user.is_verified == 1 && user.status == 0);
       }).length;
       /* only filtered users */
-      this.countedUsers.currentList = this.filteredUsers.length;
+      this.countedContests.currentList = this.filteredUsers.length;
     },
     /* users list filter */
     filteredUsers () {
@@ -652,7 +656,7 @@ export default {
       })
     },
     /* users list sorter */
-    sortedUsers: function () {
+    sortedContests: function () {
       return this.filteredUsers.sort((a,b) => {
         let modifier = 1;
 
