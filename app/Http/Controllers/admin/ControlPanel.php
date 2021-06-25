@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Contest;
 use App\Models\Problem;
+use App\Models\Language;
 
 class ControlPanel extends Controller
 {
@@ -79,7 +80,7 @@ class ControlPanel extends Controller
     ->first();
 
 
-
+dd($mostauthor);
         return view('admin.problems.view')
         ->with('problems', $problems)
             ->with('last', $last)
@@ -122,6 +123,17 @@ class ControlPanel extends Controller
             else
             {abort(401);}
 
+    }
+
+
+    public function languageView()
+    {
+        if(Gate::allows('AdminOnly')){
+            $language = Language::all();
+            return view('admin.language.view')->with('language', $language);
+        }
+        else
+        {abort(401);}
     }
 
 

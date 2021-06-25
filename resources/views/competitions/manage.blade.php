@@ -16,12 +16,14 @@
         </div>
     </div>
     <div class="flex space-x-3">
+        
         <pcp-participant :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'"></pcp-participant>
         @can('AdminOrManager')
         <pcp-organizer :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'"></pcp-organizer>
         @endcan
-        <pcp-libraryadd :library="'{{ json_encode($library) }}'" :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'"></pcp-libraryadd>
-        <pcp-manualjudge :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'" :problems="'{{ json_encode($contest->problems) }}'" :languages="'{{ json_encode($contest->languages) }}'" :competitor="'{{ json_encode($contest->competitor) }}'"></pcp-manualjudge>
+        <pcp-languageadd :language="'{{ addslashes(json_encode($language)) }}'" :languages="'{{ addslashes(json_encode($contest->languages)) }}'" :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'"></pcp-languageadd>
+        <pcp-libraryadd :library="'{{ addslashes(json_encode($library)) }}'" :problems="'{{ addslashes(json_encode($contest->problems)) }}'" :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'"></pcp-libraryadd>
+        <pcp-manualjudge :contest="'{{ $contest->id }}'" :urlname="'{{NameToUrl($contest->name)}}'" :problems="'{{ addslashes(json_encode($contest->problems)) }}'" :languages="'{{ addslashes(json_encode($contest->languages)) }}'" :competitor="'{{ addslashes(json_encode($contest->competitor)) }}'"></pcp-manualjudge>
 
 
     </div>
@@ -135,8 +137,7 @@
               <a href="{{route('competition-manage-questionlibrary', ['name' => NameToUrl($contest->name) ])}}" class=" {{ 'competition/'.NameToUrl($contest->name).'/mange/question' == request()->is('competition/'.NameToUrl($contest->name).'/mange/question') ? ' text-green-500' : ' text-black ' }} text-md no-underline  hover:text-blue-dark ml-2 px-1">Question Library</a>
               <a href="{{route('competition-manage-participants', ['name' => NameToUrl($contest->name) ])}}" class=" {{ 'competition/'.NameToUrl($contest->name).'/mange/participants' == request()->is('competition/'.NameToUrl($contest->name).'/mange/participants') ? ' text-green-500' : ' text-black ' }} text-md no-underline  hover:text-blue-dark ml-2 px-1">Participants</a>
               <a href="{{route('competition-manage-organizers', ['name' => NameToUrl($contest->name) ])}}" class=" {{ 'competition/'.NameToUrl($contest->name).'/mange/organizers' == request()->is('competition/'.NameToUrl($contest->name).'/mange/organizers') ? ' text-green-500 ' : ' text-black ' }} text-md no-underline  hover:text-blue-dark ml-2 px-1">Organizers</a>
-
-              
+              <a href="{{route('competition-manage-languages', ['name' => NameToUrl($contest->name) ])}}" class=" {{ 'competition/'.NameToUrl($contest->name).'/mange/languages' == request()->is('competition/'.NameToUrl($contest->name).'/mange/languages') ? ' text-green-500 ' : ' text-black ' }} text-md no-underline  hover:text-blue-dark ml-2 px-1">languages</a>
             </div>
           </nav>
 

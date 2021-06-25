@@ -10,6 +10,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\admin\ControlPanel;
 use App\Http\Controllers\admin\contests;
 use App\Http\Controllers\admin\problems;
+use App\Http\Controllers\admin\Languages;
 use App\Http\Controllers\admin\Users;
 use App\Http\Controllers\users\ProfileController;
 use App\Http\Controllers\competitions\primarycontroller;
@@ -61,6 +62,7 @@ Route::get('/controlpanel/contests/', [ControlPanel::class, 'contestsView'])->na
 Route::post('/controlpanel/contests/creat', [contests::class, 'creat'])->middleware('auth');
 Route::post('/controlpanel/contests/edit', [contests::class, 'edit'])->middleware('auth');
 Route::Post('/controlpanel/contests/active', [contests::class, 'contestsActive'])->middleware('auth');
+//controlpanel -> problems
 Route::get('/controlpanel/problems/', [ControlPanel::class, 'ProblemsView'])->name('problems-view')->middleware('auth');
 Route::post('/controlpanel/problems/creat', [problems::class, 'creat'])->middleware('auth');
 Route::post('/controlpanel/problems/edit', [problems::class, 'edit'])->middleware('auth');
@@ -69,6 +71,11 @@ Route::get('/controlpanel/problems/testcase/{id}', [ControlPanel::class, 'testca
 Route::Post('/controlpanel/problems/testcase/creat', [problems::class, 'newtestcase'])->middleware('auth');
 Route::Post('/controlpanel/problems/testcase/edit', [problems::class, 'edittestcase'])->middleware('auth');
 Route::Post('/controlpanel/problems/testcase/delate', [problems::class, 'delatetestcase'])->middleware('auth');
+//controlpanel -> language
+Route::get('/controlpanel/languages/', [ControlPanel::class, 'languageView'])->name('language-view')->middleware('auth');
+Route::post('/controlpanel/languages/new', [Languages::class, 'new'])->middleware('auth');
+Route::post('/controlpanel/languages/edit', [Languages::class, 'edit'])->middleware('auth');
+Route::post('/controlpanel/languages/activat', [Languages::class, 'activat'])->middleware('auth');
 
 //user
 Route::get('/profile/{username}', [ProfileController::class, 'profile'])->name('Profile-show')->middleware('auth');
@@ -95,6 +102,9 @@ Route::post('/competition/{name}/mange/organizers', [mange::class, 'registration
 Route::get('/competition/{name}/mange/question', [primarycontroller::class, 'competitionoquestionlibrary'])->name('competition-manage-questionlibrary')->middleware('auth');
 Route::post('/competition/{name}/mange/question/add', [mange::class, 'competitionoquestionlibrary'])->middleware('auth');
 Route::get('/competition/{name}/mange/question/remove/{id}', [mange::class, 'removequestionlibrary'])->middleware('auth');
+Route::get('/competition/{name}/mange/languages', [primarycontroller::class, 'competitionlanguages'])->name('competition-manage-languages')->middleware('auth');
+Route::post('/competition/{name}/mange/languages/add', [mange::class, 'competitionaddlanguage'])->middleware('auth');
+Route::get('/competition/{name}/mange/languages/remove/{id}', [mange::class, 'removelanguage'])->middleware('auth');
 
 
 //competitions Subscription

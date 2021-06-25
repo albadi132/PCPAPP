@@ -9,6 +9,8 @@ use App\Models\Contest;
 use App\Models\ContestUser;
 use App\Models\Score;
 use App\Models\Team;
+use App\Models\Language;
+use App\Models\ContestLanguage;
 use App\Models\Problem;
 use App\Models\ContestTeam;
 use App\Models\TeamUser;
@@ -317,6 +319,7 @@ public function removequestionlibrary($name, $id)
 }
 
 
+
     public function RemovFromCompetition($compid , $userid){
         ContestUser::where('contest_id',$compid)->where('user_id',$userid)->delete();
        // $ContestUser->delete();
@@ -369,6 +372,124 @@ public function removequestionlibrary($name, $id)
 
 
     }
+
+
+    public function  competitionaddlanguage(Request $request)
+    {
+
+        $this->validate($request, [
+            'language' => ['required'],
+            'contestid' => ['required'],
+        ]);
+
+
+
+    $Language = Language::where('id', $request->language)->where('status', '=', 1)->first();
+
+    $contest = Contest::with('languages')->where( 'id' , $request->contestid )->where('status', '=', 1)->first();
+    
+        if (($contest) && ($Language)) {
+    
+            if (Gate::allows('OrganizerOrAdmin', $contest->id))
+                {
+    
+    
+                    if ( $contest->ending_date > date('Y-m-d H:i:s') ){
+    
+                        for($i = 0 ; $i < $contest->languages->count() ; $i++)
+                        {
+                            if($Language->id == $contest->languages[$i]->id)
+                            {
+                                return [
+    
+                                    'status' => 401,
+                                    'description' => "This language is already in the competition",
+                                ];
+                            }
+                        }
+    
+                        //all done
+    
+                        $ContestLanguage = new ContestLanguage;
+    
+                        $ContestLanguage->contest_id = $contest->id;
+                        $ContestLanguage->language_id = $Language->id;
+                        $ContestLanguage->timestamps  = false;
+                        $ContestLanguage->save();
+                        return [
+    
+                            'status' => 200,
+                            'description' => "Language has been added successfully",
+                        ];
+    
+    
+    
+                        
+                    } else {
+    
+                        return [
+    
+                            'status' => 401,
+                            'description' => "It is not possible to add language to archived contest",
+                        ];
+                    }
+    
+                    
+    
+    
+    
+    
+                }
+                else
+            {
+                return [
+    
+                    'status' => 401,
+                    'description' => "You do not have permission",
+                ];
+    
+            }
+    
+    
+        }
+        else{
+            return [
+                'status' => 404,
+                'description' => "Something went wrong!!",
+            ];
+        }
+
+    }
+
+
+    public function removelanguage($name, $id)
+    {
+        $cname = str_replace("_", " ", $name);
+        $contest = Contest::where('name', $cname)->where('status', '=', 1)->firstOrFail();
+        if ($contest) {
+
+            if (Gate::allows('OrganizerOrAdmin', $contest->id))
+            {
+                $Language= ContestLanguage::where('contest_id' , $contest->id)->where('language_id' , $id)->first();
+
+                if($Language)
+                {
+                    ContestLanguage::where('contest_id' , $contest->id)->where('language_id' , $id)->delete();
+                    return redirect()->route('competition-manage-languages', ['name' => $name ])->with(session()->flash('alert-success', 'The Language has been removed'));
+              
+                }else
+        {abort(404);}
+
+
+
+            }
+            else
+        {abort(404);}
+        }
+        else
+        {abort(404);}
+    }
+
 
 
 }

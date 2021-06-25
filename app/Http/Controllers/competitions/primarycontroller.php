@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Contest;
 use App\Models\ContestsProblem;
 use App\Models\Problem;
+use App\Models\Language;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\ProblemResource;
@@ -208,6 +209,7 @@ class primarycontroller extends Controller
     $name = str_replace("_", " ", $name);
     $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
     $problems =  Problem::has('Testcases')->where('status' , 1)->get();
+    $Language =  Language::where('status' , 1)->get();
     if ($contest) {
       if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
 
@@ -237,7 +239,8 @@ class primarycontroller extends Controller
         ->with('tablename', $tablename)
         ->with('tabledesc', $tabledesc)
         ->with('time', $totalDuration)
-        ->with('library', $problems);
+        ->with('library', $problems)
+        ->with('language' , $Language);
     
       } else {
         abort(403);
@@ -251,6 +254,7 @@ class primarycontroller extends Controller
     $name = str_replace("_", " ", $name);
     $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
     $problems =  Problem::has('Testcases')->where('status' , 1)->get();
+    $Language =  Language::where('status' , 1)->get();
     if ($contest) {
 
       if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
@@ -277,7 +281,8 @@ class primarycontroller extends Controller
         ->with('tablename', $tablename)
         ->with('tabledesc', $tabledesc)
         ->with('time', $totalDuration)
-        ->with('library', $problems);
+        ->with('library', $problems)
+        ->with('language' , $Language);
       } else {
         abort(403);
       }} else {
@@ -290,6 +295,7 @@ class primarycontroller extends Controller
     $name = str_replace("_", " ", $name);
     $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'organizer', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
     $problems =  Problem::has('Testcases')->where('status' , 1)->get();
+    $Language =  Language::where('status' , 1)->get();
     if ($contest) {
 
       if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
@@ -315,7 +321,8 @@ class primarycontroller extends Controller
         ->with('tablename', $tablename)
         ->with('tabledesc', $tabledesc)
         ->with('time', $totalDuration)
-        ->with('library', $problems);
+        ->with('library', $problems) 
+        ->with('language' , $Language);
       } else {
         abort(403);
       }} else {
@@ -328,6 +335,7 @@ class primarycontroller extends Controller
     $name = str_replace("_", " ", $name);
     $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
     $problems =  Problem::has('Testcases')->where('status' , 1)->get();
+    $Language =  Language::where('status' , 1)->get();
 
     if ($contest) {
 
@@ -355,7 +363,49 @@ class primarycontroller extends Controller
         ->with('tablename', $tablename)
         ->with('tabledesc', $tabledesc)
         ->with('time', $totalDuration)
-        ->with('library', $problems);
+        ->with('library', $problems)
+        ->with('language' , $Language);
+      } else {
+        abort(403);
+      }} else {
+      abort(404);
+    }
+  }
+
+  public function  competitionlanguages($name)
+  {
+    $name = str_replace("_", " ", $name);
+    $contest = Contest::with('submissionlog', 'competitor', 'teams', 'problems', 'languages')->where('name', $name)->where('status', '=', 1)->firstOrFail();
+    $problems =  Problem::has('Testcases')->where('status' , 1)->get();
+    $Language =  Language::where('status' , 1)->get();
+    if ($contest) {
+
+      if (Gate::allows('OrganizerOrAdmin', $contest->id)) {
+      $startTime = Carbon::parse($contest->starting_date);
+      $endTime = Carbon::parse(date('Y-m-d H:i:s'));
+
+      $totalDuration = $endTime->diffForHumans($startTime);
+
+      if (strpos($totalDuration, 'before') !== false) {
+        $totalDuration  = str_replace("before", "", $totalDuration);
+      } else {
+        if (($contest->starting_date <= date('Y-m-d H:i:s')) & ($contest->ending_date >= date('Y-m-d H:i:s'))) {
+          $totalDuration  = 'started';
+        } else
+          $totalDuration  = 'closed';
+      }
+
+
+
+      $tablename = 'LANGUAGES';
+      $tabledesc = 'Manage languages related to the competition';
+      return view('competitions.manage.languagessupport')
+        ->with('contest', $contest)
+        ->with('tablename', $tablename)
+        ->with('tabledesc', $tabledesc)
+        ->with('time', $totalDuration)
+        ->with('library', $problems)
+        ->with('language' , $Language);
       } else {
         abort(403);
       }} else {

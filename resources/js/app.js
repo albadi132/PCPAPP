@@ -56,7 +56,10 @@
  Vue.component('pcp-profile', require('./components/Profile.vue').default);
  Vue.component('pcp-libraryadd', require('./components/QuestionLibraryAdd.vue').default);
  Vue.component('pcp-librarydelate', require('./components/QuestionLibraryDelate.vue').default);
+ Vue.component('pcp-languageadd', require('./components/LanguageAdd.vue').default);
+ Vue.component('pcp-languagedelate', require('./components/LanguageDelate.vue').default);
 
+ 
 
  //control panel vue components
  Vue.component('pcp-cp-users', require('./components/ControlPanel/authentications/usersTable.vue').default);
@@ -69,7 +72,7 @@
  Vue.component('pcp-cp-new-problem', require('./components/ControlPanel/problems/NewProblem.vue').default);
  Vue.component('pcp-cp-new-testcase', require('./components/ControlPanel/problems/NewTestCases.vue').default);
  Vue.component('pcp-cp-testcase', require('./components/ControlPanel/problems/ManegTestCases.vue').default);
- 
+ Vue.component('pcp-cp-language', require('./components/ControlPanel/languages/LanguageTable.vue').default);
  
 
  /**

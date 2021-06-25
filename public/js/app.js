@@ -6728,6 +6728,649 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["languages", 'time'],
+  data: function data() {
+    return {
+      newLanguageModal: false,
+      editLanguageModal: false,
+      alllanguages: JSON.parse(this.languages),
+      timenow: this.time,
+      currentSort: "name",
+      currentSortDir: "asc",
+      pageSize: 10,
+      currentPage: 1,
+      countpage: 0,
+      filter: '',
+      newLanguageForm: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        name: "",
+        dir: "",
+        logo: ''
+      }),
+      editLanguageForm: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        name: "",
+        dir: "",
+        logo: '',
+        id: ''
+      }),
+      active: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        status: '',
+        id: ''
+      })
+    };
+  },
+  methods: {
+    showLanguage: function showLanguage(language, e) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var messgae, buttontext, buttoncolor;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (e == 1) {
+                  messgae = "Do you want to activat " + language.name + " ?";
+                  buttontext = 'Activat';
+                  buttoncolor = '#90EE90';
+                } else {
+                  messgae = "Do you want to deactivate " + language.name + " ?";
+                  buttontext = 'Deactivate';
+                  buttoncolor = '#EC7063';
+                }
+
+                toast.fire({
+                  title: messgae,
+                  type: "warning",
+                  showCancelButton: true,
+                  confirmButtonText: buttontext,
+                  confirmButtonColor: buttoncolor
+                }).then(function (result) {
+                  if (result.isConfirmed) {
+                    var i;
+
+                    for (i = 0; i < _this.alllanguages.length; i++) {
+                      if (language.id == _this.alllanguages[i].id) _this.alllanguages[i].status = e;
+                    }
+
+                    _this.active.status = e;
+                    _this.active.id = language.id;
+
+                    var response = _this.active.post("/controlpanel/languages/activat").then(function (_ref) {
+                      var data = _ref.data;
+
+                      if (data.status == 200) {
+                        toast.fire({
+                          icon: "success",
+                          title: data.description,
+                          showConfirmButton: false,
+                          timer: 3000
+                        });
+                      } else {
+                        toast.fire({
+                          icon: "error",
+                          title: "Oops...",
+                          text: data.description
+                        });
+                      }
+                    });
+                  }
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    newLanguageModalShow: function newLanguageModalShow() {
+      this.newLanguageForm.dir = [];
+      this.newLanguageForm.logo = [];
+      this.newLanguageForm.name = [];
+      this.newLanguageModal = true;
+    },
+    editLanguageModalShow: function editLanguageModalShow(language) {
+      this.editLanguageForm.dir = language.dir;
+      this.editLanguageForm.logo = language.logo;
+      this.editLanguageForm.name = language.name;
+      this.editLanguageForm.id = language.id;
+      this.editLanguageModal = true;
+    },
+    newLanguage: function newLanguage() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return _this2.newLanguageForm.post("/controlpanel/languages/new").then(function (_ref2) {
+                  var data = _ref2.data;
+
+                  if (data.status == 200) {
+                    _this2.editModal = false;
+                    toast.fire({
+                      icon: "success",
+                      title: data.description,
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
+                    _this2.newLanguageModal = false;
+                    var addtojson = {
+                      dir: _this2.newLanguageForm.dir,
+                      id: data.id,
+                      logo: _this2.newLanguageForm.logo,
+                      name: _this2.newLanguageForm.name,
+                      status: 0
+                    };
+
+                    _this2.alllanguages.push(addtojson);
+                  } else {
+                    toast.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: data.description
+                    });
+                  }
+                })["catch"](function (error) {
+                  console.log(error);
+                });
+
+              case 2:
+                response = _context2.sent;
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    editLanguage: function editLanguage() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this3.editLanguageForm.post("/controlpanel/languages/edit").then(function (_ref3) {
+                  var data = _ref3.data;
+
+                  if (data.status == 200) {
+                    _this3.editModal = false;
+                    toast.fire({
+                      icon: "success",
+                      title: data.description,
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
+                    _this3.editLanguageModal = false;
+
+                    for (var i = 0; i < _this3.alllanguages.length; i++) {
+                      if (_this3.editLanguageForm.id == _this3.alllanguages[i].id) {
+                        _this3.alllanguages[i].logo = _this3.editLanguageForm.logo;
+                        _this3.alllanguages[i].dir = _this3.editLanguageForm.dir;
+                        _this3.alllanguages[i].name = _this3.editLanguageForm.name;
+                      }
+                    }
+                  } else {
+                    toast.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: data.description
+                    });
+                  }
+                })["catch"](function (error) {
+                  console.log(error);
+                });
+
+              case 2:
+                response = _context3.sent;
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    newLogo: function newLogo(e) {
+      var _this4 = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        toast.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      }
+
+      reader.onloadend = function (file) {
+        _this4.newLanguageForm.logo = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    updateLogo: function updateLogo(e) {
+      var _this5 = this;
+
+      var file = e.target.files[0];
+      var reader = new FileReader();
+      var limit = 1024 * 1024 * 2;
+
+      if (file['size'] > limit) {
+        toast.fire({
+          type: 'error',
+          title: 'Oops...',
+          text: 'You are uploading a large file'
+        });
+        return false;
+      }
+
+      reader.onloadend = function (file) {
+        _this5.editLanguageForm.logo = reader.result;
+      };
+
+      reader.readAsDataURL(file);
+    },
+    sort: function sort(s) {
+      //if s == current sort, reverse
+      if (s === this.currentSort) {
+        this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
+      }
+
+      this.currentSort = s;
+    },
+    OpenPage: function OpenPage(page) {
+      this.currentPage = page;
+    },
+    firstPage: function firstPage() {
+      this.currentPage = 1;
+    },
+    nextPage: function nextPage() {
+      if (this.currentPage * this.pageSize < this.alllanguages.length) this.currentPage++;
+    },
+    prevPage: function prevPage() {
+      if (this.currentPage > 1) this.currentPage--;
+    },
+    lastPage: function lastPage() {
+      if (Number.isInteger(this.alllanguages.length / this.pageSize)) {
+        this.currentPage = this.alllanguages.length / this.pageSize;
+      } else {
+        this.currentPage = Math.floor(this.alllanguages.length / this.pageSize) + 1;
+      }
+    }
+  },
+  watch: {
+    filter: function filter() {
+      this.currentPage = 1;
+    }
+  },
+  computed: {
+    filteredLanguages: function filteredLanguages() {
+      var _this6 = this;
+
+      return this.alllanguages.filter(function (c) {
+        if (_this6.filter == '') return true;
+        return c.name.toLowerCase().indexOf(_this6.filter.toLowerCase()) >= 0;
+      });
+    },
+    sortedLanguages: function sortedLanguages() {
+      var _this7 = this;
+
+      return this.filteredLanguages.sort(function (a, b) {
+        var modifier = 1;
+        if (_this7.currentSortDir === 'desc') modifier = -1;
+        if (a[_this7.currentSort] < b[_this7.currentSort]) return -1 * modifier;
+        if (a[_this7.currentSort] > b[_this7.currentSort]) return 1 * modifier;
+        return 0;
+      }).filter(function (row, index) {
+        var start = (_this7.currentPage - 1) * _this7.pageSize;
+        var end = _this7.currentPage * _this7.pageSize;
+        if (index >= start && index < end) return true;
+      });
+    }
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPanel/problems/ManegTestCases.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPanel/problems/ManegTestCases.vue?vue&type=script&lang=js& ***!
@@ -7841,6 +8484,272 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     console.log('Component mounted.');
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageAdd.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageAdd.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vform */ "./node_modules/vform/dist/vform.common.js");
+/* harmony import */ var vform__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vform__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.HasError.name, vform__WEBPACK_IMPORTED_MODULE_1__.HasError);
+Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK_IMPORTED_MODULE_1__.AlertError);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["language", "languages", "contest", "urlname"],
+  name: "AddRemove",
+  data: function data() {
+    return {
+      syslanguages: JSON.parse(this.language),
+      comlanguages: JSON.parse(this.languages),
+      toggleModal: false,
+      url: this.urlname,
+      form: new vform__WEBPACK_IMPORTED_MODULE_1__.Form({
+        language: "",
+        contestid: this.contest
+      })
+    };
+  },
+  methods: {
+    showmodal: function showmodal() {
+      this.toggleModal = true;
+      console.log(this.syslanguages);
+    },
+    onChange: function onChange(language) {
+      for (var i = 0; i < this.comlanguages.length; i++) {
+        if (language == this.comlanguages[i].id) {
+          for (var j = 0; j < this.syslanguages.length; j++) {
+            if (this.syslanguages[j].id == this.comlanguages[i].id) {
+              document.getElementById('existing').innerHTML = 'This language has already been in the competition';
+            }
+          }
+        }
+      }
+    },
+    addlanguage: function addlanguage() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.form.post("/competition/" + _this.url + "/mange/languages/add").then(function (_ref) {
+                  var data = _ref.data;
+
+                  if (data.status == 200) {
+                    _this.toggleModal = false;
+                    toast.fire({
+                      icon: "success",
+                      title: data.description,
+                      showConfirmButton: false,
+                      timer: 3000
+                    });
+                  } else {
+                    toast.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: data.description
+                    });
+                  }
+                });
+
+              case 2:
+                response = _context.sent;
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageDelate.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageDelate.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["contest", "urlname", "language"],
+  data: function data() {
+    return {
+      contestid: this.contest,
+      languageid: this.language,
+      url: this.urlname
+    };
+  },
+  methods: {
+    deletelang: function deletelang() {
+      var _this = this;
+
+      console.log(this.languageid);
+      toast.fire({
+        title: "Do you want to remove this language?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Delete",
+        confirmButtonColor: "#EC7063"
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          window.location = "/competition/" + _this.url + "/mange/languages/remove/" + _this.languageid;
+        }
+      });
+    }
   }
 });
 
@@ -10795,7 +11704,9 @@ vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-organizerdelate', __webp
 vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-manualjudge', __webpack_require__(/*! ./components/ManualJudge.vue */ "./resources/js/components/ManualJudge.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-profile', __webpack_require__(/*! ./components/Profile.vue */ "./resources/js/components/Profile.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-libraryadd', __webpack_require__(/*! ./components/QuestionLibraryAdd.vue */ "./resources/js/components/QuestionLibraryAdd.vue").default);
-vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-librarydelate', __webpack_require__(/*! ./components/QuestionLibraryDelate.vue */ "./resources/js/components/QuestionLibraryDelate.vue").default); //control panel vue components
+vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-librarydelate', __webpack_require__(/*! ./components/QuestionLibraryDelate.vue */ "./resources/js/components/QuestionLibraryDelate.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-languageadd', __webpack_require__(/*! ./components/LanguageAdd.vue */ "./resources/js/components/LanguageAdd.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-languagedelate', __webpack_require__(/*! ./components/LanguageDelate.vue */ "./resources/js/components/LanguageDelate.vue").default); //control panel vue components
 
 vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-cp-users', __webpack_require__(/*! ./components/ControlPanel/authentications/usersTable.vue */ "./resources/js/components/ControlPanel/authentications/usersTable.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-cp-user-role', __webpack_require__(/*! ./components/ControlPanel/authentications/role.vue */ "./resources/js/components/ControlPanel/authentications/role.vue").default);
@@ -10807,6 +11718,7 @@ vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-cp-problem', __webpack_r
 vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-cp-new-problem', __webpack_require__(/*! ./components/ControlPanel/problems/NewProblem.vue */ "./resources/js/components/ControlPanel/problems/NewProblem.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-cp-new-testcase', __webpack_require__(/*! ./components/ControlPanel/problems/NewTestCases.vue */ "./resources/js/components/ControlPanel/problems/NewTestCases.vue").default);
 vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-cp-testcase', __webpack_require__(/*! ./components/ControlPanel/problems/ManegTestCases.vue */ "./resources/js/components/ControlPanel/problems/ManegTestCases.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_5__.default.component('pcp-cp-language', __webpack_require__(/*! ./components/ControlPanel/languages/LanguageTable.vue */ "./resources/js/components/ControlPanel/languages/LanguageTable.vue").default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -52233,6 +53145,45 @@ component.options.__file = "resources/js/components/ControlPanel/contests/NewCon
 
 /***/ }),
 
+/***/ "./resources/js/components/ControlPanel/languages/LanguageTable.vue":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/ControlPanel/languages/LanguageTable.vue ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LanguageTable_vue_vue_type_template_id_65cebac5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LanguageTable.vue?vue&type=template&id=65cebac5& */ "./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=template&id=65cebac5&");
+/* harmony import */ var _LanguageTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LanguageTable.vue?vue&type=script&lang=js& */ "./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _LanguageTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _LanguageTable_vue_vue_type_template_id_65cebac5___WEBPACK_IMPORTED_MODULE_0__.render,
+  _LanguageTable_vue_vue_type_template_id_65cebac5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ControlPanel/languages/LanguageTable.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/ControlPanel/problems/ManegTestCases.vue":
 /*!**************************************************************************!*\
   !*** ./resources/js/components/ControlPanel/problems/ManegTestCases.vue ***!
@@ -52424,6 +53375,84 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 /* hot reload */
 if (false) { var api; }
 component.options.__file = "resources/js/components/ExampleComponent.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/LanguageAdd.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/LanguageAdd.vue ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LanguageAdd_vue_vue_type_template_id_5b774c8e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LanguageAdd.vue?vue&type=template&id=5b774c8e& */ "./resources/js/components/LanguageAdd.vue?vue&type=template&id=5b774c8e&");
+/* harmony import */ var _LanguageAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LanguageAdd.vue?vue&type=script&lang=js& */ "./resources/js/components/LanguageAdd.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _LanguageAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _LanguageAdd_vue_vue_type_template_id_5b774c8e___WEBPACK_IMPORTED_MODULE_0__.render,
+  _LanguageAdd_vue_vue_type_template_id_5b774c8e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/LanguageAdd.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/LanguageDelate.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/LanguageDelate.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LanguageDelate_vue_vue_type_template_id_359b57ca___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LanguageDelate.vue?vue&type=template&id=359b57ca& */ "./resources/js/components/LanguageDelate.vue?vue&type=template&id=359b57ca&");
+/* harmony import */ var _LanguageDelate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LanguageDelate.vue?vue&type=script&lang=js& */ "./resources/js/components/LanguageDelate.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _LanguageDelate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _LanguageDelate_vue_vue_type_template_id_359b57ca___WEBPACK_IMPORTED_MODULE_0__.render,
+  _LanguageDelate_vue_vue_type_template_id_359b57ca___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/LanguageDelate.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -53024,6 +54053,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LanguageTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/ControlPanel/problems/ManegTestCases.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************!*\
   !*** ./resources/js/components/ControlPanel/problems/ManegTestCases.vue?vue&type=script&lang=js& ***!
@@ -53101,6 +54146,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ExampleComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/LanguageAdd.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/LanguageAdd.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LanguageAdd.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageAdd.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageAdd_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/LanguageDelate.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./resources/js/components/LanguageDelate.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageDelate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LanguageDelate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageDelate.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageDelate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -53432,6 +54509,23 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=template&id=65cebac5&":
+/*!*********************************************************************************************************!*\
+  !*** ./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=template&id=65cebac5& ***!
+  \*********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageTable_vue_vue_type_template_id_65cebac5___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageTable_vue_vue_type_template_id_65cebac5___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageTable_vue_vue_type_template_id_65cebac5___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LanguageTable.vue?vue&type=template&id=65cebac5& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=template&id=65cebac5&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/ControlPanel/problems/ManegTestCases.vue?vue&type=template&id=1363fb13&":
 /*!*********************************************************************************************************!*\
   !*** ./resources/js/components/ControlPanel/problems/ManegTestCases.vue?vue&type=template&id=1363fb13& ***!
@@ -53513,6 +54607,40 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ExampleComponent_vue_vue_type_template_id_299e239e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ExampleComponent.vue?vue&type=template&id=299e239e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/LanguageAdd.vue?vue&type=template&id=5b774c8e&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/LanguageAdd.vue?vue&type=template&id=5b774c8e& ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageAdd_vue_vue_type_template_id_5b774c8e___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageAdd_vue_vue_type_template_id_5b774c8e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageAdd_vue_vue_type_template_id_5b774c8e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LanguageAdd.vue?vue&type=template&id=5b774c8e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageAdd.vue?vue&type=template&id=5b774c8e&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/LanguageDelate.vue?vue&type=template&id=359b57ca&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/LanguageDelate.vue?vue&type=template&id=359b57ca& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageDelate_vue_vue_type_template_id_359b57ca___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageDelate_vue_vue_type_template_id_359b57ca___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LanguageDelate_vue_vue_type_template_id_359b57ca___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LanguageDelate.vue?vue&type=template&id=359b57ca& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageDelate.vue?vue&type=template&id=359b57ca&");
 
 
 /***/ }),
@@ -58843,6 +59971,1234 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=template&id=65cebac5&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPanel/languages/LanguageTable.vue?vue&type=template&id=65cebac5& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "justify-end px-2 mt-2" }, [
+        _c("div", { staticClass: "flex justify-between w-full pt-6 " }, [
+          _c("div", { staticClass: "flex flex-col px-2 md:flex-row" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "py-2 px-4 bg-transparent text-green-600 font-semibold border border-green-600 rounded hover:bg-green-600 hover:text-white hover:border-transparent transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0",
+                attrs: { type: "button" },
+                on: { click: _vm.newLanguageModalShow }
+              },
+              [_vm._v("\n              New Language")]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "svg",
+            {
+              attrs: {
+                width: "14",
+                height: "4",
+                viewBox: "0 0 14 4",
+                fill: "none",
+                xmlns: "http://www.w3.org/2000/svg"
+              }
+            },
+            [
+              _c("g", { attrs: { opacity: "0.4" } }, [
+                _c("circle", {
+                  attrs: {
+                    cx: "2.19796",
+                    cy: "1.80139",
+                    r: "1.38611",
+                    fill: "#222222"
+                  }
+                }),
+                _vm._v(" "),
+                _c("circle", {
+                  attrs: {
+                    cx: "11.9013",
+                    cy: "1.80115",
+                    r: "1.38611",
+                    fill: "#222222"
+                  }
+                }),
+                _vm._v(" "),
+                _c("circle", {
+                  attrs: {
+                    cx: "7.04991",
+                    cy: "1.80115",
+                    r: "1.38611",
+                    fill: "#222222"
+                  }
+                })
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "w-full sm:w-64 inline-block relative pt-4 " },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filter,
+                  expression: "filter"
+                }
+              ],
+              staticClass:
+                "leading-snug border border-gray-300 block w-full appearance-none bg-gray-100 text-sm text-gray-600 py-1 px-4 pl-8 rounded-lg",
+              attrs: { type: "search", name: "", placeholder: "Search" },
+              domProps: { value: _vm.filter },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.filter = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "pointer-events-none absolute pl-3 inset-y-0 left-0 flex items-center px-2 pt-4  text-gray-300"
+              },
+              [
+                _c(
+                  "svg",
+                  {
+                    staticClass: "fill-current h-3 w-3",
+                    attrs: {
+                      xmlns: "http://www.w3.org/2000/svg",
+                      viewBox: "0 0 511.999 511.999"
+                    }
+                  },
+                  [
+                    _c("path", {
+                      attrs: {
+                        d:
+                          "M508.874 478.708L360.142 329.976c28.21-34.827 45.191-79.103 45.191-127.309C405.333 90.917 314.416 0 202.666 0S0 90.917 0 202.667s90.917 202.667 202.667 202.667c48.206 0 92.482-16.982 127.309-45.191l148.732 148.732c4.167 4.165 10.919 4.165 15.086 0l15.081-15.082c4.165-4.166 4.165-10.92-.001-15.085zM202.667 362.667c-88.229 0-160-71.771-160-160s71.771-160 160-160 160 71.771 160 160-71.771 160-160 160z"
+                      }
+                    })
+                  ]
+                )
+              ]
+            )
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "overflow-x-auto mt-6" }, [
+        _c(
+          "table",
+          { staticClass: "table-auto border-collapse w-full" },
+          [
+            _c("thead", [
+              _c(
+                "tr",
+                {
+                  staticClass:
+                    "rounded-lg text-sm font-medium text-gray-700 text-left",
+                  staticStyle: { "font-size": "0.9674rem" }
+                },
+                [
+                  _c(
+                    "th",
+                    {
+                      staticClass: "px-4 py-2 bg-gray-200 ",
+                      staticStyle: { "background-color": "#f8f8f8" },
+                      on: {
+                        click: function($event) {
+                          return _vm.sort("name")
+                        }
+                      }
+                    },
+                    [_vm._v("language")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass: "px-4 py-2 ",
+                      staticStyle: { "background-color": "#f8f8f8" },
+                      on: {
+                        click: function($event) {
+                          return _vm.sort("status")
+                        }
+                      }
+                    },
+                    [_vm._v("Status")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "th",
+                    {
+                      staticClass: "px-4 py-2 justify-end text-right ",
+                      staticStyle: { "background-color": "#f8f8f8" }
+                    },
+                    [_vm._v("Action")]
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.sortedLanguages, function(language) {
+              return _c(
+                "tbody",
+                {
+                  key: language.id,
+                  staticClass: "text-sm font-normal text-gray-700"
+                },
+                [
+                  _c(
+                    "tr",
+                    {
+                      staticClass:
+                        "hover:bg-gray-100 border-b border-gray-200 py-10"
+                    },
+                    [
+                      _c("td", { staticClass: "px-4 py-4" }, [
+                        _c("div", { staticClass: "flex items-center" }, [
+                          _c(
+                            "div",
+                            { staticClass: "flex-shrink-0 h-10 w-10" },
+                            [
+                              language.logo.length < "50"
+                                ? _c("img", {
+                                    staticClass: "h-10 w-10 rounded-full",
+                                    attrs: {
+                                      src:
+                                        "/Programminglanguages/" +
+                                        language.dir +
+                                        "/" +
+                                        language.logo,
+                                      alt: ""
+                                    }
+                                  })
+                                : _c("img", {
+                                    staticClass: "h-10 w-10 rounded-full",
+                                    attrs: { src: language.logo, alt: "" }
+                                  })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "ml-4" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "text-sm leading-5 font-medium text-gray-900"
+                              },
+                              [
+                                _vm._v(
+                                  _vm._s(language.name) +
+                                    "\n                                          "
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "px-4 py-4" }, [
+                        language.status === 0
+                          ? _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-800 text-gray-50"
+                              },
+                              [_vm._v("Not Active")]
+                            )
+                          : _c(
+                              "span",
+                              {
+                                staticClass:
+                                  "px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-800 text-gray-50"
+                              },
+                              [_vm._v("Active")]
+                            )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "py-3 px-6 " }, [
+                        _c(
+                          "div",
+                          { staticClass: "flex  justify-end text-right" },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "w-4 mr-2 transform hover:text-green-400 hover:scale-110"
+                              },
+                              [
+                                _c(
+                                  "svg",
+                                  {
+                                    attrs: {
+                                      xmlns: "http://www.w3.org/2000/svg",
+                                      fill: "none",
+                                      viewBox: "0 0 24 24",
+                                      stroke: "currentColor"
+                                    },
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.editLanguageModalShow(
+                                          language
+                                        )
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c("path", {
+                                      attrs: {
+                                        "stroke-linecap": "round",
+                                        "stroke-linejoin": "round",
+                                        "stroke-width": "2",
+                                        d:
+                                          "M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                                      }
+                                    })
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            language.status === 0
+                              ? _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "w-4 mr-2 transform hover:text-green-400 hover:scale-110"
+                                  },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        attrs: {
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                          fill: "none",
+                                          viewBox: "0 0 24 24",
+                                          stroke: "currentColor"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.showLanguage(language, 1)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("path", {
+                                          attrs: {
+                                            "stroke-linecap": "round",
+                                            "stroke-linejoin": "round",
+                                            "stroke-width": "2",
+                                            d:
+                                              "M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ]
+                                )
+                              : _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "w-4 mr-2 transform hover:text-red-400 hover:scale-110"
+                                  },
+                                  [
+                                    _c(
+                                      "svg",
+                                      {
+                                        attrs: {
+                                          xmlns: "http://www.w3.org/2000/svg",
+                                          fill: "none",
+                                          viewBox: "0 0 24 24",
+                                          stroke: "currentColor"
+                                        },
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.showLanguage(language, 0)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("path", {
+                                          attrs: {
+                                            "stroke-linecap": "round",
+                                            "stroke-linejoin": "round",
+                                            "stroke-width": "2",
+                                            d:
+                                              "M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("path", {
+                                          attrs: {
+                                            "stroke-linecap": "round",
+                                            "stroke-linejoin": "round",
+                                            "stroke-width": "2",
+                                            d:
+                                              "M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                                          }
+                                        })
+                                      ]
+                                    )
+                                  ]
+                                )
+                          ]
+                        )
+                      ])
+                    ]
+                  )
+                ]
+              )
+            })
+          ],
+          2
+        )
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "w-full flex justify-center border-t border-gray-100 pt-4 items-center ",
+          attrs: { id: "pagination" }
+        },
+        [
+          _c(
+            "svg",
+            {
+              staticClass: "h-5 w-5",
+              class:
+                this.currentPage != 1
+                  ? "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
+                  : "",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                fill: "none",
+                viewBox: "0 0 24 24",
+                stroke: "currentColor"
+              },
+              on: { click: _vm.firstPage }
+            },
+            [
+              _c("path", {
+                attrs: {
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  "stroke-width": "2",
+                  d: "M11 19l-7-7 7-7m8 14l-7-7 7-7"
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "svg",
+            {
+              staticClass: "h-5 w-5",
+              class:
+                this.currentPage != 1
+                  ? "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
+                  : "",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                fill: "none",
+                viewBox: "0 0 24 24",
+                stroke: "currentColor"
+              },
+              on: { click: _vm.prevPage }
+            },
+            [
+              _c("path", {
+                attrs: {
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  "stroke-width": "2",
+                  d: "M15 19l-7-7 7-7"
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          this.currentPage - 2 > 0
+            ? _c(
+                "p",
+                {
+                  staticClass:
+                    "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600",
+                  on: {
+                    click: function($event) {
+                      return _vm.OpenPage(_vm.currentPage - 2)
+                    }
+                  }
+                },
+                [_vm._v(" " + _vm._s(this.currentPage - 2))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          this.currentPage - 1 > 0
+            ? _c(
+                "p",
+                {
+                  staticClass:
+                    "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600",
+                  on: {
+                    click: function($event) {
+                      return _vm.OpenPage(_vm.currentPage - 1)
+                    }
+                  }
+                },
+                [_vm._v(" " + _vm._s(this.currentPage - 1))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass:
+                "leading-relaxed cursor-pointer mx-2 text-sm text-blue-600"
+            },
+            [_vm._v(" " + _vm._s(this.currentPage) + " ")]
+          ),
+          _vm._v(" "),
+          this.currentPage + 1 <=
+          Math.ceil(this.sortedLanguages.length / this.pageSize)
+            ? _c(
+                "p",
+                {
+                  staticClass:
+                    "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600",
+                  on: {
+                    click: function($event) {
+                      return _vm.OpenPage(_vm.currentPage + 1)
+                    }
+                  }
+                },
+                [_vm._v(" " + _vm._s(this.currentPage + 1))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          this.currentPage + 2 <=
+          Math.ceil(this.sortedLanguages.length / this.pageSize)
+            ? _c(
+                "p",
+                {
+                  staticClass:
+                    "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600",
+                  on: {
+                    click: function($event) {
+                      return _vm.OpenPage(_vm.currentPage + 2)
+                    }
+                  }
+                },
+                [_vm._v(" " + _vm._s(this.currentPage + 2))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "svg",
+            {
+              staticClass: "h-5 w-5 ",
+              class:
+                this.currentPage <
+                Math.ceil(this.sortedLanguages.length / this.pageSize)
+                  ? "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
+                  : "",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                fill: "none",
+                viewBox: "0 0 24 24",
+                stroke: "currentColor"
+              },
+              on: { click: _vm.nextPage }
+            },
+            [
+              _c("path", {
+                attrs: {
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  "stroke-width": "2",
+                  d: "M9 5l7 7-7 7"
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "svg",
+            {
+              staticClass: "h-5 w-5 ",
+              class:
+                this.currentPage <
+                Math.ceil(this.sortedLanguages.length / this.pageSize)
+                  ? "leading-relaxed cursor-pointer mx-2 text-sm hover:text-blue-600"
+                  : "",
+              attrs: {
+                xmlns: "http://www.w3.org/2000/svg",
+                fill: "none",
+                viewBox: "0 0 24 24",
+                stroke: "currentColor"
+              },
+              on: { click: _vm.lastPage }
+            },
+            [
+              _c("path", {
+                attrs: {
+                  "stroke-linecap": "round",
+                  "stroke-linejoin": "round",
+                  "stroke-width": "2",
+                  d: "M13 5l7 7-7 7M5 5l7 7-7 7"
+                }
+              })
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: {
+            title: "New Language",
+            "wrapper-class": "modal-wrapper",
+            "modal-class": "modal"
+          },
+          model: {
+            value: _vm.newLanguageModal,
+            callback: function($$v) {
+              _vm.newLanguageModal = $$v
+            },
+            expression: "newLanguageModal"
+          }
+        },
+        [
+          _c("div", { staticClass: "flex flex-col" }, [
+            _c(
+              "form",
+              {
+                attrs: { method: "POST", enctype: "multipart/form-data" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.newLanguageForm($event)
+                  },
+                  keydown: function($event) {
+                    return _vm.newLanguageForm.onKeydown($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "mb-3 space-y-2 w-full text-xs" }, [
+                  _c(
+                    "label",
+                    { staticClass: " font-semibold text-gray-600 py-2" },
+                    [_vm._v("Language Name")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex flex-wrap items-stretch w-full mb-4 relative"
+                    },
+                    [
+                      _c("div", { staticClass: "flex" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "flex items-center leading-normal bg-grey-lighter border-1 rounded-r-none border border-r-0 border-blue-300 px-3 whitespace-no-wrap text-grey-dark w-12 h-10 bg-blue-300 justify-center  text-xl rounded-lg text-white"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "h-6 w-6",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  fill: "none",
+                                  viewBox: "0 0 24 24",
+                                  stroke: "currentColor"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d:
+                                      "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("path", {
+                              attrs: {
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round",
+                                "stroke-width": "2",
+                                d: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                              }
+                            })
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.newLanguageForm.name,
+                            expression: "newLanguageForm.name"
+                          }
+                        ],
+                        staticClass:
+                          "flex-shrink flex-grow flex-auto leading-normal w-px  border border-l-0 h-10 border-grey-light rounded-lg rounded-l-none px-3 relative focus:border-blue focus:shadow",
+                        attrs: {
+                          type: "text",
+                          id: "name",
+                          name: "name",
+                          placeholder: "Name"
+                        },
+                        domProps: { value: _vm.newLanguageForm.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.newLanguageForm,
+                              "name",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.newLanguageForm.errors.has("name")
+                        ? _c("div", {
+                            staticClass: "text-xs text-red-500 text-left my-3",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.newLanguageForm.errors.get("name")
+                              )
+                            }
+                          })
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { staticClass: " font-semibold text-gray-600 py-2" },
+                    [_vm._v("Language Directory ( Without special character )")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex flex-wrap items-stretch w-full mb-4 relative"
+                    },
+                    [
+                      _c("div", { staticClass: "flex" }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.newLanguageForm.dir,
+                            expression: "newLanguageForm.dir"
+                          }
+                        ],
+                        staticClass:
+                          "flex-shrink flex-grow flex-auto leading-normal w-px  border h-10 border-grey-light rounded-lg  px-3 relative focus:border-blue focus:shadow",
+                        attrs: {
+                          type: "text",
+                          id: "dir",
+                          name: "dir",
+                          placeholder: "Directory"
+                        },
+                        domProps: { value: _vm.newLanguageForm.dir },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.newLanguageForm,
+                              "dir",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.newLanguageForm.errors.has("dir")
+                        ? _c("div", {
+                            staticClass: "text-xs text-red-500 text-left my-3",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.newLanguageForm.errors.get("dir")
+                              )
+                            }
+                          })
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "md:space-y-2 mb-3" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "text-xs font-semibold text-gray-600 py-2"
+                      },
+                      [
+                        _vm._v("Language Logo"),
+                        _c(
+                          "abbr",
+                          {
+                            staticClass: "hidden",
+                            attrs: { title: "required" }
+                          },
+                          [_vm._v("*")]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex items-center py-6" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "w-12 h-12 mr-4 flex-none rounded-xl border overflow-hidden"
+                        },
+                        [
+                          _vm.newLanguageForm.logo != ""
+                            ? _c("img", {
+                                staticClass: "w-12 h-12 mr-4 object-cover",
+                                attrs: {
+                                  src: _vm.newLanguageForm.logo,
+                                  alt: "Avatar Upload"
+                                }
+                              })
+                            : _vm._e()
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "cursor-pointer " }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
+                          },
+                          [_vm._v("Browse")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "hidden",
+                          attrs: { type: "file", name: "logo", id: "logo" },
+                          on: { change: _vm.newLogo }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.newLanguageForm.errors.has("logo")
+                      ? _c("div", {
+                          staticClass: "text-xs text-red-500 text-left my-3",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.newLanguageForm.errors.get("logo")
+                            )
+                          }
+                        })
+                      : _vm._e()
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex flex-row self-end" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.newLanguageModal = false
+                    }
+                  }
+                },
+                [_vm._v("\n          Close")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                  attrs: { type: "button", disabled: _vm.newLanguageForm.busy },
+                  on: { click: _vm.newLanguage }
+                },
+                [_vm._v("\n          Add")]
+              )
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          attrs: {
+            title: "Edit Language",
+            "wrapper-class": "modal-wrapper",
+            "modal-class": "modal"
+          },
+          model: {
+            value: _vm.editLanguageModal,
+            callback: function($$v) {
+              _vm.editLanguageModal = $$v
+            },
+            expression: "editLanguageModal"
+          }
+        },
+        [
+          _c("div", { staticClass: "flex flex-col" }, [
+            _c(
+              "form",
+              {
+                attrs: { method: "POST", enctype: "multipart/form-data" },
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.editLanguageForm($event)
+                  },
+                  keydown: function($event) {
+                    return _vm.editLanguageForm.onKeydown($event)
+                  }
+                }
+              },
+              [
+                _c("div", { staticClass: "mb-3 space-y-2 w-full text-xs" }, [
+                  _c(
+                    "label",
+                    { staticClass: " font-semibold text-gray-600 py-2" },
+                    [_vm._v("Language Name")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex flex-wrap items-stretch w-full mb-4 relative"
+                    },
+                    [
+                      _c("div", { staticClass: "flex" }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "flex items-center leading-normal bg-grey-lighter border-1 rounded-r-none border border-r-0 border-blue-300 px-3 whitespace-no-wrap text-grey-dark w-12 h-10 bg-blue-300 justify-center  text-xl rounded-lg text-white"
+                          },
+                          [
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "h-6 w-6",
+                                attrs: {
+                                  xmlns: "http://www.w3.org/2000/svg",
+                                  fill: "none",
+                                  viewBox: "0 0 24 24",
+                                  stroke: "currentColor"
+                                }
+                              },
+                              [
+                                _c("path", {
+                                  attrs: {
+                                    "stroke-linecap": "round",
+                                    "stroke-linejoin": "round",
+                                    "stroke-width": "2",
+                                    d:
+                                      "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("path", {
+                              attrs: {
+                                "stroke-linecap": "round",
+                                "stroke-linejoin": "round",
+                                "stroke-width": "2",
+                                d: "M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                              }
+                            })
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editLanguageForm.name,
+                            expression: "editLanguageForm.name"
+                          }
+                        ],
+                        staticClass:
+                          "flex-shrink flex-grow flex-auto leading-normal w-px  border border-l-0 h-10 border-grey-light rounded-lg rounded-l-none px-3 relative focus:border-blue focus:shadow",
+                        attrs: {
+                          type: "text",
+                          id: "name",
+                          name: "name",
+                          placeholder: "Name"
+                        },
+                        domProps: { value: _vm.editLanguageForm.name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.editLanguageForm,
+                              "name",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.editLanguageForm.errors.has("name")
+                        ? _c("div", {
+                            staticClass: "text-xs text-red-500 text-left my-3",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.editLanguageForm.errors.get("name")
+                              )
+                            }
+                          })
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    { staticClass: " font-semibold text-gray-600 py-2" },
+                    [_vm._v("Language Directory ( Without special character )")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "flex flex-wrap items-stretch w-full mb-4 relative"
+                    },
+                    [
+                      _c("div", { staticClass: "flex" }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.editLanguageForm.dir,
+                            expression: "editLanguageForm.dir"
+                          }
+                        ],
+                        staticClass:
+                          "flex-shrink flex-grow flex-auto leading-normal w-px  border h-10 border-grey-light rounded-lg  px-3 relative focus:border-blue focus:shadow",
+                        attrs: {
+                          type: "text",
+                          id: "dir",
+                          name: "dir",
+                          placeholder: "Directory"
+                        },
+                        domProps: { value: _vm.editLanguageForm.dir },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.editLanguageForm,
+                              "dir",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _vm.editLanguageForm.errors.has("dir")
+                        ? _c("div", {
+                            staticClass: "text-xs text-red-500 text-left my-3",
+                            domProps: {
+                              innerHTML: _vm._s(
+                                _vm.editLanguageForm.errors.get("dir")
+                              )
+                            }
+                          })
+                        : _vm._e()
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "md:space-y-2 mb-3" }, [
+                    _c(
+                      "label",
+                      {
+                        staticClass: "text-xs font-semibold text-gray-600 py-2"
+                      },
+                      [
+                        _vm._v("Language Logo"),
+                        _c(
+                          "abbr",
+                          {
+                            staticClass: "hidden",
+                            attrs: { title: "required" }
+                          },
+                          [_vm._v("*")]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "flex items-center py-6" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "w-12 h-12 mr-4 flex-none rounded-xl border overflow-hidden"
+                        },
+                        [
+                          _vm.editLanguageForm.logo.length < "50"
+                            ? _c("img", {
+                                staticClass: "w-12 h-12 mr-4 object-cover",
+                                attrs: {
+                                  src:
+                                    "/Programminglanguages/" +
+                                    _vm.editLanguageForm.dir +
+                                    "/" +
+                                    _vm.editLanguageForm.logo,
+                                  alt: "Avatar Upload"
+                                }
+                              })
+                            : _c("img", {
+                                staticClass: "w-12 h-12 mr-4 object-cover",
+                                attrs: {
+                                  src: _vm.editLanguageForm.logo,
+                                  alt: "Avatar Upload"
+                                }
+                              })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "cursor-pointer " }, [
+                        _c(
+                          "span",
+                          {
+                            staticClass:
+                              "w-40 block mx-auto focus:outline-none py-2 px-5 rounded-lg shadow-sm text-center text-gray-600 bg-white hover:bg-gray-100 font-medium border"
+                          },
+                          [_vm._v("Browse")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "hidden",
+                          attrs: { type: "file", name: "logo", id: "logo" },
+                          on: { change: _vm.updateLogo }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _vm.editLanguageForm.errors.has("logo")
+                      ? _c("div", {
+                          staticClass: "text-xs text-red-500 text-left my-3",
+                          domProps: {
+                            innerHTML: _vm._s(
+                              _vm.editLanguageForm.errors.get("logo")
+                            )
+                          }
+                        })
+                      : _vm._e()
+                  ])
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "flex flex-row self-end" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-2 py-1 mr-4 text-gray-800 bg-gray-200 rounded-lg ring-opacity-50 ring-gray-400 ring-2 focus:outline-none hover:bg-gray-300",
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.editLanguageModal = false
+                    }
+                  }
+                },
+                [_vm._v("\n          Close")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                  attrs: {
+                    type: "button",
+                    disabled: _vm.editLanguageForm.busy
+                  },
+                  on: { click: _vm.editLanguage }
+                },
+                [_vm._v("\n          Edit")]
+              )
+            ])
+          ])
+        ]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPanel/problems/ManegTestCases.vue?vue&type=template&id=1363fb13&":
 /*!************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/ControlPanel/problems/ManegTestCases.vue?vue&type=template&id=1363fb13& ***!
@@ -60823,6 +63179,346 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [_vm._v("\n   \n  I'm an example component.\n\n")])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageAdd.vue?vue&type=template&id=5b774c8e&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageAdd.vue?vue&type=template&id=5b774c8e& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "button",
+      {
+        staticClass:
+          "md:flex hidden items-center text-gray-500 space-x-2 border border-gray-400 px-4 py-1.5 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-400",
+        on: { click: _vm.showmodal }
+      },
+      [
+        _c(
+          "svg",
+          {
+            staticClass: "fill-current w-4 h-4",
+            attrs: { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 24 24" }
+          },
+          [
+            _c("path", {
+              attrs: {
+                d:
+                  "M6.188 8.719c.439-.439.926-.801 1.444-1.087 2.887-1.591 6.589-.745 8.445 2.069l-2.246 2.245c-.644-1.469-2.243-2.305-3.834-1.949-.599.134-1.168.433-1.633.898l-4.304 4.306c-1.307 1.307-1.307 3.433 0 4.74 1.307 1.307 3.433 1.307 4.74 0l1.327-1.327c1.207.479 2.501.67 3.779.575l-2.929 2.929c-2.511 2.511-6.582 2.511-9.093 0s-2.511-6.582 0-9.093l4.304-4.306zm6.836-6.836l-2.929 2.929c1.277-.096 2.572.096 3.779.574l1.326-1.326c1.307-1.307 3.433-1.307 4.74 0 1.307 1.307 1.307 3.433 0 4.74l-4.305 4.305c-1.311 1.311-3.44 1.3-4.74 0-.303-.303-.564-.68-.727-1.051l-2.246 2.245c.236.358.481.667.796.982.812.812 1.846 1.417 3.036 1.704 1.542.371 3.194.166 4.613-.617.518-.286 1.005-.648 1.444-1.087l4.304-4.305c2.512-2.511 2.512-6.582.001-9.093-2.511-2.51-6.581-2.51-9.092 0z"
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c("span", { staticClass: "uppercase text-sm font-semibold" }, [
+          _vm._v("Add Language")
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _vm.toggleModal
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "fixed overflow-xhidden overflow-y-auto inset-0 flex justify-center items-center z-50"
+          },
+          [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "flex flex-col w-11/12 sm:w-5/6 lg:w-1/2 max-w-2xl mx-auto rounded-lg border border-gray-300 shadow-xl"
+              },
+              [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "flex flex-col px-6 py-5 bg-gray-50" },
+                  [
+                    _c(
+                      "form",
+                      {
+                        attrs: { method: "POST" },
+                        on: {
+                          submit: function($event) {
+                            $event.preventDefault()
+                            return _vm.judge($event)
+                          },
+                          keydown: function($event) {
+                            return _vm.form.onKeydown($event)
+                          }
+                        }
+                      },
+                      [
+                        _c("div", [
+                          _c("h3", { staticClass: "text-1xl text-gray-500 " }, [
+                            _vm._v("Select Language:")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "relative inline-block w-full text-gray-700"
+                            },
+                            [
+                              _c(
+                                "select",
+                                {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.form.language,
+                                      expression: "form.language"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-lg appearance-none focus:shadow-outline",
+                                  attrs: {
+                                    placeholder: "Select Language",
+                                    name: "language"
+                                  },
+                                  on: {
+                                    change: [
+                                      function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.form,
+                                          "language",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      },
+                                      function($event) {
+                                        return _vm.onChange(_vm.form.language)
+                                      }
+                                    ]
+                                  }
+                                },
+                                _vm._l(_vm.syslanguages, function(language) {
+                                  return _c(
+                                    "option",
+                                    {
+                                      key: language.id,
+                                      domProps: { value: language.id }
+                                    },
+                                    [_vm._v(_vm._s(language.name))]
+                                  )
+                                }),
+                                0
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+                                },
+                                [
+                                  _c(
+                                    "svg",
+                                    {
+                                      staticClass: "w-4 h-4 fill-current",
+                                      attrs: { viewBox: "0 0 20 20" }
+                                    },
+                                    [
+                                      _c("path", {
+                                        attrs: {
+                                          d:
+                                            "M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z",
+                                          "clip-rule": "evenodd",
+                                          "fill-rule": "evenodd"
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _vm.form.errors.has("language")
+                                ? _c("div", {
+                                    staticClass: "text-red-500",
+                                    domProps: {
+                                      innerHTML: _vm._s(
+                                        _vm.form.errors.get("language")
+                                      )
+                                    }
+                                  })
+                                : _vm._e(),
+                              _vm._v(" "),
+                              _c("div", {
+                                staticClass: "text-red-500",
+                                attrs: { id: "existing" }
+                              })
+                            ]
+                          )
+                        ])
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "flex flex-row items-center justify-between p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg"
+                  },
+                  [
+                    _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            _vm.toggleModal = false
+                          }
+                        }
+                      },
+                      [
+                        _c(
+                          "p",
+                          { staticClass: "font-semibold text-gray-600" },
+                          [_vm._v("Cancel")]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "px-4 py-2 text-white font-semibold bg-green-500 rounded",
+                        attrs: { disabled: _vm.form.busy },
+                        on: { click: _vm.addlanguage }
+                      },
+                      [_vm._v("\n            Save\n          ")]
+                    )
+                  ]
+                )
+              ]
+            )
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.toggleModal
+      ? _c("div", {
+          staticClass:
+            "pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center opacity-25 bg-black"
+        })
+      : _vm._e()
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "flex flex-row justify-between p-6 bg-white border-b border-gray-200 rounded-tl-lg rounded-tr-lg"
+      },
+      [
+        _c(
+          "p",
+          {
+            staticClass: "text-2xl justify-center font-semibold text-gray-800"
+          },
+          [_vm._v("\n            Sysutem Language\n          ")]
+        )
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageDelate.vue?vue&type=template&id=359b57ca&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LanguageDelate.vue?vue&type=template&id=359b57ca& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "w-4 mr-2 transform hover:text-red-500 hover:scale-110" },
+    [
+      _c(
+        "svg",
+        {
+          attrs: {
+            xmlns: "http://www.w3.org/2000/svg",
+            fill: "none",
+            viewBox: "0 0 24 24",
+            stroke: "currentColor"
+          },
+          on: {
+            click: function($event) {
+              return _vm.deletelang()
+            }
+          }
+        },
+        [
+          _c("path", {
+            attrs: {
+              "stroke-linecap": "round",
+              "stroke-linejoin": "round",
+              "stroke-width": "2",
+              d:
+                "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+            }
+          })
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
