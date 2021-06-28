@@ -7,7 +7,10 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Contest;
 use App\Models\Team;
+use App\Models\Score;
+use App\Models\TeamUser;
 use App\Models\ContestUser;
+use App\Models\Problem;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 
 class ContestsPolicy
@@ -84,5 +87,46 @@ class ContestsPolicy
         } else {
             return FALSE;
         }
+    }
+
+    public function QuestionIsSolved($request, $contest, $problemid)
+    {
+
+        if($contest->participation == 'solo')
+        {
+            $Score = Score::where('contest_id' , $contest->id )->where('problem_id' , $problemid)->where('user_id', Auth::user()->id)->first();
+            if(!is_null($Score))
+            {return TRUE;}
+            else
+            {
+             return FALSE;
+            }
+
+        }
+        else
+        {
+            
+            $comteam = [];
+            foreach ($contest->teams as $team) {
+              $comteam[] = $team->id;
+            }
+
+$myteam = TeamUser::where('user_id' ,Auth::user()->id)->whereIn('team_id' , $comteam )->first();
+
+$teamuser = TeamUser::where('team_id' ,$myteam->team_id)->get();
+
+foreach ($teamuser  as $user) {
+    $Score = Score::where('contest_id' , $contest->id )->where('problem_id' , $problemid)->where('user_id', $user->user_id)->first();
+            if(!is_null($Score))
+            {return TRUE;}
+  }
+  return FALSE;
+
+
+        }
+                                                                                                                                                       
+
+
+
     }
 }

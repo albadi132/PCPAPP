@@ -96,14 +96,21 @@
                   <h3 class="text-1xl text-gray-500 mb-5">You can download the question from here: </h3>
                   
                   <a class="text-blue-600 hover:underline" href="{{url('contests/library/'.$problem->file)}}">Question File</a>
-                  
       </div>
  
-<div class="bg-white py-4 px-4 shadow-sm rounded-lg my-4 mx-4">      
+<div class="bg-white py-4 px-4 shadow-sm rounded-lg my-4 mx-4"> 
+  <div class="bg-white">
+  @can('QuestionIsSolved', [$contest, $problem->id])
+  <div class="py-3 px-5 mb-4 bg-green-100 text-green-900 text-sm rounded-md border border-green-200" role="alert">
+    This question has been solved
+</div>
+    @else     
   <h1 class="text-2xl text-gray-700 mb-5">Submission</h1>
   <h3 class="text-1xl text-gray-500 mb-5">Upload your program with input file and specifying the programming language.</h3>
   <br>
-  <div class="bg-white">
+  
+
+    
   <form action="{{route('JudgeSystem', ['name' => NameToUrl($contest->name) , 'problem' => NameToUrl($problem->name) ] )}}" method="post" enctype="multipart/form-data">
     
     @csrf
@@ -156,6 +163,7 @@
 
 
   </form>
+  @endcan
 </div>
 
   

@@ -33,9 +33,12 @@
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                                       <a :href="problem.route">
                                         <div class="flex items-center">
-                                            <div>
-                                                <div class="text-sm leading-5 text-gray-800">{{(1+i) + (pageSize*(currentPage-1))}} </div>
-                                            </div>
+                                            <div class="space-x-4">
+                                                <div class="text-sm leading-5 text-gray-800 inline-block" >{{(1+i) + (pageSize*(currentPage-1))}} </div>
+                                                <div class="text-green-500 inline-block" v-if="problem.solve == '1' "> <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+</svg> Solved </div></div>
+                                      
                                         </div>
                                       </a>
                                     </td>
@@ -194,7 +197,6 @@ export default {
 }
   },
   mounted() {
-    console.log(this.problems);
   },
 };
 </script>

@@ -37,6 +37,8 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('OrganizerOrAdmin', [ContestsPolicy::class, 'OrganizerOrAdmin']);
         Gate::define('IAmCompetitor', [ContestsPolicy::class, 'IAmCompetitor']);
         Gate::define('IAmCompetitorOnTeam', [ContestsPolicy::class, 'IAmCompetitorOnTeam']);
+        Gate::define('QuestionIsSolved', [ContestsPolicy::class, 'QuestionIsSolved']);
+        
 
     }
 }
