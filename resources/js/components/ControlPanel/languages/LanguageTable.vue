@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-row w-full mt-8">
+    <div class="flex flex-row w-full">
       <div class="flex flex-col w-full bg-white border-2 rounded-lg shadow-lg border-bluegray-200">
         <div class="flex flex-col w-full p-4 space-y-4 lg:space-y-0 lg:p-6">
           <!-- new laqnguage -->

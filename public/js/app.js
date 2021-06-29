@@ -60151,7 +60151,7 @@ var render = function() {
   return _c("div", [
     _c(
       "div",
-      { staticClass: "flex flex-row w-full mt-8" },
+      { staticClass: "flex flex-row w-full" },
       [
         _c(
           "div",

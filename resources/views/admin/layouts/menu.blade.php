@@ -44,7 +44,7 @@
               </svg>
             </div>
             <div class="flex-auto my-1">
-              <span><a href="{{ route('language-view') }}">Supported languages</a></span>
+              <span><a href="{{ route('language-view') }}">Supported Languages</a></span>
             </div>
           </li>
           @endcan
@@ -53,7 +53,7 @@
               <svg class="w-5 h-5 fill-current" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10H2V4.003C2 3.449 2.455 3 2.992 3h18.016A.99.99 0 0 1 22 4.003V10h-1v10.001a.996.996 0 0 1-.993.999H3.993A.996.996 0 0 1 3 20.001V10zm16 0H5v9h14v-9zM4 5v3h16V5H4zm5 7h6v2H9v-2z"></path></svg>
             </div>
             <div class="flex-auto my-1">
-              <span><a href="{{ route('contests-view') }}">contests</a></span>
+              <span><a href="{{ route('contests-view') }}">Contests</a></span>
             </div>
           </li>
 
@@ -62,7 +62,7 @@
               <svg class="w-5 h-5 fill-current" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7.77 6.76L6.23 5.48.82 12l5.41 6.52 1.54-1.28L3.42 12l4.35-5.24zM7 13h2v-2H7v2zm10-2h-2v2h2v-2zm-6 2h2v-2h-2v2zm6.77-7.52l-1.54 1.28L20.58 12l-4.35 5.24 1.54 1.28L23.18 12l-5.41-6.52z"></path></svg>
             </div>
             <div class="flex-auto my-1">
-              <span><a href="{{ route('problems-view') }}">programming problems</a></span>
+              <span><a href="{{ route('problems-view') }}">Programming Problems</a></span>
             </div>
           </li>
           <li class="relative inline-flex items-center w-full px-2 py-1 text-sm font-semibold text-white transition-colors duration-150 cursor-pointer hover:text-red-500">
