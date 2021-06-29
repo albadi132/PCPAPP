@@ -40,7 +40,17 @@ class ClearNonVerified extends Command
      */
     public function handle()
     {
-        $targets = USER::where('is_verified', '==', 0)->get();
+        /*$targets = USER::where('is_verified', '==', 0)->get();
+        if ($targets != null) {
+            foreach ($targets as $key => $target) {
+                if ($target->created_at->addDays(2) <= now()) {
+                    User::where(['email' => $target->email])->delete();
+                    Verification::where(['email' => $target->email])->delete();
+                }
+            }
+        }*/
+
+        $targets = Verification::all();
         if ($targets != null) {
             foreach ($targets as $key => $target) {
                 if ($target->created_at->addDays(2) <= now()) {

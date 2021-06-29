@@ -59,13 +59,10 @@
  Vue.component('pcp-languageadd', require('./components/LanguageAdd.vue').default);
  Vue.component('pcp-languagedelate', require('./components/LanguageDelate.vue').default);
 
- 
+
 
  //control panel vue components
  Vue.component('pcp-cp-users', require('./components/ControlPanel/authentications/usersTable.vue').default);
- Vue.component('pcp-cp-user-role', require('./components/ControlPanel/authentications/role.vue').default);
- Vue.component('pcp-cp-user-restpass', require('./components/ControlPanel/authentications/restpass.vue').default);
- Vue.component('pcp-cp-user-status', require('./components/ControlPanel/authentications/status.vue').default);
  Vue.component('pcp-cp-contests', require('./components/ControlPanel/contests/ContestTable.vue').default);
  Vue.component('pcp-cp-new-contest', require('./components/ControlPanel/contests/NewContest.vue').default);
  Vue.component('pcp-cp-problem', require('./components/ControlPanel/problems/ProblemTable.vue').default);
@@ -73,7 +70,7 @@
  Vue.component('pcp-cp-new-testcase', require('./components/ControlPanel/problems/NewTestCases.vue').default);
  Vue.component('pcp-cp-testcase', require('./components/ControlPanel/problems/ManegTestCases.vue').default);
  Vue.component('pcp-cp-language', require('./components/ControlPanel/languages/LanguageTable.vue').default);
- 
+
 
  /**
   * Next, we will create a fresh Vue application instance and attach it to

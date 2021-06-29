@@ -2,9 +2,7 @@
 @section('content')
 <div class="flex flex-row self-center w-full px-6 py-4 bg-white rounded-lg shadow-lg">
     <div id="app" class="flex flex-col flex-wrap items-center w-full md:justify-evenly md:flex-row">
-        <pcp-cp-user-role class="m-2"></pcp-cp-user-role>
-        <pcp-cp-user-restpass class="m-2"></pcp-cp-user-restpass>
-        <pcp-cp-user-status class="m-2"></pcp-cp-user-status>
+        <span class="text-xl font-semibold text-truegray-700">PCP Control Panel</span>
     </div>
 </div>
 @endsection

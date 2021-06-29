@@ -30,6 +30,7 @@ class VerifyController extends Controller
                     $user->status = 1;
                     $user->email_verified_at = now();
                     $user->save();
+                    Verification::where(['token' => $token])->delete();
 
                     return redirect()->route('verify')->with('alert-success', 'Your account is verified. Please login!');
                 }

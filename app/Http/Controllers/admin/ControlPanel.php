@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Contest;
 use App\Models\Problem;
 use App\Models\Language;
+use Illuminate\Support\Carbon;
 
 class ControlPanel extends Controller
 {
@@ -66,26 +67,38 @@ class ControlPanel extends Controller
 
     public function ProblemsView()
     {
-        if(Gate::allows('AdminOrManager')){
+        if (Gate::allows('AdminOrManager')) {
 
-        $problems = Problem::with('Testcases')->get();
-        //dd(json_encode($problems));
-        $last = Problem::latest()->first();
-        //dd($last->name);
-        $mostauthor = Problem::select('author_id')
-    ->selectRaw('COUNT(*) AS count')
-    ->groupBy('author_id')
-    ->orderByDesc('count')
-    ->limit(1)
-    ->first();
+            $problems = Problem::with('Testcases')->get();
+            //dd(json_encode($problems));
+            $last = Problem::latest()->first();
+            //dd($last->name);
+            $mostauthor = Problem::select('author_id')
+                ->selectRaw('COUNT(*) AS count')
+                ->groupBy('author_id')
+                ->orderByDesc('count')
+                ->limit(1)
+                ->first();
 
-        return view('admin.problems.view')
-        ->with('problems', $problems)
-            ->with('last', $last)
-            ->with('mostauthor', $mostauthor);
+            $hot = Problem::where('points', '>=', 200)->count();
+
+            $fresh = 0;
+            $target = Problem::all();
+            foreach ($target as $key => $problem) {
+                $pdate = Carbon::parse($problem->created_at)->day;
+                $cdate = Carbon::parse(now())->day;
+                if ($pdate == $cdate) {
+                    $fresh++;
+                }
+            }
+
+            return view('admin.problems.view')
+                ->with('problems', $problems)
+                ->with('last', $last)
+                ->with('mostauthor', $mostauthor);
+         } else {
+            abort(401);
         }
-        else
-        {abort(401);}
     }
 
 
