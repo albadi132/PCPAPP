@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-
 class ProblemResource extends JsonResource
 {
     /**
@@ -15,14 +14,15 @@ class ProblemResource extends JsonResource
      */
     public function toArray($request)
     {
+
         
         return [
 
             'id' => $this->id,
             'name' => $this->name,
             'points'=> $this->points,
-            'route'=> $request->getRequestUri().'/'.preg_replace("/[\s_]/", "_", $this->name)
-            
+            'route'=> $request->getRequestUri().'/'.preg_replace("/[\s_]/", "_", $this->name),
+            'solve' => 0
         ];
     }
 }

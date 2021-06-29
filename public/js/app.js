@@ -9881,6 +9881,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["problems"],
   data: function data() {
@@ -9951,9 +9954,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  mounted: function mounted() {
-    console.log(this.problems);
-  }
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -65557,12 +65558,12 @@ var render = function() {
                         [
                           _c("a", { attrs: { href: problem.route } }, [
                             _c("div", { staticClass: "flex items-center" }, [
-                              _c("div", [
+                              _c("div", { staticClass: "space-x-4" }, [
                                 _c(
                                   "div",
                                   {
                                     staticClass:
-                                      "text-sm leading-5 text-gray-800"
+                                      "text-sm leading-5 text-gray-800 inline-block"
                                   },
                                   [
                                     _vm._v(
@@ -65573,7 +65574,43 @@ var render = function() {
                                       ) + " "
                                     )
                                   ]
-                                )
+                                ),
+                                _vm._v(" "),
+                                problem.solve == "1"
+                                  ? _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "text-green-500 inline-block"
+                                      },
+                                      [
+                                        _c(
+                                          "svg",
+                                          {
+                                            staticClass: "h-6 w-6 inline-block",
+                                            attrs: {
+                                              xmlns:
+                                                "http://www.w3.org/2000/svg",
+                                              fill: "none",
+                                              viewBox: "0 0 24 24",
+                                              stroke: "currentColor"
+                                            }
+                                          },
+                                          [
+                                            _c("path", {
+                                              attrs: {
+                                                "stroke-linecap": "round",
+                                                "stroke-linejoin": "round",
+                                                "stroke-width": "2",
+                                                d: "M5 13l4 4L19 7"
+                                              }
+                                            })
+                                          ]
+                                        ),
+                                        _vm._v(" Solved ")
+                                      ]
+                                    )
+                                  : _vm._e()
                               ])
                             ])
                           ])
