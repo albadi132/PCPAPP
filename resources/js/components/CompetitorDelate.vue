@@ -23,7 +23,6 @@ export default {
   props: ["contest", "urlname", "competitor"],
   data() {
     return {
-      
         contestid : this.contest,
         competitorid : this.competitor,
         url : this.urlname,
