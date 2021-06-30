@@ -58,6 +58,9 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                             </svg>
                         </button>
+                        <div class="flex-shrink-0 lg:hidden">
+                            <x-pcp-logo/>
+                        </div
                     </div>
                 </header>
                 <main class="flex flex-col m-1 border-4 border-green-400 bg-blue-50 rounded-3xl md:m-3 ">
