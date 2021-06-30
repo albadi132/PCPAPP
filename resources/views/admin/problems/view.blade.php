@@ -14,8 +14,12 @@
                 </div>
                 <div class="mx-3 md:mx-5">
                     <div class="flex flex-row flex-wrap">
-                        <h4 class="text-sm font-semibold text-gray-900 whitespace-nowrap md:text-lg">{{ getUsername($mostauthor->author_id) }}</h4>
-                        <h4 class="self-center ml-4 text-xs font-semibold text-gray-800 whitespace-nowrap md:text-sm">{{$mostauthor->count()}}/problem</h4>
+                        @if (!is_null($mostauthor))
+                            <h4 class="text-sm font-semibold text-gray-900 whitespace-nowrap md:text-lg">{{ getUsername($mostauthor->author_id) }}</h4>
+                            <h4 class="self-center ml-4 text-xs font-semibold text-gray-800 whitespace-nowrap md:text-sm">{{$mostauthor->count()}}/problem</h4>
+                        @else
+                            <h4 class="text-sm font-semibold text-red-700 whitespace-nowrap md:text-lg">No Authors Yet</h4>
+                        @endif
                     </div>
                     <h3 class="text-gray-800 capitalize whitespace-nowrap">Top Author</h3>
                 </div>
