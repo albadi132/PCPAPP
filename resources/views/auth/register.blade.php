@@ -36,7 +36,7 @@
                                 @csrf
                                 <div class="flex flex-wrap">
                                     <label for="first_name" class="block mb-2 text-sm font-bold text-gray-700 sm:mb-4">
-                                        Lirst Name
+                                        First Name
                                     </label>
                                     <input id="first_name" type="text" class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('first_name') border-red-500 @enderror"
                                         name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus>
