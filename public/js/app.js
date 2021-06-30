@@ -8382,6 +8382,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.HasError.name, vform__WEBPACK_IMPORTED_MODULE_1__.HasError);
 Vue.component(vform__WEBPACK_IMPORTED_MODULE_1__.AlertError.name, vform__WEBPACK_IMPORTED_MODULE_1__.AlertError);
@@ -58270,7 +58284,7 @@ var render = function() {
                                             _c(
                                               "span",
                                               { staticClass: "mr-5 tooltip" },
-                                              [_vm._v("Show Contest")]
+                                              [_vm._v("Activate Contest")]
                                             )
                                           ])
                                         : _c("div", [
@@ -58321,7 +58335,7 @@ var render = function() {
                                             _c(
                                               "span",
                                               { staticClass: "mr-5 tooltip" },
-                                              [_vm._v("Hide Contest")]
+                                              [_vm._v("Deactivate Contest")]
                                             )
                                           ])
                                     ])
@@ -62883,6 +62897,20 @@ var render = function() {
                           "th",
                           {
                             staticClass:
+                              "px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200 cursor-pointer hover:text-indigo-400 hover:bg-gray-200 md:text-sm lg:text-base",
+                            on: {
+                              click: function($event) {
+                                return _vm.sort("status")
+                              }
+                            }
+                          },
+                          [_vm._v("\n                Status\n              ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "th",
+                          {
+                            staticClass:
                               "px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200 lg:text-base"
                           },
                           [_vm._v("\n                Actions\n              ")]
@@ -63062,6 +63090,41 @@ var render = function() {
                                       [
                                         _vm._v(
                                           "\n                  There is no test cases\n                "
+                                        )
+                                      ]
+                                    )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              {
+                                staticClass:
+                                  "px-6 py-4 border-b border-gray-200 whitespace-nowrap"
+                              },
+                              [
+                                problem.status == 1
+                                  ? _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 border border-green-300 rounded-full shadow-md"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                  Active\n                "
+                                        )
+                                      ]
+                                    )
+                                  : _c(
+                                      "span",
+                                      {
+                                        staticClass:
+                                          "inline-flex px-2 text-xs font-semibold leading-5 text-orange-800 bg-orange-100 border border-orange-300 rounded-full shadow-md"
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                  Inactive\n                "
                                         )
                                       ]
                                     )

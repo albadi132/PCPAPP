@@ -137,6 +137,10 @@
                   @click="sort('testcases.length')">
                   Test Cases
                 </th>
+                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200 cursor-pointer hover:text-indigo-400 hover:bg-gray-200 md:text-sm lg:text-base"
+                  @click="sort('status')">
+                  Status
+                </th>
                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-100 border-b border-gray-200 lg:text-base">
                   Actions
                 </th>
@@ -191,6 +195,16 @@
                   </span>
                 </td>
                 <!-- /problem testcases -->
+                <!-- problem status -->
+                <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
+                  <span v-if="problem.status == 1" class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 border border-green-300 rounded-full shadow-md">
+                    Active
+                  </span>
+                  <span v-else class="inline-flex px-2 text-xs font-semibold leading-5 text-orange-800 bg-orange-100 border border-orange-300 rounded-full shadow-md">
+                    Inactive
+                  </span>
+                </td>
+                <!-- /problem status -->
                 <!-- problem actions -->
                 <td class="px-6 py-4 text-sm font-medium leading-5 text-left border-b border-gray-200">
                   <div class="flex flex-row space-x-2">

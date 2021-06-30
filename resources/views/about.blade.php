@@ -1,18 +1,19 @@
 @extends('layouts.app')
 @section('content')
-<header class="bg-white shadow">
-    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold text-gray-900">
+<div class="w-full">
+    <header class="bg-white shadow">
+        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <h1 class="text-3xl font-bold text-gray-900">
+            About
+        </h1>
+        </div>
+    </header>
+    <br>
+    <div class="flex justify-center">
+        <div class="w-full bg-white rounded-lg md:p-6 2xl:w-10/12">
         About
-      </h1>
-    </div>
-</header>
-<br>
-<div class="flex justify-center">
-    <div class="w-8/12 bg-white p-6 rounded-lg">
-      About
 
+        </div>
     </div>
 </div>
-    
 @endsection
