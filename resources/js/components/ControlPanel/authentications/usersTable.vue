@@ -294,7 +294,7 @@
               Close
             </button>
             <button type="button" @click="changeRole" :disabled="roleForm.busy"
-              class="px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
+              class="disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
               Apply
             </button>
           </div>
@@ -346,7 +346,7 @@
               Close
             </button>
             <button type="button" @click="changeStatus" :disabled="statusForm.busy"
-              class="px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
+              class="disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
               Apply
             </button>
           </div>
@@ -402,7 +402,7 @@
               Close
             </button>
             <button type="button" @click="restPass" :disabled="restpassForm.busy"
-              class="px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
+              class="disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
               Apply
             </button>
           </div>

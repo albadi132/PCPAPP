@@ -367,7 +367,7 @@
               Close
             </button>
             <button type="button" @click="editcontest" :disabled="editContest.busy"
-              class="px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
+              class="disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300">
               Edit
             </button>
           </div>

@@ -71,7 +71,7 @@ Add more
           class="flex flex-row items-center justify-between p-5 bg-white border-t border-gray-200 rounded-bl-lg rounded-br-lg"
         >
           <button @click="toggleModal = false"><p class="font-semibold text-gray-600">Cancel</p></button>
-          <button @click="participants" :disabled="form.busy" class="px-4 py-2 text-white font-semibold bg-green-500 rounded">
+          <button @click="participants" :disabled="form.busy" class="disabled:opacity-50 px-4 py-2 text-white font-semibold bg-green-500 rounded">
             Save
           </button>
         </div>

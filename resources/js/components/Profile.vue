@@ -147,7 +147,7 @@
           <button
             @click="profile"
             :disabled="form.busy"
-            class="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
+            class="disabled:opacity-50 px-4 py-2 text-white font-semibold bg-blue-500 rounded"
           >
             Save
           </button>
@@ -225,7 +225,7 @@
           <button
             @click="resetpass"
             :disabled="reset.busy"
-            class="px-4 py-2 text-white font-semibold bg-blue-500 rounded"
+            class="disabled:opacity-50 px-4 py-2 text-white font-semibold bg-blue-500 rounded"
           >
             Save
           </button>

@@ -87,7 +87,7 @@
           <button
             @click="addProblem"
             :disabled="form.busy"
-            class="px-4 py-2 text-white font-semibold bg-green-500 rounded"
+            class="disabled:opacity-50 px-4 py-2 text-white font-semibold bg-green-500 rounded"
           >
             Save
           </button>

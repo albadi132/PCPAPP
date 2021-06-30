@@ -20,9 +20,9 @@ function getUsername($id)
 
 function getMyTeamName($comid, $userid)
 {
-  $contest = Contest::with('teams')->find($comid);
+  $contest = Contest::with('teams')->where('id' ,$comid)->first();
 
-  $usercheck = User::find($userid);
+  $usercheck = User::where('id' , $userid)->first();
 
 
 
@@ -72,14 +72,14 @@ function teamscore($users, $score)
 
 function ExecutionsLog($id)
 {
-  $SubmissionsLog = SubmissionsLog::with('ExecutionsLog')->find($id);
+  $SubmissionsLog = SubmissionsLog::with('ExecutionsLog')->where('id' ,$id)->first();
   return $SubmissionsLog->ExecutionsLog;
 }
 
 
 function TestCase($id)
 {
-  $TestCase = TestCase::find($id);
+  $TestCase = TestCase::where('id' ,$id)->first();
   return $TestCase;
 }
 
@@ -96,7 +96,7 @@ function loginfo($id)
 
 function filepath($id)
 {
-  $SubmissionsLog = SubmissionsLog::with('Language')->find($id);
+  $SubmissionsLog = SubmissionsLog::with('Language')->where('id' ,$id)->first();
 
   if ($SubmissionsLog->file != "MANUAL JUDGE") {
     if ($SubmissionsLog->Language->first()->name == 'Python') {

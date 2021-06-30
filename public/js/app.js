@@ -56701,7 +56701,7 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                        "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                       attrs: { type: "button", disabled: _vm.roleForm.busy },
                       on: { click: _vm.changeRole }
                     },
@@ -56895,7 +56895,7 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                        "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                       attrs: { type: "button", disabled: _vm.statusForm.busy },
                       on: { click: _vm.changeStatus }
                     },
@@ -57413,7 +57413,7 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                        "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                       attrs: {
                         type: "button",
                         disabled: _vm.restpassForm.busy
@@ -59168,7 +59168,7 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                      "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                     attrs: { type: "button", disabled: _vm.editContest.busy },
                     on: { click: _vm.editcontest }
                   },
@@ -59960,7 +59960,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                    "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                   attrs: { type: "button", disabled: _vm.form.busy },
                   on: { click: _vm.creatcontest }
                 },
@@ -61079,7 +61079,7 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                      "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                     attrs: {
                       type: "button",
                       disabled: _vm.newLanguageForm.busy
@@ -61400,7 +61400,7 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                      "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                     attrs: {
                       type: "button",
                       disabled: _vm.editLanguageForm.busy
@@ -61734,7 +61734,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                    "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                   attrs: { type: "button", disabled: _vm.testcaseform.busy },
                   on: { click: _vm.saveedit }
                 },
@@ -62099,7 +62099,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                    "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                   attrs: { type: "button", disabled: _vm.form.busy },
                   on: { click: _vm.creatcontest }
                 },
@@ -62374,7 +62374,7 @@ var render = function() {
                 "button",
                 {
                   staticClass:
-                    "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                    "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                   attrs: { type: "button", disabled: _vm.testcaseform.busy },
                   on: { click: _vm.creattestcase }
                 },
@@ -63872,7 +63872,7 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
+                      "disabled:opacity-50 px-2 py-1 text-green-800 bg-green-200 rounded-lg ring-opacity-50 ring-green-400 ring-2 focus:outline-none hover:bg-green-300",
                     attrs: { type: "button", disabled: _vm.editProblem.busy },
                     on: { click: _vm.editProblems }
                   },
@@ -64151,7 +64151,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "px-4 py-2 text-white font-semibold bg-green-500 rounded",
+                          " disabled:opacity-50 px-4 py-2 text-white font-semibold bg-green-500 rounded",
                         attrs: { disabled: _vm.form.busy },
                         on: { click: _vm.addlanguage }
                       },
@@ -64718,7 +64718,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "px-4 py-2 text-white font-semibold bg-green-500 rounded",
+                          "disabled:opacity-50 px-4 py-2 text-white font-semibold bg-green-500 rounded",
                         attrs: { disabled: _vm.form.busy },
                         on: { click: _vm.judge }
                       },
@@ -65072,7 +65072,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "px-4 py-2 text-white font-semibold bg-green-500 rounded",
+                          "disabled:opacity-50 px-4 py-2 text-white font-semibold bg-green-500 rounded",
                         attrs: { disabled: _vm.form.busy },
                         on: { click: _vm.organizers }
                       },
@@ -65369,7 +65369,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "px-4 py-2 text-white font-semibold bg-green-500 rounded",
+                          "disabled:opacity-50 px-4 py-2 text-white font-semibold bg-green-500 rounded",
                         attrs: { disabled: _vm.form.busy },
                         on: { click: _vm.participants }
                       },
@@ -66416,7 +66416,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "px-4 py-2 text-white font-semibold bg-blue-500 rounded",
+                          "disabled:opacity-50 px-4 py-2 text-white font-semibold bg-blue-500 rounded",
                         attrs: { disabled: _vm.form.busy },
                         on: { click: _vm.profile }
                       },
@@ -66620,7 +66620,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "px-4 py-2 text-white font-semibold bg-blue-500 rounded",
+                          "disabled:opacity-50 px-4 py-2 text-white font-semibold bg-blue-500 rounded",
                         attrs: { disabled: _vm.reset.busy },
                         on: { click: _vm.resetpass }
                       },
@@ -66926,7 +66926,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "px-4 py-2 text-white font-semibold bg-green-500 rounded",
+                          "disabled:opacity-50 px-4 py-2 text-white font-semibold bg-green-500 rounded",
                         attrs: { disabled: _vm.form.busy },
                         on: { click: _vm.addProblem }
                       },
@@ -67233,7 +67233,7 @@ var render = function() {
                       "button",
                       {
                         staticClass:
-                          "px-4 py-2 text-white font-semibold bg-blue-500 rounded",
+                          "disabled:opacity-50 px-4 py-2 text-white font-semibold bg-blue-500 rounded",
                         attrs: { disabled: _vm.form.busy },
                         on: { click: _vm.creatteam }
                       },
