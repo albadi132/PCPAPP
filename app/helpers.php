@@ -13,10 +13,11 @@ use App\Models\Team;
 
 function getUsername($id)
 {
-  $user = User::find($id)->get();
-  $username = $user[0]->first_name . ' ' . $user[0]->last_name;
+  $user = User::where('id' , $id)->first();
+  $username = $user->first_name . ' ' . $user->last_name;
   return $username;
 }
+
 function getMyTeamName($comid, $userid)
 {
   $contest = Contest::with('teams')->find($comid);
