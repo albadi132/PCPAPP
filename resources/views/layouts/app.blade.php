@@ -129,13 +129,18 @@
                         </div>
                     </div>
                 </header>
-                <main class="flex flex-col m-1 border-4 border-green-400 bg-blue-50 rounded-3xl md:m-3 ">
-                    <div style="min-height: 89vh; width: 100%">
-                        <div class="flex flex-col items-center w-full p-4 md:p-6">
-                            @yield('content')
-                        </div>
+               @if ('home' == request()->is('home'))
+               @yield('content')
+               @else
+               <main class="flex flex-col m-1 border-4 border-green-400 bg-blue-50 rounded-3xl md:m-3 ">
+                <div style="min-height: 89vh; width: 100%">
+                    <div class="flex flex-col items-center w-full p-4 md:p-6">
+                        @yield('content')
                     </div>
-                </main>
+                </div>
+            </main>   
+               @endif
+                 
             </div>
         </div>
 

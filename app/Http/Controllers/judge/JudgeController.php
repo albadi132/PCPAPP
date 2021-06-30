@@ -498,7 +498,7 @@ class JudgeController extends Controller
                 return True;
             } else {
                 //change this
-                return True;
+                return FALSE;
             }
         } else {
             return FALSE;
@@ -531,7 +531,7 @@ class JudgeController extends Controller
             $score = Score::where('user_id', $userid)->where('contest_id', $contest->id)->where('problem_id', $probid)->first();
             if (!is_null($score))
                 //change this
-                return FALSE;
+                return TRUE;
             else
                 return FALSE;
         } else {
@@ -544,7 +544,7 @@ class JudgeController extends Controller
                             $score = Score::where('user_id', $user->id)->where('contest_id', $contest->id)->where('problem_id', $probid)->first();
                             if (!is_null($score)) {
                                 //change this
-                                return FALSE;
+                                return TRUE;
                             }
                         }
 

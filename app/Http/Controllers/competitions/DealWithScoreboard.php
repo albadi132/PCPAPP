@@ -83,8 +83,8 @@ class DealWithScoreboard extends Controller
             if (($contest->starting_date < date('Y-m-d H:i:s')) && ($contest->status == 1)) {
                 return True;
             } else {
-                //change this
-                return True;
+                
+                return FALSE;
             }
         } else {
             return FALSE;
