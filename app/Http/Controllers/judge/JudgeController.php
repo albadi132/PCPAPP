@@ -34,7 +34,7 @@ class JudgeController extends Controller
 
 
         //change this
-        $SystemPath = '/home/albadi/Desktop/PCP/public/';
+        $SystemPath = '/var/www/pcp/public/';
         ///
 
 
@@ -65,10 +65,10 @@ class JudgeController extends Controller
                     //
                     if (!$this->HasQuestionSolvBefore($contest, $problem->id, $user->id)) {
 
-                        //problem on compettation 
+                        //problem on compettation
                         if ($this->QuestionInCompetition($contest->id, $problem->id)) {
 
-                            //langeg on compettation 
+                            //langeg on compettation
                             if ($this->LanguageInCompetition($contest->id, $request->language)) {
                                 $Language = Language::find($request->language);
 
@@ -256,7 +256,7 @@ class JudgeController extends Controller
                                                         $process->setTimeout($testcase->timelimit / 60);
                                                         $process->setInput($testcase->input);
                                                         $process->run();
-                                                        
+
                                                     } catch (\Exception $e) {
                                                         //Time out
                                                         $error = json_encode(new ProcessFailedException($process));
@@ -405,12 +405,12 @@ class JudgeController extends Controller
                 if ($this->IsSubscribe($contest, $request->competitor)) {
 
 
-                    //problem on compettation 
+                    //problem on compettation
                     if ($this->QuestionInCompetition($contest->id, $request->problem)) {
                         $problem = Problem::find($request->problem);
 
                         if (!$this->HasQuestionSolvBefore($contest, $problem->id, $request->competitor)) {
-                            //langeg on compettation 
+                            //langeg on compettation
 
                             if ($this->LanguageInCompetition($contest->id, $request->languages)) {
 
