@@ -152,7 +152,7 @@ class contests extends Controller
             'contest' => ['required'],
             'name' => ['required', 'string','regex:/^[a-zA-Z0-9 ]+$/', 'max:255'],
             'description' => ['required',  'max:1500'],
-            'startingtime' =>[ 'required','date','after_or_equal:now'],
+            'startingtime' =>[ 'required','date'],
             'logo' => ['required'],
             'private' => ['required', 'boolean'],
             'team' => ['required', 'boolean'],
@@ -165,7 +165,7 @@ class contests extends Controller
         if($request->time == 0 )
         {
             $this->validate($request, [
-                'startingtime' =>[ 'required','date','after_or_equal:now'],
+                'startingtime' =>[ 'required','date'],
                 'endingtime' => ['required', 'date', 'after_or_equal:startingtime'],
             ]);
         }
