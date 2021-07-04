@@ -127,6 +127,18 @@
                     <div class="flex items-center justify-center text-center">
                         <div class="text-xl font-semibold">
                             @if ($contest['opentime'])
+                            @if ($sub)
+                            <a href="{{route('unsubscribe', ['name' => NameToUrl($contest->name) , 'id' => $contest->id] )}}"   class="inline-flex items-center px-4 py-2 space-x-2 text-lg font-semibold tracking-wider text-white bg-green-300 border-2 border-green-400 rounded hover:bg-green-400 hover:text-white hover:border-white">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                                    </svg>
+                                </span>
+                                <span>
+                                    Unsubscribed
+                                </span>
+                                </a> 
+                            @else
                             <a href="{{route('subscribe', ['name' => NameToUrl($contest->name) , 'id' => $contest->id] )}}" class="inline-flex items-center px-4 py-2 space-x-2 text-lg font-semibold tracking-wider text-green-400 border-2 border-green-400 rounded bg-green-50 hover:bg-green-400 hover:text-white hover:border-white">
                                 <span>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -136,7 +148,9 @@
                                 <span>
                                     Subscribe
                                 </span>
-                            </a>
+                            </a>  
+                            @endif
+                          
                             @elseif ( ($time == 'closed') | ($time == 'started'))
                                 <a class="inline-flex items-center px-4 py-2 space-x-2 text-lg font-semibold tracking-wider text-green-400 bg-gray-600 border-2 border-green-400 rounded outline-none focus:outline-none active:outline-none ">
                                     <span>
