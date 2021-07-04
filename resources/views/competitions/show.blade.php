@@ -85,7 +85,22 @@
                         </div>
                     </div>
                     <div class="flex justify-between mb-2 border-b-2">
+
+                        @if ($contest['opentime'])
                         <div class="py-2 text-lg">
+                            <p>Open Contest</p>
+                        </div>
+                        <div class="py-2 text-lg">
+                            <div class="flex flex-row items-center w-full space-x-2 rounded-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  </svg>
+                            </div>
+                        </div>
+                        
+                        @else
+                        <div class="py-2 text-lg">
+
                             <p>End</p>
                         </div>
                         <div class="py-2 text-lg">
@@ -96,6 +111,10 @@
                                 </svg>
                             </div>
                         </div>
+                        @endif
+                     
+
+
                     </div>
                     <div class="flex items-center justify-center text-center">
                         <div class="text-xl font-semibold">
@@ -107,7 +126,18 @@
                 <div class="px-4 py-4 mx-4 my-4 bg-white rounded-lg shadow-sm">
                     <div class="flex items-center justify-center text-center">
                         <div class="text-xl font-semibold">
-                            @if ( ($time == 'closed') | ($time == 'started'))
+                            @if ($contest['opentime'])
+                            <a href="{{route('subscribe', ['name' => NameToUrl($contest->name) , 'id' => $contest->id] )}}" class="inline-flex items-center px-4 py-2 space-x-2 text-lg font-semibold tracking-wider text-green-400 border-2 border-green-400 rounded bg-green-50 hover:bg-green-400 hover:text-white hover:border-white">
+                                <span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                                    </svg>
+                                </span>
+                                <span>
+                                    Subscribe
+                                </span>
+                            </a>
+                            @elseif ( ($time == 'closed') | ($time == 'started'))
                                 <a class="inline-flex items-center px-4 py-2 space-x-2 text-lg font-semibold tracking-wider text-green-400 bg-gray-600 border-2 border-green-400 rounded outline-none focus:outline-none active:outline-none ">
                                     <span>
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

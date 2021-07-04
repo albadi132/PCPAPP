@@ -28,8 +28,15 @@ class primarycontroller extends Controller
   {
     switch ($sort) {
       case "live":
-        $contests = Contest::with('competitor')->where('starting_date', '<=', date('Y-m-d H:i:s'))
-          ->where('ending_date', '>=', date('Y-m-d H:i:s'))->where('status', '=', 1)->get();
+
+        $contests = Contest::with('competitor')
+          ->where('starting_date', '<=', date('Y-m-d H:i:s'))
+          ->where('status', '=', 1)
+          ->where(function ($q) {
+            $q->where('ending_date', '>=', date('Y-m-d H:i:s'))
+              ->orWhere('opentime', '=', 1);
+          })
+          ->get();
         $live = $contests->count();
         $all = Contest::where('status', '=', 1)->count();
         $upcoming = Contest::where('starting_date', '>', date('Y-m-d H:i:s'))->where('status', '=', 1)->count();
@@ -41,7 +48,10 @@ class primarycontroller extends Controller
         $upcoming = $contests->count();
         $all = Contest::where('status', '=', 1)->count();
         $live = Contest::where('starting_date', '<=', date('Y-m-d H:i:s'))
-          ->where('ending_date', '>=', date('Y-m-d H:i:s'))->where('status', '=', 1)->count();
+          ->where(function ($q) {
+            $q->where('ending_date', '>=', date('Y-m-d H:i:s'))
+              ->orWhere('opentime', '=', 1);
+          })->where('status', '=', 1)->count();
         $archived = Contest::where('ending_date', '<', date('Y-m-d H:i:s'))->where('status', '=', 1)->count();
 
         break;
@@ -50,14 +60,20 @@ class primarycontroller extends Controller
         $archived = $contests->count();
         $all = Contest::where('status', '=', 1)->count();
         $live = Contest::where('starting_date', '<=', date('Y-m-d H:i:s'))
-          ->where('ending_date', '>=', date('Y-m-d H:i:s'))->where('status', '=', 1)->count();
+          ->where(function ($q) {
+            $q->where('ending_date', '>=', date('Y-m-d H:i:s'))
+              ->orWhere('opentime', '=', 1);
+          })->where('status', '=', 1)->count();
         $upcoming = Contest::where('starting_date', '>', date('Y-m-d H:i:s'))->where('status', '=', 1)->count();
         break;
       default:
         $contests = Contest::with('competitor')->where('status', '=', 1)->get();
         $all = $contests->count();
         $live = Contest::where('starting_date', '<=', date('Y-m-d H:i:s'))
-          ->where('ending_date', '>=', date('Y-m-d H:i:s'))->where('status', '=', 1)->count();
+          ->where(function ($q) {
+            $q->where('ending_date', '>=', date('Y-m-d H:i:s'))
+              ->orWhere('opentime', '=', 1);
+          })->where('status', '=', 1)->count();
         $upcoming = Contest::where('starting_date', '>', date('Y-m-d H:i:s'))->where('status', '=', 1)->count();
         $archived = Contest::where('ending_date', '<', date('Y-m-d H:i:s'))->where('status', '=', 1)->count();
     }
@@ -94,7 +110,10 @@ class primarycontroller extends Controller
         if (($contest->starting_date <= date('Y-m-d H:i:s')) & ($contest->ending_date >= date('Y-m-d H:i:s'))) {
           $totalDuration  = 'started';
         } else
+        if (!$contest->opentime)
           $totalDuration  = 'closed';
+        else
+          $totalDuration  = 'started';
       }
 
       //check if user sub to comp
@@ -119,9 +138,9 @@ class primarycontroller extends Controller
   public function challenges($name)
   {
     $name = str_replace("_", " ", $name);
-    $contest = Contest::with('problems','teams')->where('name', $name)->where('status', '=', 1)->firstOrFail();
+    $contest = Contest::with('problems', 'teams')->where('name', $name)->where('status', '=', 1)->firstOrFail();
     if ($contest) {
-      
+
       if ($this->SubmittingIsOpen($contest)) {
         //if partispate 
         if ($this->IsSubscribe($contest, Auth::user()->id)) {
@@ -253,7 +272,10 @@ class primarycontroller extends Controller
           if (($contest->starting_date <= date('Y-m-d H:i:s')) & ($contest->ending_date >= date('Y-m-d H:i:s'))) {
             $totalDuration  = 'started';
           } else
-            $totalDuration  = 'closed';
+          if(!$contest->opentime)
+          $totalDuration  = 'closed';
+          else
+          $totalDuration  = 'started';
         }
 
 
@@ -295,7 +317,10 @@ class primarycontroller extends Controller
           if (($contest->starting_date <= date('Y-m-d H:i:s')) & ($contest->ending_date >= date('Y-m-d H:i:s'))) {
             $totalDuration  = 'started';
           } else
-            $totalDuration  = 'closed';
+          if(!$contest->opentime)
+          $totalDuration  = 'closed';
+          else
+          $totalDuration  = 'started';
         }
 
 
@@ -337,7 +362,10 @@ class primarycontroller extends Controller
           if (($contest->starting_date <= date('Y-m-d H:i:s')) & ($contest->ending_date >= date('Y-m-d H:i:s'))) {
             $totalDuration  = 'started';
           } else
-            $totalDuration  = 'closed';
+          if(!$contest->opentime)
+          $totalDuration  = 'closed';
+          else
+          $totalDuration  = 'started';
         }
 
 
@@ -379,7 +407,10 @@ class primarycontroller extends Controller
           if (($contest->starting_date <= date('Y-m-d H:i:s')) & ($contest->ending_date >= date('Y-m-d H:i:s'))) {
             $totalDuration  = 'started';
           } else
-            $totalDuration  = 'closed';
+          if(!$contest->opentime)
+          $totalDuration  = 'closed';
+          else
+          $totalDuration  = 'started';
         }
 
 
@@ -421,7 +452,10 @@ class primarycontroller extends Controller
           if (($contest->starting_date <= date('Y-m-d H:i:s')) & ($contest->ending_date >= date('Y-m-d H:i:s'))) {
             $totalDuration  = 'started';
           } else
-            $totalDuration  = 'closed';
+          if(!$contest->opentime)
+          $totalDuration  = 'closed';
+          else
+          $totalDuration  = 'started';
         }
 
 
@@ -449,6 +483,11 @@ class primarycontroller extends Controller
 
     if (($contest->starting_date < date('Y-m-d H:i:s')) && ($contest->ending_date > date('Y-m-d H:i:s')) && ($contest->status == 1)) {
       return True;
+    
+    }
+    elseif(($contest->opentime) && ($contest->starting_date < date('Y-m-d H:i:s')))
+    {
+        return True;
     } else {
       //change this
       return FALSE;

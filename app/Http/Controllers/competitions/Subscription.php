@@ -41,7 +41,6 @@ class Subscription extends Controller
 
             //Make sure of the competition
 
-            if ($this->RegistrationIsOpen($request->contestid)) {
                 //Check emails
                 $dataSet = [];
                 foreach ($request->participant as $sup) {
@@ -86,12 +85,7 @@ class Subscription extends Controller
                         'description' => "Something went wrong!!",
                     ];
                 }
-            } else {
-                return [
-                    'status' => 404,
-                    'description' => "Something went wrong!!",
-                ];
-            }
+           
         } else {
             return [
 
@@ -109,6 +103,7 @@ class Subscription extends Controller
         //check if user exist auth
         if (!is_null(Auth::user())) {
             //check if sup is open
+            
             if ($this->RegistrationIsOpen($id)) {
 
                 //check if sup is not privet
@@ -218,7 +213,12 @@ class Subscription extends Controller
             if (($contest->starting_date > date('Y-m-d H:i:s')) && ($contest->status == 1)) {
 
                 return True;
-            } else
+            } 
+            elseif($contest->opentime)
+            {
+                return True;
+            }
+            else
                 return FALSE;
         } else {
             return FALSE;

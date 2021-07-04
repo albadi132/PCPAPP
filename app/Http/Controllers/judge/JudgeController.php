@@ -496,7 +496,12 @@ class JudgeController extends Controller
         if (!is_null($contest)) {
             if (($contest->starting_date < date('Y-m-d H:i:s')) && ($contest->ending_date > date('Y-m-d H:i:s')) && ($contest->status == 1)) {
                 return True;
-            } else {
+            } 
+            elseif(($contest->opentime) && ($contest->starting_date < date('Y-m-d H:i:s')))
+    {
+        return True;
+    } 
+    else {
                 //change this
                 return FALSE;
             }

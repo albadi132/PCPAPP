@@ -102,12 +102,22 @@
                 @foreach ($contests as $contest)
                     <a href="{{route('competition', ['name' => NameToUrl($contest['name']) ])}}">
                         <div class="relative w-11/12 px-6 py-16 my-4 bg-white shadow-xl rounded-3xl hover:shadow">
+                            @if ( $contest['opentime'])
+                              @if ($contest['starting_date'] <= date('Y-m-d H:i:s'))
+                              <div class="absolute flex items-center px-1 py-1 text-white bg-green-400 rounded-full shadow-xl left-4 -top-6">
+                              @else
+                              <div class="absolute flex items-center px-1 py-1 text-white bg-yellow-400 rounded-full shadow-xl left-4 -top-6">
+                                  {{date('Y-m-d H:i:s') . '--' . $contest['starting_date'] }}
+                              @endif
+                            @else
+
                             @if ($contest['ending_date'] <= date('Y-m-d H:i:s') )
                                 <div class="absolute flex items-center px-1 py-1 text-white bg-gray-400 rounded-full shadow-xl left-4 -top-6">
                             @elseif ( ($contest['starting_date'] <= date('Y-m-d H:i:s')) & ($contest['ending_date'] >= date('Y-m-d H:i:s') ))
                                 <div class="absolute flex items-center px-1 py-1 text-white bg-green-400 rounded-full shadow-xl left-4 -top-6">
                             @else
                                 <div class="absolute flex items-center px-1 py-1 text-white bg-yellow-400 rounded-full shadow-xl left-4 -top-6">
+                            @endif
                             @endif
                                 <img class="w-24 h-24 bg-white rounded-full" src="{{url('/contests/images/'. $contest['logo']) }}" alt="logo">
                             </div>
@@ -137,13 +147,21 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                             </svg>
                                             <p>{{$contest['starting_date']}}</p>
+
                                         </div>
                                         <div class="flex my-3 space-x-2 text-sm text-gray-400">
                                             <!-- svg  -->
+                                            @if ($contest['opentime'])
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                              </svg>
+                                            <p>Open Contest</p>
+                                            @else
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                             </svg>
                                             <p>{{$contest['ending_date']}}</p>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="my-2">

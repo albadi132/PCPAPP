@@ -157,14 +157,21 @@
                   <div class="text-sm leading-5 text-gray-900 capitalize">
                     Start: {{ contest.starting_date }}
                   </div>
-                  <div class="text-sm leading-5 text-gray-900 capitalize">
+                  <div v-if="!contest.opentime" class="text-sm leading-5 text-gray-900 capitalize">
                     End: {{ contest.ending_date }}
+                  </div>
+                  <div v-else class="text-sm leading-5 text-gray-900 capitalize">
+                    Open Contest
                   </div>
                 </td>
                 <td class="px-6 py-4 border-b border-gray-200 whitespace-nowrap">
                   <span v-if="contest.status == 0"
                     class="inline-flex px-2 text-xs font-semibold leading-5 text-orange-800 capitalize bg-orange-100 border-orange-300 rounded-full shadow-md boder whitespace-nowrap">
                     Inactive
+                  </span>
+                  <span v-else-if="(contest.starting_date <= timenow) && (contest.opentime)"
+                    class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 capitalize bg-green-100 border border-green-300 rounded-full shadow-md">
+                    Live
                   </span>
                   <span v-else-if="contest.ending_date < timenow"
                     class="inline-flex px-2 text-xs font-semibold leading-5 capitalize border rounded-full shadow-md text-bluegray-800 bg-bluegray-100 border-bluegray-300">
@@ -194,7 +201,15 @@
                 <td class="px-6 py-4 text-sm font-medium leading-5 text-left border-b border-gray-200">
                   <div class="flex flex-row space-x-2">
                     <!-- Edit Contest -->
-                    <div v-if="contest.ending_date > timenow" class="has-tooltip">
+                     <div v-if="contest.opentime" class="has-tooltip">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                        class="w-6 h-6 cursor-pointer text-bluegray-400 hover:text-cyan-400"
+                        @click="chosenContest(contest)">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                      </svg>
+                      <span class="mr-3 tooltip">Edit Contest</span>
+                    </div>
+                    <div v-else-if="contest.ending_date > timenow" class="has-tooltip">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
                         class="w-6 h-6 cursor-pointer text-bluegray-400 hover:text-cyan-400"
                         @click="chosenContest(contest)">
@@ -348,6 +363,20 @@
                   <div v-if="editContest.errors.has('team')" v-html="editContest.errors.get('team')"
                     class="my-3 text-xs text-left text-red-500" />
                 </div>
+                   <div class="w-full mb-3 space-y-2 text-xs">
+                  <label class="py-2 font-semibold text-gray-600">Open Contest?</label>
+                  <div class="relative w-12 h-6 transition duration-200 ease-linear bg-opacity-50 rounded-full shadow-inner ring-1 ring-gray-400 ring-opacity-50"
+                    :class="[editContest.time === '1' ? 'bg-green-400 ring-green-400' : 'bg-gray-400']">
+                    <label for="time"
+                      class="absolute left-0 w-6 h-6 mb-2 transition duration-100 ease-linear transform bg-white border-2 border-opacity-50 rounded-full cursor-pointer"
+                      :class="editContest.time === '1' ? 'translate-x-full border-green-400' : 'translate-x-0 border-gray-400'"></label>
+                    <input type="checkbox" id="time" name="time" :checked="editContest.time === '1'"
+                      class="w-full h-full appearance-none active:outline-none focus:outline-none"
+                      @click="editContest.time === '0' ? editContest.time = '1' : editContest.time= '0'"/>
+                  </div>
+                  <div v-if="editContest.errors.has('time')" v-html="editContest.errors.get('time')"
+                    class="my-3 text-xs text-left text-red-500" />
+                </div>
               </div>
               <div class="flex-auto w-full mb-1 space-y-2 text-xs">
                 <label @click="customizeEditModal = true" class="block w-40 px-5 py-2 mx-auto font-medium text-center text-gray-600 bg-white border rounded-lg shadow-sm focus:outline-none hover:bg-gray-100">More Customize</label>
@@ -472,6 +501,7 @@ export default {
         prize: '',
         profile: '',
         logo: '',
+        time:'0'
       }),
       /* contest status vForm */
       active: new Form({
@@ -561,11 +591,22 @@ export default {
     },
     /* selected contest */
     chosenContest(contest){
+
       this.editContest.contest = contest.id
       this.editContest.name = contest.name
       this.editContest.description = contest.description
       this.editContest.startingtime = contest.starting_date.replace(/ /g,"T")
+
+if (contest.opentime)
+{
+        this.editContest.time = '1'
+      this.editContest.endingtime = ''
+}
+      else
+      {
+        this.editContest.time = '0'
       this.editContest.endingtime = contest.ending_date.replace(/ /g,"T")
+      }
 
       if (contest.type == 'public')
         this.editContest.private = '0'

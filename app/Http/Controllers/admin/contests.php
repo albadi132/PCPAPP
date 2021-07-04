@@ -29,10 +29,10 @@ class contests extends Controller
             'name' => ['required','unique:contests', 'string','regex:/^[a-zA-Z0-9 ]+$/', 'max:255'],
             'description' => ['required',  'max:1500'],
             'startingtime' =>[ 'required','date','after_or_equal:now'],
-            'endingtime' => ['required', 'date', 'after_or_equal:startingtime'],
             'logo' => ['required', 'base64image'],
             'private' => ['required', 'boolean'],
             'team' => ['required', 'boolean'],
+            'time' => ['required', 'boolean'],
             'conditions' => [ 'max:1500'],
             'prize' => [ 'max:1500'],
             'profile' => [ 'required','base64image']
@@ -42,6 +42,15 @@ class contests extends Controller
        // $logo = $request->file('logo')->getClientOriginalName();
         //dd($logo);
         
+        if($request->time == 0 )
+        {
+            $this->validate($request, [
+                'startingtime' =>[ 'required','date','after_or_equal:now'],
+                'endingtime' => ['required', 'date', 'after_or_equal:startingtime'],
+            ]);
+        }
+
+
         $contest = new Contest();
        
             try {
@@ -75,7 +84,16 @@ class contests extends Controller
         $contest->name = $request->name;
         $contest->description = $request->description;
         $contest->starting_date = $request->startingtime;
-        $contest->ending_date = $request->endingtime;
+
+        if($request->time == 0 )
+        {
+            $contest->ending_date = $request->endingtime;
+        }
+        else
+        {
+            $contest->opentime =  $request->time;
+        }
+
         if($request->private == 1)
         $contest->type = 'private';
         else
@@ -135,14 +153,22 @@ class contests extends Controller
             'name' => ['required', 'string','regex:/^[a-zA-Z0-9 ]+$/', 'max:255'],
             'description' => ['required',  'max:1500'],
             'startingtime' =>[ 'required','date','after_or_equal:now'],
-            'endingtime' => ['required', 'date', 'after_or_equal:startingtime'],
             'logo' => ['required'],
             'private' => ['required', 'boolean'],
             'team' => ['required', 'boolean'],
+            'time' => ['required', 'boolean'],
             'conditions' => [ 'max:1500'],
             'prize' => [ 'max:1500'],
             'profile' => [ 'required']
         ]);
+
+        if($request->time == 0 )
+        {
+            $this->validate($request, [
+                'startingtime' =>[ 'required','date','after_or_equal:now'],
+                'endingtime' => ['required', 'date', 'after_or_equal:startingtime'],
+            ]);
+        }
        
        
 $contest = Contest::where('id'  , $request->contest)->first();
@@ -243,24 +269,21 @@ $change = false;
 
         //times
 
-        if(($contest->starting_date != $request->startingtime)|($contest->ending_date != $request->endingtime))
+        if(($contest->starting_date != $request->startingtime)|($contest->ending_date != $request->endingtime)|($contest->opentime != $request->time))
         {
-            if( ($contest->starting_date <= date('Y-m-d H:i:s')) | ($contest->ending_date <= date('Y-m-d H:i:s')) )
-            {
-                return [
-                    'status' => 422,
-                    'description' => "You cannot change the time or date because the competition has already started",
-                ];
-            }
-            else
-            {
+            
 
                 $contest->starting_date = $request->startingtime;
-                $contest->ending_date = $request->endingtime;
-                $change = true;
-                
 
-            }
+                if($request->time == 0 )
+                {
+                    $contest->ending_date = $request->endingtime;
+                }
+                else
+                {
+                    $contest->opentime =  $request->time;
+                }
+                $change = true;
 
 
         }

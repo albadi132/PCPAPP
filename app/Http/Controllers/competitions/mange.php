@@ -216,7 +216,7 @@ $contest = Contest::with('problems')->where( 'id' , $request->contestid )->where
             {
 
 
-                if ( $contest->ending_date > date('Y-m-d H:i:s') ){
+                if ( ($contest->ending_date > date('Y-m-d H:i:s')) || ($contest->opentime) ){
 
                     for($i = 0 ; $i < $contest->problems->count() ; $i++)
                     {
@@ -394,7 +394,7 @@ public function removequestionlibrary($name, $id)
                 {
     
     
-                    if ( $contest->ending_date > date('Y-m-d H:i:s') ){
+                    if ( ( $contest->ending_date > date('Y-m-d H:i:s')) || ($contest->opentime)  ){
     
                         for($i = 0 ; $i < $contest->languages->count() ; $i++)
                         {
