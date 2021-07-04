@@ -11,6 +11,6 @@
             @endcan
         </div>
     @endauth
-    <pcp-teamstable :teamwithuser="'{{ json_encode($teamwithuser) }}'" :urlname="'{{NameToUrl($contest->name)}}'" :contest="'{{ $contest->id }}'" :admin="'{{$admin}}'" :myuser="'{{$myuser->username}}'" :actuion="'{{$actuion}}'"  :ihaveteam="'{{$ihaveteam}}'"></pcp-teamstable>
+    <pcp-teamstable :teamwithuser="'{{ addslashes(json_encode($teamwithuser)) }}'" :urlname="'{{NameToUrl($contest->name)}}'" :contest="'{{ $contest->id }}'" :admin="'{{$admin}}'" :myuser="'{{$myuser->username}}'" :actuion="'{{$actuion}}'"  :ihaveteam="'{{$ihaveteam}}'"></pcp-teamstable>
 </div>
 @endsection
