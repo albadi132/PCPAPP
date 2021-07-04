@@ -162,15 +162,18 @@ class primarycontroller extends Controller
 
           return view('competitions.challenges')
             ->with('contest', $contest)
+            ->with('massge' , 'show')
             ->with('AllProblem', $AllProblem);
         } else {
           return view('competitions.challenges')
             ->with('contest', $contest)
+            ->with('massge' , 'You are not subscribe in the contest')
             ->with('AllProblem', $AllProblem = []);
         }
       } else {
         return view('competitions.challenges')
           ->with('contest', $contest)
+          ->with('massge' , "This contest hasn't started yet")
           ->with('AllProblem', $AllProblem = []);
       }
     } else {
