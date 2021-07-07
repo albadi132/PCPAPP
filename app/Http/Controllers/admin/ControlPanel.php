@@ -80,18 +80,6 @@ class ControlPanel extends Controller
                 ->limit(1)
                 ->first();
 
-            $hot = Problem::where('points', '>=', 200)->count();
-
-            $fresh = 0;
-            $target = Problem::all();
-            foreach ($target as $key => $problem) {
-                $pdate = Carbon::parse($problem->created_at)->day;
-                $cdate = Carbon::parse(now())->day;
-                if ($pdate == $cdate) {
-                    $fresh++;
-                }
-            }
-
             return view('admin.problems.view')
                 ->with('problems', $problems)
                 ->with('last', $last)
