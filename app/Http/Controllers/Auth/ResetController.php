@@ -36,7 +36,7 @@ class ResetController extends Controller
             if (!$OldPasswordResets) {
                 $PasswordResets = new PasswordResets;
                 $PasswordResets->email = $request->email;
-                $PasswordResets->token = sha1(time().env('APP_SECRET'));
+                $PasswordResets->token = sha1(random_bytes(20).env('APP_SECRET'));
                 $PasswordResets->timestamps = false;
                 $PasswordResets->created_at = now();
                 $PasswordResets->save();
