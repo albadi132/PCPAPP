@@ -34,9 +34,8 @@ class JudgeController extends Controller
 
 
         //change this
-        //$SystemPath = '/var/www/pcp/public/';
-        $SystemPath = '/home/albadi/Desktop/PCP/public/';
-        ///
+         $SystemPath = '/var/www/pcp/public/';
+        //$SystemPath = '/home/albadi/Desktop/PCP/public/';
 
 
         $Cname = str_replace("_", " ", $copname);
