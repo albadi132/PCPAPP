@@ -30,7 +30,7 @@ class ResetController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-
+       // dd( $user);
         if ($user) {
             $OldPasswordResets = PasswordResets::where('email', $request->email)->first();
             if (!$OldPasswordResets) {
@@ -43,6 +43,7 @@ class ResetController extends Controller
 
 
                 MailController::sendResetPassEmail($user->first_name, $user->last_name, $user->email, $PasswordResets->token);
+                
                 return redirect()->route('login')->with(session()->flash('alert-success', 'An email has been sent to reset the password'));
             } else {
 
@@ -56,7 +57,9 @@ class ResetController extends Controller
 
                 if($diff_in_Hours >= 24)
                 {
-                    $OldPasswordResets->delete();
+                    
+                    PasswordResets::where('email', $request->email)->delete();
+                   // $OldPasswordResets->delete();
                     $PasswordResets = new PasswordResets;
                 $PasswordResets->email = $request->email;
                 $PasswordResets->token = sha1(time());
@@ -98,8 +101,7 @@ class ResetController extends Controller
                 $diff_in_Hours = $to->diffInHours($from);
 
                 
-
-                if(!$diff_in_Hours < 24)
+                if($diff_in_Hours < 24)
                 {
                     return view('auth.passwords.confirm')
                     ->with('token', $PasswordResets_token);
@@ -108,7 +110,6 @@ class ResetController extends Controller
                 else{
                     redirect()->route('login')->with(session()->flash('alert-danger', 'The password recovery link has expired'));
                 }
-
         }
         else{
         return redirect()->route('login')->with('alert-danger', 'Invalid verification code!');
@@ -118,6 +119,7 @@ class ResetController extends Controller
         {
             return redirect()->route('login');
         }
+        
 
     }
 
