@@ -34,7 +34,8 @@ class JudgeController extends Controller
 
 
         //change this
-        $SystemPath = '/var/www/pcp/public/';
+        //$SystemPath = '/var/www/pcp/public/';
+        $SystemPath = '/home/albadi/Desktop/PCP/public/';
         ///
 
 
@@ -88,7 +89,7 @@ class JudgeController extends Controller
                                             $request->code->move(public_path($NewPath), $NewSubmitName);
 
                                             $path = $SystemPath . $NewPath . $NewSubmitName;
-                                            $command = '/usr/bin/python3 -m py_compile ' . $path;
+                                            $command = 'unshare -r -n /usr/bin/python3 -m py_compile ' . $path;
 
 
                                             $output = null;
@@ -115,10 +116,11 @@ class JudgeController extends Controller
                                                 foreach ($problem->Testcases as $testcase) {
                                                     //dd($testcase->input);
                                                     try {
-                                                        $process = new Process(['python3', $path, 'memory_limit=10M']);
+                                                        $process = new Process(['unshare','-r', '-n','python3', $path, 'memory_limit=10M']);
                                                         $process->setTimeout($testcase->timelimit / 60);
                                                         $process->setInput($testcase->input);
                                                         $process->run();
+                                                       // dd($process);
                                                     } catch (\Exception $e) {
                                                         //Time out
                                                         $error = json_encode(new ProcessFailedException($process));
@@ -224,7 +226,7 @@ class JudgeController extends Controller
                                             $path1 = $SystemPath . $NewPath . $NewCompilerName;
                                             $path2 = $SystemPath . $NewPath . $NewSubmitName;
 
-                                            $command = '/usr/bin/g++ -o ' . $path1 . ' ' . $path2;
+                                            $command = 'unshare -r -n /usr/bin/g++ -o ' . $path1 . ' ' . $path2;
 
                                             $output = null;
                                             $failed = 0;
@@ -252,7 +254,7 @@ class JudgeController extends Controller
                                                     //dd($testcase->input);
 
                                                     try {
-                                                        $process = new Process([$path1, 'memory_limit=10M']);
+                                                        $process = new Process([ 'unshare', '-r', '-n' , $path1, 'memory_limit=10M']);
                                                         $process->setTimeout($testcase->timelimit / 60);
                                                         $process->setInput($testcase->input);
                                                         $process->run();
