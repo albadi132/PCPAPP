@@ -36,7 +36,7 @@ class ResetController extends Controller
             if (!$OldPasswordResets) {
                 $PasswordResets = new PasswordResets;
                 $PasswordResets->email = $request->email;
-                $PasswordResets->token = sha1(time());
+                $PasswordResets->token = sha1(random_bytes(20).env('APP_SECRET'));
                 $PasswordResets->timestamps = false;
                 $PasswordResets->created_at = now();
                 $PasswordResets->save();
@@ -62,7 +62,7 @@ class ResetController extends Controller
                    // $OldPasswordResets->delete();
                     $PasswordResets = new PasswordResets;
                 $PasswordResets->email = $request->email;
-                $PasswordResets->token = sha1(time());
+                $PasswordResets->token = sha1(random_bytes(20).env('APP_SECRET'));
                 $PasswordResets->timestamps = false;
                 $PasswordResets->created_at = now();
                 $PasswordResets->save();
@@ -93,14 +93,13 @@ class ResetController extends Controller
       
 
         if($user){
-
+            
             $to = $user->created_at;
 
                 $from = now();
 
                 $diff_in_Hours = $to->diffInHours($from);
 
-                
                 if($diff_in_Hours < 24)
                 {
                     return view('auth.passwords.confirm')
@@ -108,7 +107,7 @@ class ResetController extends Controller
                     
                 }
                 else{
-                    redirect()->route('login')->with(session()->flash('alert-danger', 'The password recovery link has expired'));
+                    return redirect()->route('login')->with(session()->flash('alert-danger', 'The password recovery link has expired'));
                 }
         }
         else{

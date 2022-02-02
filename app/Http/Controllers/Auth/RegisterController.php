@@ -47,7 +47,7 @@ class RegisterController extends Controller
         $user->save();
         $verification = new Verification();
         $verification->email = $request->email;
-        $verification->token = sha1(time());
+        $verification->token = sha1(random_bytes(20).env('APP_SECRET'));
         $verification->timestamps = false;
         $verification->created_at = now();
         $verification->save();
