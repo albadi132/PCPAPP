@@ -92,7 +92,7 @@ class JudgeController extends Controller
 
                                             //firejail --private=~/Desktop/salim
                                             $command = 'firejail '.$path.' python3 -m py_compile /home/albadi/' . $NewSubmitName;
-                                            exec("firejail" .$path . "ls 2>&1", $output);
+                                            exec("firejail " .$path . " ls 2>&1", $output);
                                             dd($output);
                                             $firejailpath = '/home/albadi/' . $NewSubmitName;
 //dd($command);
