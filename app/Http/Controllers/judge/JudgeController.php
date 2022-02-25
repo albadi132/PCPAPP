@@ -95,8 +95,7 @@ class JudgeController extends Controller
                                             $copypath = $homeuser.'/code';
                                             
                                             exec('cp ' . $source .' '. $copypath, $output);
-                                            $ccom = 'cp ' . $source .' '. $copypath;
-                                            dd($ccom ,$output);
+                                            
                                             //
                                             $sandbox = '/code';
                                             $path = '--private=~'.$sandbox;
@@ -107,7 +106,8 @@ class JudgeController extends Controller
                                             $firejailpath = $homeuser.'/' . $NewSubmitName;
 
                                             //$command = 'unshare -r -n /usr/bin/python3 -m py_compile ' . $path;
-
+                                            exec('firejail --private=~/code ls /home' . " 2>&1", $output);
+                                            dd($output);
 
                                             $output = null;
                                             $failed = 0;
