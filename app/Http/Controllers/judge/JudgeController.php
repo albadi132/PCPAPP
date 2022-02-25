@@ -95,7 +95,8 @@ class JudgeController extends Controller
                                             $copypath = $homeuser.'/code';
                                             
                                             exec('cp ' . $source .' '. $copypath, $output);
-                                            
+                                            $ccom = 'cp ' . $source .' '. $copypath;
+                                            dd($ccom ,$output);
                                             //
                                             $sandbox = '/code';
                                             $path = '--private=~'.$sandbox;
