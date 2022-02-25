@@ -86,8 +86,7 @@ class JudgeController extends Controller
                                     switch ($Language->id) {
                                         case 1:
                                             //python
-                                            exec('ls /home' . " 2>&1", $output);
-                                            dd($output);
+                                           
                                             $submit = time();
                                             $NewSubmitName = $proname . '_' . $submit . '.py';
                                             $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit ;
@@ -98,7 +97,7 @@ class JudgeController extends Controller
                                             $copypath = $homeuser.'/code';
                                             
                                             exec('cp ' . $source .' '. $copypath, $output);
-                                            
+                                            dd($output);
                                             //
                                             $sandbox = '/code';
                                             $path = '--private=~'.$sandbox;
