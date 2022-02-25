@@ -33,7 +33,6 @@ class JudgeController extends Controller
     {
 
 
-
         //change this
          $SystemPath = '/var/www/pcp/public/';
         //$SystemPath = '/Desktop/PCP/public/';
