@@ -37,8 +37,9 @@ class JudgeController extends Controller
         //change this
          $SystemPath = '/var/www/pcp/public/';
         //$SystemPath = '/Desktop/PCP/public/';
-        $homeuser = '/home/ubuntu';
-       // $homeuser = '/home/albadi';
+       // $homeuser = '/home/ubuntu';
+        $homeuser = '/home/albadi'; 
+        
 
 
 
