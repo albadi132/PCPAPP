@@ -86,6 +86,8 @@ class JudgeController extends Controller
                                     switch ($Language->id) {
                                         case 1:
                                             //python
+                                            exec('ls /home' . " 2>&1", $output);
+                                            dd($output);
                                             $submit = time();
                                             $NewSubmitName = $proname . '_' . $submit . '.py';
                                             $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit ;
@@ -107,6 +109,7 @@ class JudgeController extends Controller
                                             $firejailpath = $homeuser.'/' . $NewSubmitName;
 
                                             //$command = 'unshare -r -n /usr/bin/python3 -m py_compile ' . $path;
+                                            
                                             exec('firejail --private=~/code ls /home' . " 2>&1", $output);
                                             dd($output);
 
