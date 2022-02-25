@@ -107,7 +107,7 @@
                               <div class="absolute flex items-center px-1 py-1 text-white bg-green-400 rounded-full shadow-xl left-4 -top-6">
                               @else
                               <div class="absolute flex items-center px-1 py-1 text-white bg-yellow-400 rounded-full shadow-xl left-4 -top-6">
-                                  {{date('Y-m-d H:i:s') . '--' . $contest['starting_date'] }}
+                                 
                               @endif
                             @else
 

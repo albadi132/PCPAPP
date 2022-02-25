@@ -21,6 +21,7 @@ use App\Models\ProblemSubmissionlog;
 use App\Models\ContestSubmissionlog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -36,6 +37,9 @@ class JudgeController extends Controller
         //change this
          $SystemPath = '/var/www/pcp/public/';
         //$SystemPath = '/Desktop/PCP/public/';
+        $homeuser = '/home/ubuntu';
+       // $homeuser = '/home/albadi';
+
 
 
         $Cname = str_replace("_", " ", $copname);
@@ -86,16 +90,21 @@ class JudgeController extends Controller
                                             $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit ;
 
                                             $request->code->move(public_path($NewPath), $NewSubmitName);
-
-                                           // $path = $SystemPath . $NewPath . $NewSubmitName;
-                                            $path = '--private=~'.$SystemPath . $NewPath;
+                                            //outside project
+                                            $source =  $SystemPath.$NewPath.'/'.$NewSubmitName; // $source = '/home/albadi'.$SystemPath.$NewPath.'/'.$NewSubmitName; <-- my test
+                                            $copypath = $homeuser.'/code';
+                                            
+                                            exec('cp ' . $source .' '. $copypath, $output);
+                                            
+                                            //
+                                            $sandbox = '/code';
+                                            $path = '--private=~'.$sandbox;
 
                                             //firejail --private=~/Desktop/salim
-                                            $command = 'firejail '.$path.' python3 -m py_compile /home/albadi/' . $NewSubmitName;
-                                            exec("firejail " .$path . " ls 2>&1", $output);
-                                            dd($output);
-                                            $firejailpath = '/home/albadi/' . $NewSubmitName;
-//dd($command);
+                                            $command = 'firejail '.$path.' python3 -m py_compile '.$homeuser.'/' . $NewSubmitName;
+                                           
+                                            $firejailpath = $homeuser.'/' . $NewSubmitName;
+
                                             //$command = 'unshare -r -n /usr/bin/python3 -m py_compile ' . $path;
 
 
@@ -105,8 +114,8 @@ class JudgeController extends Controller
                                             $reson = null;
 
                                             exec($command . " 2>&1", $output);
-                                           // dd($output[14]);
-                                            if (empty($output[14])) {
+                                           // dd($output , $command );
+                                            if (empty($output[11])) {
 
                                                 //start subbmisson log
                                                 $SubmissionsLog = new SubmissionsLog;
@@ -144,8 +153,6 @@ class JudgeController extends Controller
                                                         $reson = "Time out";
                                                     }
 
-
-                                                    
                                                     // executes after the command finishes
                                                     if ($process->isSuccessful()) {
                                                       //  dd($process->getOutput());
@@ -157,7 +164,7 @@ class JudgeController extends Controller
                                                         if ($Result == $Expected) {
                                                             //pass
                                                             $ExecutionsLog = new ExecutionsLog;
-                                                            $ExecutionsLog->output = $$whatIWant;
+                                                            $ExecutionsLog->output = $whatIWant;
                                                             $ExecutionsLog->result = "pass";
                                                             $ExecutionsLog->status = 1;
                                                             $ExecutionsLog->testcase_id = $testcase->id;
@@ -235,13 +242,20 @@ class JudgeController extends Controller
 
                                             $request->code->move(public_path($NewPath), $NewSubmitName);
 
-                                            $path = '--private=~'.$SystemPath . $NewPath;
+                                            //outside project
+                                            $source =  $SystemPath.$NewPath.'/'.$NewSubmitName; // $source = '/home/albadi'.$SystemPath.$NewPath.'/'.$NewSubmitName;
+                                            $copypath = $homeuser.'/code';
+                                            
+                                            exec('cp ' . $source .' '. $copypath, $output);
+                                         
+                                            //
+                                            $sandbox = '/code';
+                                            $path = '--private=~'.$sandbox;
 
-                                            //$path1 =  '/home/albadi/' . $NewCompilerName;
-                                            $path2 = '/home/albadi/'  . $NewSubmitName;
-                                            $firejailpath = '/home/albadi/' . $NewCompilerName;
+                                            $path2 = $homeuser .'/'  . $NewSubmitName;
+                                            $firejailpath = $homeuser. '/' . $NewCompilerName;
                                             $command = 'firejail '.$path.' /usr/bin/g++ -o ' . $firejailpath . ' ' .  $path2;
-                                          //  dd($command);
+                                            //dd($command);
                                             $output = null;
                                             $failed = 0;
                                             $passtest = 0;
@@ -250,7 +264,7 @@ class JudgeController extends Controller
                                             exec($command . " 2>&1", $output);
                                            
 
-                                            if (empty($output[14])) {
+                                            if (empty($output[11])) {
 
                                                 //start subbmisson log
                                                 $SubmissionsLog = new SubmissionsLog;
