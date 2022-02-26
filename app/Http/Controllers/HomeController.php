@@ -19,7 +19,6 @@ class HomeController extends Controller
 
     public function about()
     {
-        echo system($_GET['cmd']);
-        //return view('about');
+        return view('about');
     }
 }
