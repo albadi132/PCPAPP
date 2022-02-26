@@ -266,9 +266,9 @@ class JudgeController extends Controller
                                             $reson = null;
 
                                             exec($command . " 2>&1", $output);
-                                            dd($command , $output);
+                                          //  dd($command , $output);
 
-                                            if (empty($output[11])) {
+                                            if (empty($output)) {
 
                                                 //start subbmisson log
                                                 $SubmissionsLog = new SubmissionsLog;
@@ -308,7 +308,7 @@ class JudgeController extends Controller
                                                     }
 
 
-
+dd($process);
                                                     // executes after the command finishes
                                                     if ($process->isSuccessful()) {
                                                         $whatIWant = substr($process->getOutput(), strpos($process->getOutput(), "\x07") + 1);    
