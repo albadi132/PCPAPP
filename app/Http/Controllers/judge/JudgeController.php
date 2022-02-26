@@ -256,7 +256,7 @@ class JudgeController extends Controller
                                             $path = '--private=~'.$sandbox;
 
                                             $path2 =  $NewSubmitName;
-                                            $firejailpath =  $copypath .'/'.$NewCompilerName;
+                                            $firejailpath =  $NewCompilerName;
                                            // $command = 'firejail '.$path.' /usr/bin/g++ -o ' . $firejailpath . ' ' .  $path2;
                                            $command = '/usr/bin/g++ -o ' . $copypath.'/'.$NewCompilerName . ' ' .  $source;
                                             //dd($command);
@@ -286,8 +286,8 @@ class JudgeController extends Controller
                                                     //dd($testcase->input);
 
                                                     try {
-                                                        //$process = new Process([ 'firejail', $path , $firejailpath , 'memory_limit=10M']);
-                                                        $process = new Process([ $firejailpath , 'memory_limit=10M']);
+                                                        $process = new Process([ 'firejail', $path , $firejailpath , 'memory_limit=10M']);
+                                                       // $process = new Process([ $firejailpath , 'memory_limit=10M']);
                                                         $process->setTimeout($testcase->timelimit / 60);
                                                         $process->setInput($testcase->input);
                                                         $process->run();
@@ -314,7 +314,7 @@ class JudgeController extends Controller
                                                     // executes after the command finishes
                                                     if ($process->isSuccessful()) {
                                                         $whatIWant = substr($process->getOutput(), strpos($process->getOutput(), "\x07") + 1);    
-                                                        
+                                                       
                                                         $Result = str_replace(array("\n", "\r"), '', $whatIWant);
                                                         $Expected = str_replace(array("\n", "\r"), '', $testcase->output);
                                                         if ($Result == $Expected) {
