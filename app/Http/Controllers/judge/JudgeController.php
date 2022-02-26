@@ -37,7 +37,7 @@ class JudgeController extends Controller
          $SystemPath = '/var/www/pcp/public/';
         //$SystemPath = '/Desktop/PCP/public/';
        // $homeuser = '/home/ubuntu';
-        $homeuser = '/home/albadi'; 
+        $homeuser = '/var/www'; 
         
 
 
@@ -102,14 +102,14 @@ class JudgeController extends Controller
                                             $path = '--private=~'.$sandbox;
 
                                             //firejail --private=~/Desktop/salim
-                                            $command = 'firejail '.$path.' python3 -m py_compile '.$homeuser.'/' . $NewSubmitName;
+                                            $command = 'firejail '.$path.' python3 -m py_compile '. $NewSubmitName;
                                            
                                             $firejailpath = $homeuser.'/' . $NewSubmitName;
 
                                             //$command = 'unshare -r -n /usr/bin/python3 -m py_compile ' . $path;
                                             
-                                            exec('firejail --allusers --private=~/code ls' . " 2>&1", $output);
-                                            dd($output);
+                                            exec('firejail --private=~/code ls' . " 2>&1", $output2);
+                                            
 
                                             $output = null;
                                             $failed = 0;
@@ -117,7 +117,7 @@ class JudgeController extends Controller
                                             $reson = null;
 
                                             exec($command . " 2>&1", $output);
-                                           // dd($output , $command );
+                                            dd($output , $command , $output2);
                                             if (empty($output[11])) {
 
                                                 //start subbmisson log
