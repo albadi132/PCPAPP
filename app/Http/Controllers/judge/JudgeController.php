@@ -308,7 +308,7 @@ class JudgeController extends Controller
                                                     }
 
 
-dd($process);
+//dd($process);
                                                     // executes after the command finishes
                                                     if ($process->isSuccessful()) {
                                                         $whatIWant = substr($process->getOutput(), strpos($process->getOutput(), "\x07") + 1);    
