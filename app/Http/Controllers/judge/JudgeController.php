@@ -108,7 +108,7 @@ class JudgeController extends Controller
 
                                             //$command = 'unshare -r -n /usr/bin/python3 -m py_compile ' . $path;
                                             
-                                            exec('firejail --private=~/code ls /home' . " 2>&1", $output);
+                                            exec('firejail --allusers --private=~/code ls /home' . " 2>&1", $output);
                                             dd($output);
 
                                             $output = null;
