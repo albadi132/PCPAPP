@@ -256,7 +256,7 @@ class JudgeController extends Controller
                                             $path = '--private=~'.$sandbox;
 
                                             $path2 =  $NewSubmitName;
-                                            $firejailpath =  $NewCompilerName;
+                                            $firejailpath =  $copypath .'/'.$NewCompilerName;
                                            // $command = 'firejail '.$path.' /usr/bin/g++ -o ' . $firejailpath . ' ' .  $path2;
                                            $command = '/usr/bin/g++ -o ' . $copypath.'/'.$firejailpath . ' ' .  $source;
                                             //dd($command);
@@ -286,7 +286,8 @@ class JudgeController extends Controller
                                                     //dd($testcase->input);
 
                                                     try {
-                                                        $process = new Process([ 'firejail', $path , $firejailpath , 'memory_limit=10M']);
+                                                        //$process = new Process([ 'firejail', $path , $firejailpath , 'memory_limit=10M']);
+                                                        $process = new Process([ $firejailpath , 'memory_limit=10M']);
                                                         $process->setTimeout($testcase->timelimit / 60);
                                                         $process->setInput($testcase->input);
                                                         $process->run();
@@ -306,9 +307,10 @@ class JudgeController extends Controller
                                                         $passtest = 0;
                                                         $reson = "Time out";
                                                     }
+                                                    dd($process);
 
 
-//dd($process);
+
                                                     // executes after the command finishes
                                                     if ($process->isSuccessful()) {
                                                         $whatIWant = substr($process->getOutput(), strpos($process->getOutput(), "\x07") + 1);    
