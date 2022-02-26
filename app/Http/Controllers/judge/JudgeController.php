@@ -257,7 +257,8 @@ class JudgeController extends Controller
 
                                             $path2 =  $NewSubmitName;
                                             $firejailpath =  $NewCompilerName;
-                                            $command = 'firejail '.$path.' /usr/bin/g++ -o ' . $firejailpath . ' ' .  $path2;
+                                           // $command = 'firejail '.$path.' /usr/bin/g++ -o ' . $firejailpath . ' ' .  $path2;
+                                           $command = '/usr/bin/g++ -o ' . $source . ' ' .  $copypath;
                                             //dd($command);
                                             $output = null;
                                             $failed = 0;
