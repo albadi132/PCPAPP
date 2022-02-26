@@ -266,7 +266,7 @@ class JudgeController extends Controller
                                             $reson = null;
 
                                             exec($command . " 2>&1", $output);
-                                            dd($command , $output);
+                                            //dd($command , $output);
 
                                             if (empty($output)) {
 
