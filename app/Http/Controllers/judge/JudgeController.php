@@ -307,7 +307,7 @@ class JudgeController extends Controller
                                                         $passtest = 0;
                                                         $reson = "Time out";
                                                     }
-                                                  //  dd($process);
+                                                    dd($process->getOutput());
 
 
 
