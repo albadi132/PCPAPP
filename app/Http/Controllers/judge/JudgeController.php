@@ -21,7 +21,6 @@ use App\Models\ProblemSubmissionlog;
 use App\Models\ContestSubmissionlog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Storage;
 use phpDocumentor\Reflection\PseudoTypes\True_;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
@@ -33,13 +32,10 @@ class JudgeController extends Controller
     {
 
 
-        //change this
-         $SystemPath = '/var/www/pcp/public/';
-        //$SystemPath = '/Desktop/PCP/public/';
-       // $homeuser = '/home/ubuntu';
-        $homeuser = '/var/www'; 
-        
 
+        //change this
+        $SystemPath = '/var/www/pcp/public/';
+        //$SystemPath = '/home/albadi/Desktop/PCP/public/';
 
 
         $Cname = str_replace("_", " ", $copname);
@@ -68,7 +64,7 @@ class JudgeController extends Controller
                 if ($this->SubmittingIsOpen($contest->id)) {
                     //
                     if (!$this->HasQuestionSolvBefore($contest, $problem->id, $user->id)) {
-                       
+
                         //problem on compettation
                         if ($this->QuestionInCompetition($contest->id, $problem->id)) {
 
@@ -85,31 +81,15 @@ class JudgeController extends Controller
                                     switch ($Language->id) {
                                         case 1:
                                             //python
-                                           
                                             $submit = time();
                                             $NewSubmitName = $proname . '_' . $submit . '.py';
-                                            $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit ;
+                                            $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit . '/';
 
                                             $request->code->move(public_path($NewPath), $NewSubmitName);
-                                            //outside project
-                                            $source =  $SystemPath.$NewPath.'/'.$NewSubmitName; // $source = '/home/albadi'.$SystemPath.$NewPath.'/'.$NewSubmitName; <-- my test
-                                            $copypath = $homeuser.'/code';
-                                            
-                                            exec('cp ' . $source .' '. $copypath, $output);
-                                            
-                                            //
-                                            $sandbox = '/code';
-                                            $path = '--private=~'.$sandbox;
 
-                                            //firejail --private=~/Desktop/salim
-                                            $command = 'firejail '.$path.' python3 -m py_compile '. $NewSubmitName;
-                                           
-                                            $firejailpath = $homeuser.'/' . $NewSubmitName;
+                                            $path = $SystemPath . $NewPath . $NewSubmitName;
+                                            $command = 'unshare -r -n /usr/bin/python3 -m py_compile ' . $path;
 
-                                            //$command = 'unshare -r -n /usr/bin/python3 -m py_compile ' . $path;
-                                            
-                                            exec('firejail --private=~/code python3 -V' . " 2>&1", $output2);
-                                            
 
                                             $output = null;
                                             $failed = 0;
@@ -117,8 +97,8 @@ class JudgeController extends Controller
                                             $reson = null;
 
                                             exec($command . " 2>&1", $output);
-                                            dd($output , $command , $output2);
-                                            if (empty($output[11])) {
+
+                                            if (empty($output)) {
 
                                                 //start subbmisson log
                                                 $SubmissionsLog = new SubmissionsLog;
@@ -135,11 +115,11 @@ class JudgeController extends Controller
                                                 foreach ($problem->Testcases as $testcase) {
                                                     //dd($testcase->input);
                                                     try {
-                                                        $process = new Process(['firejail',$path, 'python3', $firejailpath, 'memory_limit=10M']);
+                                                        $process = new Process(['unshare', '-r', '-n', 'python3', $path, 'memory_limit=10M']);
                                                         $process->setTimeout($testcase->timelimit / 60);
                                                         $process->setInput($testcase->input);
                                                         $process->run();
-                                                       // dd($process);
+                                                        // dd($process);
                                                     } catch (\Exception $e) {
                                                         //Time out
                                                         $error = json_encode(new ProcessFailedException($process));
@@ -156,18 +136,17 @@ class JudgeController extends Controller
                                                         $reson = "Time out";
                                                     }
 
+
+
                                                     // executes after the command finishes
                                                     if ($process->isSuccessful()) {
-                                                      //  dd($process->getOutput());
-                                                        $whatIWant = substr($process->getOutput(), strpos($process->getOutput(), "\x07") + 1);    
-                                                        
-                                                        $Result = str_replace(array("\n", "\r"), '', $whatIWant);
+
+                                                        $Result = str_replace(array("\n", "\r"), '', $process->getOutput());
                                                         $Expected = str_replace(array("\n", "\r"), '', $testcase->output);
-                                                       
                                                         if ($Result == $Expected) {
                                                             //pass
                                                             $ExecutionsLog = new ExecutionsLog;
-                                                            $ExecutionsLog->output = $whatIWant;
+                                                            $ExecutionsLog->output = $process->getOutput();
                                                             $ExecutionsLog->result = "pass";
                                                             $ExecutionsLog->status = 1;
                                                             $ExecutionsLog->testcase_id = $testcase->id;
@@ -180,7 +159,7 @@ class JudgeController extends Controller
                                                             //fail
 
                                                             $ExecutionsLog = new ExecutionsLog;
-                                                            $ExecutionsLog->output = $whatIWant;
+                                                            $ExecutionsLog->output = $process->getOutput();
                                                             $ExecutionsLog->result = "fail";
                                                             $ExecutionsLog->testcase_id = $testcase->id;
                                                             $ExecutionsLog->save();
@@ -212,12 +191,10 @@ class JudgeController extends Controller
 
                                                     return back()->with(session()->flash('judge-success', 'The solution has been accepted'));
                                                 } else {
-                                                    
                                                     $SubmissionsLog->result = $reson;
                                                     $SubmissionsLog->status = 0;
                                                     $SubmissionsLog->save();
                                                     return back()->with(session()->flash('judge-danger', 'The solution was not accepted due to: ' . $reson));
-                                                
                                                 }
                                             } else {
                                                 //SyntaxError
@@ -241,32 +218,22 @@ class JudgeController extends Controller
                                             $submit = time();
                                             $NewSubmitName = $proname . '_' . $submit . '.cpp';
                                             $NewCompilerName = $proname . '_' . $submit;
-                                            $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit ;
+                                            $NewPath = 'contests/code/' . $copname . '/' . $Language->dir . '/' . $submit . '/';
 
                                             $request->code->move(public_path($NewPath), $NewSubmitName);
 
-                                            //outside project
-                                            $source =  $SystemPath.$NewPath.'/'.$NewSubmitName; // $source = '/home/albadi'.$SystemPath.$NewPath.'/'.$NewSubmitName;
-                                            $copypath = $homeuser.'/code';
-                                            
-                                            exec('cp ' . $source .' '. $copypath, $output);
-                                         
-                                            //
-                                            $sandbox = '/code';
-                                            $path = '--private=~'.$sandbox;
+                                            $path1 = $SystemPath . $NewPath . $NewCompilerName;
+                                            $path2 = $SystemPath . $NewPath . $NewSubmitName;
 
-                                            $path2 =  $NewSubmitName;
-                                            $firejailpath =  $NewCompilerName;
-                                           // $command = 'firejail '.$path.' /usr/bin/g++ -o ' . $firejailpath . ' ' .  $path2;
-                                           $command = '/usr/bin/g++ -o ' . $copypath.'/'.$NewCompilerName . ' ' .  $source;
-                                            //dd($command);
+                                            $command = 'unshare -r -n /usr/bin/g++ -o ' . $path1 . ' ' . $path2;
+
                                             $output = null;
                                             $failed = 0;
                                             $passtest = 0;
                                             $reson = null;
 
                                             exec($command . " 2>&1", $output);
-                                            //dd($command , $output);
+
 
                                             if (empty($output)) {
 
@@ -286,12 +253,10 @@ class JudgeController extends Controller
                                                     //dd($testcase->input);
 
                                                     try {
-                                                        $process = new Process([ 'firejail', $path , $firejailpath , 'memory_limit=10M']);
-                                                       // $process = new Process([ $firejailpath , 'memory_limit=10M']);
+                                                        $process = new Process(['unshare', '-r', '-n', $path1, 'memory_limit=10M']);
                                                         $process->setTimeout($testcase->timelimit / 60);
                                                         $process->setInput($testcase->input);
                                                         $process->run();
-
                                                     } catch (\Exception $e) {
                                                         //Time out
                                                         $error = json_encode(new ProcessFailedException($process));
@@ -307,20 +272,18 @@ class JudgeController extends Controller
                                                         $passtest = 0;
                                                         $reson = "Time out";
                                                     }
-                                                    dd($process->getOutput());
 
 
 
                                                     // executes after the command finishes
                                                     if ($process->isSuccessful()) {
-                                                        $whatIWant = substr($process->getOutput(), strpos($process->getOutput(), "\x07") + 1);    
-                                                       
-                                                        $Result = str_replace(array("\n", "\r"), '', $whatIWant);
+
+                                                        $Result = str_replace(array("\n", "\r"), '', $process->getOutput());
                                                         $Expected = str_replace(array("\n", "\r"), '', $testcase->output);
                                                         if ($Result == $Expected) {
                                                             //pass
                                                             $ExecutionsLog = new ExecutionsLog;
-                                                            $ExecutionsLog->output = $whatIWant;
+                                                            $ExecutionsLog->output = $process->getOutput();
                                                             $ExecutionsLog->result = "pass";
                                                             $ExecutionsLog->status = 1;
                                                             $ExecutionsLog->testcase_id = $testcase->id;
@@ -333,7 +296,7 @@ class JudgeController extends Controller
                                                             //fail
 
                                                             $ExecutionsLog = new ExecutionsLog;
-                                                            $ExecutionsLog->output = $whatIWant;
+                                                            $ExecutionsLog->output = $process->getOutput();
                                                             $ExecutionsLog->result = "fail";
                                                             $ExecutionsLog->testcase_id = $testcase->id;
                                                             $ExecutionsLog->save();
@@ -533,12 +496,9 @@ class JudgeController extends Controller
         if (!is_null($contest)) {
             if (($contest->starting_date < date('Y-m-d H:i:s')) && ($contest->ending_date > date('Y-m-d H:i:s')) && ($contest->status == 1)) {
                 return True;
-            } 
-            elseif(($contest->opentime) && ($contest->starting_date < date('Y-m-d H:i:s')))
-    {
-        return True;
-    } 
-    else {
+            } elseif (($contest->opentime) && ($contest->starting_date < date('Y-m-d H:i:s'))) {
+                return True;
+            } else {
                 //change this
                 return FALSE;
             }
