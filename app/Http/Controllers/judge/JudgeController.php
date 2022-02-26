@@ -255,8 +255,8 @@ class JudgeController extends Controller
                                             $sandbox = '/code';
                                             $path = '--private=~'.$sandbox;
 
-                                            $path2 = $homeuser .'/'  . $NewSubmitName;
-                                            $firejailpath = $homeuser. '/' . $NewCompilerName;
+                                            $path2 =  $NewSubmitName;
+                                            $firejailpath =  $NewCompilerName;
                                             $command = 'firejail '.$path.' /usr/bin/g++ -o ' . $firejailpath . ' ' .  $path2;
                                             //dd($command);
                                             $output = null;
@@ -265,7 +265,7 @@ class JudgeController extends Controller
                                             $reson = null;
 
                                             exec($command . " 2>&1", $output);
-                                           
+                                            dd($command , $output);
 
                                             if (empty($output[11])) {
 
